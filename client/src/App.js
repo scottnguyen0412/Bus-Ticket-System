@@ -8,6 +8,7 @@ import {
 import Register from "./components/frontend/auth/Register";
 import Home from "./components/frontend/Home";
 import axios from "axios";
+import Login from "./components/frontend/auth/Login";
 
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -39,6 +40,8 @@ function App() {
             )}
           </Route> */}
           <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+
           <Route path="/" component={Home} />
         </Switch>
       </Router>
