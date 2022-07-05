@@ -59,10 +59,7 @@ function Register() {
               <h2 className="title">Sign up</h2>
               {/* Name */}
               <div className="input-field mb-3">
-                <i
-                  className="fas fa-envelope"
-                  style={{ marginRight: "10px" }}
-                ></i>
+                <i className="fas fa-user" style={{ marginRight: "10px" }}></i>
                 <input
                   type="text"
                   name="name"
@@ -70,6 +67,7 @@ function Register() {
                   onChange={handleInput}
                   value={registerInput.name}
                 />
+                <br />
                 <span className="text-danger">
                   {registerInput.error_list.name}
                 </span>
@@ -88,8 +86,9 @@ function Register() {
                   onChange={handleInput}
                   value={registerInput.email}
                 />
+                <br />
                 <span className="text-danger">
-                  {registerInput.error_list.mail}
+                  {registerInput.error_list.email}
                 </span>
               </div>
 
@@ -103,6 +102,7 @@ function Register() {
                   onChange={handleInput}
                   value={registerInput.password}
                 />
+                <br />
                 <span className="text-danger">
                   {registerInput.error_list.password}
                 </span>
@@ -140,7 +140,7 @@ function Register() {
               <div className="content">
                 <h3>Sign in ?</h3>
                 <p>Go to Login Page right here!</p>
-                <Link to="" className="btn transparent" id="sign-in-btn">
+                <Link to="/login" className="btn transparent" id="sign-in-btn">
                   Sign in
                 </Link>
               </div>
