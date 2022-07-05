@@ -1,0 +1,5 @@
+{
+    "editor.suggest.showFolders": true,
+    "explorer.expandSingleFolderWorkspaces": false,
+    "explorer.compactFolders": false
+}
