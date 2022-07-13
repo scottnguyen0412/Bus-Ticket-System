@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../../../assets/frontend/css/login-signup.css";
-import register from "../../../assets/frontend/img/login.svg";
+import login from "../../../assets/frontend/img/login.svg";
 import axios from "axios";
 import swal from "sweetalert";
 
@@ -52,104 +52,159 @@ function Register() {
 
   return (
     <div>
-      <div className="container">
-        <div className="forms-container">
-          <div className="signin-signup">
-            <form onSubmit={registerSubmit}>
-              <h2 className="title">Sign up</h2>
-              {/* Name */}
-              <div className="input-field mb-3">
-                <i className="fas fa-user" style={{ marginRight: "10px" }}></i>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  onChange={handleInput}
-                  value={registerInput.name}
-                />
-                <br />
-                <span className="text-danger">
-                  {registerInput.error_list.name}
-                </span>
-              </div>
+      <section className="login py-5 bg-primary">
+        <div className="container">
+          <div className="row1 g-0">
+            <div className="col-lg-5 text-center">
+              <img src={login} className="img-fluid" alt="" />
+              <h3>Sign In Right Here </h3>
+              <p>Booking Now</p>
+              <Link
+                to="/login"
+                className="btn btn-outline-primary rounded"
+                id="sign-up-btn"
+              >
+                Sign in
+              </Link>
+            </div>
+            <div className="col-lg-7 text-center py-5">
+              <h1 className="animate__animated animate__rubberBand">
+                Join with us
+              </h1>
+              <form onSubmit={registerSubmit}>
+                <div className="form-row py-auto">
+                  <div className="offset-1 col-lg-10">
+                    <i
+                      className="fas fa-user"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      className="inp px-3"
+                      onChange={handleInput}
+                      value={registerInput.name}
+                    />
+                    <br />
+                    <span className="text-danger">
+                      {registerInput.error_list.name}
+                    </span>
+                  </div>
+                </div>
 
-              {/* Email */}
-              <div className="input-field mb-3">
-                <i
-                  className="fas fa-envelope"
-                  style={{ marginRight: "10px" }}
-                ></i>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  onChange={handleInput}
-                  value={registerInput.email}
-                />
-                <br />
-                <span className="text-danger">
-                  {registerInput.error_list.email}
-                </span>
-              </div>
+                <div className="form-row py-auto">
+                  <div className="offset-1 col-lg-10">
+                    <i
+                      className="fas fa-at"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      className="inp px-3"
+                      onChange={handleInput}
+                      value={registerInput.email}
+                    />
+                    <br />
+                    <span className="text-danger">
+                      {registerInput.error_list.email}
+                    </span>
+                  </div>
+                </div>
 
-              {/* Password */}
-              <div className="input-field mb-3">
-                <i className="fas fa-lock" style={{ marginRight: "10px" }}></i>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={handleInput}
-                  value={registerInput.password}
-                />
-                <br />
-                <span className="text-danger">
-                  {registerInput.error_list.password}
-                </span>
-              </div>
-              {/* <div className="input-field">
-                <i className="fas fa-lock" style={{ marginRight: "10px" }}></i>
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="password_confirmation"
-                />
-                <span className="text-danger">
-                  {registerInput.error_list.password_confirmation}
-                </span>
-              </div> */}
+                <div className="form-row py-auto">
+                  <div className="offset-1 col-lg-10">
+                    <i
+                      className="fas fa-lock"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <input
+                      className="inp px-3"
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      onChange={handleInput}
+                      value={registerInput.password}
+                    />
+                    <br />
+                    <span className="text-danger">
+                      {registerInput.error_list.password}
+                    </span>
+                  </div>
+                </div>
 
-              <button type="submit" className="btn">
-                Register
-              </button>
-              <p className="social-text">Or Sign up with social platforms</p>
-              <div className="social-media">
-                <Link to="#" className="social-icon">
-                  <i className="fab fa-facebook-f"></i>
-                </Link>
-                <Link to="#" className="social-icon">
-                  <i className="fab fa-google"></i>
-                </Link>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div className="panels-container">
-          <div className="panel left-panel">
-            <div className="panel left-panel">
-              <div className="content">
-                <h3>Sign in ?</h3>
-                <p>Go to Login Page right here!</p>
-                <Link to="/login" className="btn transparent" id="sign-in-btn">
-                  Sign in
-                </Link>
-              </div>
-              <img src={register} className="image" alt="Login here" />
+                {/* <div className="form-row py-auto">
+                  <div className="offset-1 col-lg-10">
+                    <i
+                      className="fas fa-lock"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <input
+                      className="inp px-3"
+                      type="password"
+                      placeholder="Confirm Password"
+                      name="password_confirmation"
+                    />
+                    <span className="text-danger">
+                      {registerInput.error_list.password_confirmation}
+                    </span>
+                  </div>
+                </div> */}
+
+                <div className="form-row py-3">
+                  <div className="offset-1 col-lg-10">
+                    <button type="submit" className="btn1">
+                      Register
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <p>Or Login with</p>
+              <span>
+                <i className="fab fa-facebook"></i>
+              </span>
+              <span>
+                <i className="fab fa-google-plus"></i>
+              </span>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
+
+    //         <button type="submit" className="btn">
+    //           Register
+    //         </button>
+    //         <p className="social-text">Or Sign up with social platforms</p>
+    //         <div className="social-media">
+    //           <Link to="#" className="social-icon">
+    //             <i className="fab fa-facebook-f"></i>
+    //           </Link>
+    //           <Link to="#" className="social-icon">
+    //             <i className="fab fa-google"></i>
+    //           </Link>
+    //         </div>
+    //       </form>
+    //     </div>
+    //   </div>
+    //   <div className="panels-container">
+    //     <div className="panel left-panel">
+    //       <div className="panel left-panel">
+    //         <div className="content">
+    //           <h3>Sign in ?</h3>
+    //           <p>Go to Login Page right here!</p>
+    //           <Link to="/login" className="btn transparent" id="sign-in-btn">
+    //             Sign in
+    //           </Link>
+    //         </div>
+    //         <img src={register} className="image" alt="Login here" />
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    // </div>
   );
 }
 

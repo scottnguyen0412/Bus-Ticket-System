@@ -45,68 +45,85 @@ function Login() {
   };
   return (
     <div>
-      <div className="container">
-        <div className="forms-container">
-          <div className="signin-signup">
-            <form onSubmit={loginSubmit}>
-              <h2 className="title">Sign in</h2>
-              <div className="input-field mb-3">
-                <i className="fas fa-at" style={{ marginRight: "10px" }}></i>
-                {/* input email */}
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  name="email"
-                  onChange={handleInput}
-                  value={loginInput.email}
-                />
-                <br />
-                <span className="text-danger">
-                  {loginInput.error_list.email}
-                </span>
-              </div>
-              <div className="input-field mb-3">
-                <i className="fas fa-lock" style={{ marginRight: "10px" }}></i>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleInput}
-                  value={loginInput.password}
-                />
-                <br />
-                <span className="text-danger">
-                  {loginInput.error_list.password}
-                </span>
-              </div>
-              <button type="submit" className="btn solid mt-3">
-                Login
-              </button>
-              <p className="social-text">Or Sign in with social platforms</p>
-              <div className="social-media">
-                <Link to="#" className="social-icon">
-                  <i className="fab fa-facebook-f"></i>
-                </Link>
-                <Link to="#" className="social-icon">
-                  <i className="fab fa-google"></i>
-                </Link>
-              </div>
-            </form>
+      <section className="login py-5 bg-primary">
+        <div className="container">
+          <div className="row1 g-0">
+            <div className="col-lg-5 text-center">
+              <img src={register} className="img-fluid" alt="" />
+              <h3>Create New Account ?</h3>
+              <p>Join us for safe travels</p>
+              <Link
+                to="/register"
+                className="btn btn-outline-primary rounded"
+                id="sign-up-btn"
+              >
+                Sign up
+              </Link>
+            </div>
+            <div className="col-lg-7 text-center py-5">
+              <h1 className="animate__animated animate__rubberBand">
+                Welcome to our Journey
+              </h1>
+              <form onSubmit={loginSubmit}>
+                <div className="form-row py-auto pt-5">
+                  <div className="offset-1 col-lg-10">
+                    <i
+                      className="fas fa-at"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <input
+                      className="inp px-3"
+                      type="email"
+                      placeholder="Email Address"
+                      name="email"
+                      onChange={handleInput}
+                      value={loginInput.email}
+                    />
+                    <br />
+                    <span className="text-danger">
+                      {loginInput.error_list.email}
+                    </span>
+                  </div>
+                </div>
+                <div className="form-row py-auto">
+                  <div className="offset-1 col-lg-10">
+                    <i
+                      className="fas fa-lock"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <input
+                      className="inp px-3"
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      onChange={handleInput}
+                      value={loginInput.password}
+                    />
+                    <br />
+                    <span className="text-danger">
+                      {loginInput.error_list.password}
+                    </span>
+                  </div>
+                </div>
+                <div className="form-row py-3">
+                  <div className="offset-1 col-lg-10">
+                    <button type="submit" className="btn1">
+                      Login
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <p>Or Login with</p>
+              <span>
+                <i className="fab fa-facebook"></i>
+              </span>
+              <span>
+                <i className="fab fa-google-plus"></i>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="panels-container">
-        <div className="panel left-panel">
-          <div className="content">
-            <h3>Create New Account ?</h3>
-            <p>Join us for safe travels</p>
-            <Link to="/register" className="btn transparent" id="sign-up-btn">
-              Sign up
-            </Link>
-          </div>
-          <img src={register} className="image" alt="Register here" />
-        </div>
-      </div>
+      </section>
     </div>
   );
 }

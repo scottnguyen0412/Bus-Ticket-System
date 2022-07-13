@@ -6,9 +6,12 @@ import {
   Redirect,
 } from "react-router-dom";
 import Register from "./components/frontend/auth/Register";
-import Home from "./components/frontend/Home";
 import axios from "axios";
 import Login from "./components/frontend/auth/Login";
+import Navbar from "./layouts/frontend/Navbar";
+import Footer from "./layouts/frontend/Footer";
+import Destination from "./layouts/frontend/Destination";
+import Content from "./layouts/frontend/Content";
 
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -26,7 +29,9 @@ axios.defaults.withCredentials = true;
 function App() {
   return (
     <div className="App">
+      {/* <Navbar /> */}
       <Router>
+        <Navbar />
         <Switch>
           {/* Nếu user đã đăng nhập mà tự chỉnh trên thanh url ví dụ: /login thì hệ thống sẽ check
                   người dùng đã đăng nhập hay chưa bằng cách check token trong local storage.
@@ -40,10 +45,14 @@ function App() {
             )}
           </Route> */}
           <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
+          <Route exact path="/login" component={Login} />
 
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={Content} />
+
+          {/* <Route exact path="/" component={Hero} /> */}
+          <Route exact path="/destination" component={Destination} />
         </Switch>
+        <Footer />
       </Router>
     </div>
   );
