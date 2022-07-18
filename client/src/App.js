@@ -12,6 +12,7 @@ import Navbar from "./layouts/frontend/Navbar";
 import Footer from "./layouts/frontend/Footer";
 import Destination from "./layouts/frontend/Destination";
 import Content from "./layouts/frontend/Content";
+import Dashboard from "./layouts/admin/Dashboard";
 
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -31,7 +32,7 @@ function App() {
     <div className="App">
       {/* <Navbar /> */}
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <Switch>
           {/* Nếu user đã đăng nhập mà tự chỉnh trên thanh url ví dụ: /login thì hệ thống sẽ check
                   người dùng đã đăng nhập hay chưa bằng cách check token trong local storage.
@@ -44,6 +45,7 @@ function App() {
               <Register />
             )}
           </Route> */}
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
 
@@ -52,7 +54,7 @@ function App() {
           {/* <Route exact path="/" component={Hero} /> */}
           <Route exact path="/destination" component={Destination} />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </div>
   );
