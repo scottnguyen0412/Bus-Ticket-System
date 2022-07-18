@@ -13,6 +13,7 @@ import Footer from "./layouts/frontend/Footer";
 import Destination from "./layouts/frontend/Destination";
 import Content from "./layouts/frontend/Content";
 import Dashboard from "./layouts/admin/Dashboard";
+import AdminPrivateRoute from "./privaterRoute/AdminPrivateRoute";
 
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -45,7 +46,7 @@ function App() {
               <Register />
             )}
           </Route> */}
-          <Route path="/dashboard" component={Dashboard} />
+          {/* <Route path="/dashboard" component={Dashboard} /> */}
           <Route path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
 
@@ -53,6 +54,9 @@ function App() {
 
           {/* <Route exact path="/" component={Hero} /> */}
           <Route exact path="/destination" component={Destination} />
+
+          {/* Route for admin dashboard */}
+          <AdminPrivateRoute path="/admin" name="Admin" />
         </Switch>
         {/* <Footer /> */}
       </Router>
