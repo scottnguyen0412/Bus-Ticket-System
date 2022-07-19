@@ -32,17 +32,17 @@ class AuthController extends Controller
             ]);
             // Mỗi lần đăng kí một tài khoản mới thì sẽ tự generate ra một token và được lưu lại
             // trong mail của người đăng kí
-            $token = $user->createToken($user->email . '_Token')->plainTextToken;
-            // if($user->roles == 1)
-            //     {
-            //         $role = 'admin';
-            //         $token = $user->createToken($user->email . '_AdminToken',['server:admin'])->plainTextToken;
-            //     }
-            //     else if($user->role == 0)
-            //     {   
-            //         $role = '';
-            //         $token = $user->createToken($user->email . '_Token',['server:user'])->plainTextToken;
-            //     }
+            // $token = $user->createToken($user->email . '_Token')->plainTextToken;
+            if($user->roles == 1)
+                {
+                    $role = 'admin';
+                    $token = $user->createToken($user->email . '_AdminToken',['server:admin'])->plainTextToken;
+                }
+                else if($user->roles == 0)
+                {   
+                    $role = 'user';
+                    $token = $user->createToken($user->email . '_Token',['server:user'])->plainTextToken;
+                }
             // reponse 200 nếu mọi thú là thành công
             return response()->json([
                 'status' => 200,
@@ -77,15 +77,41 @@ class AuthController extends Controller
             }
             // If email and password is correct 
             else {
-                $token = $user->createToken($user->email . '_Token')->plainTextToken;
-                // reponse 200 nếu mọi thú là thành công
+               if($user->roles == 1)
+                {
+                    $role = 'admin';
+                    $token = $user->createToken($user->email . '_AdminToken',['server:admin'])->plainTextToken;
+                }
+                else if($user->roles == 0)
+                {   
+                    $role = 'user';
+                    $token = $user->createToken($user->email . '_Token',['server:user'])->plainTextToken;
+                }
+                else if($user->roles == 2)
+                {
+                    $role = 'busowner';
+                    $token = $user->createToken($user->email . '_Token',['server:bus_owner'])->plainTextToken;
+                }
+                // reponse 200 nếu mọi thứ là thành công
                 return response()->json([
                     'status' => 200,
                     'username' => $user->name,
                     'token' => $token,
                     'message' => 'Logged In Successfully',
+                    'role' => $role
                 ]);
             }
         }
+    }
+
+    // Logout sytem
+    public function logout()
+    {
+        // Check auth user muốn logout để xóa token
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Logged Out Successfully',
+        ]);
     }
 }

@@ -4,6 +4,8 @@ import "../../../assets/frontend/css/login-signup.css";
 import login from "../../../assets/frontend/img/login.svg";
 import axios from "axios";
 import swal from "sweetalert";
+import Navbar from "../../../layouts/frontend/Navbar";
+import Footer from "../../../layouts/frontend/Footer";
 
 function Register() {
   const history = useHistory();
@@ -52,6 +54,7 @@ function Register() {
 
   return (
     <div>
+      <Navbar />
       <section className="login py-5 bg-primary">
         <div className="container">
           <div className="row1 g-0">
@@ -172,39 +175,8 @@ function Register() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
-
-    //         <button type="submit" className="btn">
-    //           Register
-    //         </button>
-    //         <p className="social-text">Or Sign up with social platforms</p>
-    //         <div className="social-media">
-    //           <Link to="#" className="social-icon">
-    //             <i className="fab fa-facebook-f"></i>
-    //           </Link>
-    //           <Link to="#" className="social-icon">
-    //             <i className="fab fa-google"></i>
-    //           </Link>
-    //         </div>
-    //       </form>
-    //     </div>
-    //   </div>
-    //   <div className="panels-container">
-    //     <div className="panel left-panel">
-    //       <div className="panel left-panel">
-    //         <div className="content">
-    //           <h3>Sign in ?</h3>
-    //           <p>Go to Login Page right here!</p>
-    //           <Link to="/login" className="btn transparent" id="sign-in-btn">
-    //             Sign in
-    //           </Link>
-    //         </div>
-    //         <img src={register} className="image" alt="Login here" />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-    // </div>
   );
 }
 

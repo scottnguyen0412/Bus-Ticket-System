@@ -1,12 +1,69 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../assets/frontend/css/style.css";
-import logo from "../../assets/frontend/img/bus_logo.png";
 import Content from "./Content";
 import Destination from "./Destination";
 import Footer from "./Footer";
 import Slider from "./Slider";
+import axios from "axios";
+import swal from "sweetalert";
+
 function Navbar() {
+  const history = useHistory();
+  const logoutSubmit = (e) => {
+    e.preventDefault();
+    axios.post(`/api/logout`).then((res) => {
+      if (res.data.status === 200) {
+        // Khi user click logout thì sẽ remove token và name của user
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("auth_name");
+        swal("Success", res.data.message, "success");
+        history.push("/");
+      }
+    });
+  };
+
+  var CheckLoggedIn = "";
+  // Nếu không có token trong local storage thì sẽ show ra Login cho user
+  if (!localStorage.getItem("auth_token")) {
+    CheckLoggedIn = (
+      <ul className="navbar-nav ms-auto float-end">
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
+        </li>
+      </ul>
+    );
+  } else {
+    CheckLoggedIn = (
+      <ul className="navbar-nav ms-auto float-end">
+        <li className="nav-item dropdown">
+          <a
+            className="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Profile
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a className="dropdown-item" href="#">
+              Edit My Profile
+            </a>
+            <div className="dropdown-divider"></div>
+            <Link className="dropdown-item" to="/logout" onClick={logoutSubmit}>
+              Log out
+            </Link>
+          </div>
+        </li>
+      </ul>
+    );
+  }
+
   return (
     <div>
       {/* navigation */}
@@ -51,33 +108,7 @@ function Navbar() {
                 Schedule
               </a>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                Login
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Profile
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">
-                  Edit My Profile
-                </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
-                  Log out
-                </a>
-              </div>
-            </li>
+            {CheckLoggedIn}
           </ul>
         </div>
       </nav>

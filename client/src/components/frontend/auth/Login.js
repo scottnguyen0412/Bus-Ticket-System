@@ -4,6 +4,8 @@ import "../../../assets/frontend/css/login-signup.css";
 import register from "../../../assets/frontend/img/register.svg";
 import swal from "sweetalert";
 import axios from "axios";
+import Navbar from "../../../layouts/frontend/Navbar";
+import Footer from "../../../layouts/frontend/Footer";
 function Login() {
   const history = useHistory();
   // Get all value when user type anything
@@ -32,8 +34,12 @@ function Login() {
           localStorage.setItem("auth_token", res.data.token);
           localStorage.setItem("auth_name", res.data.username);
           swal("Success", res.data.message, "success");
-          // after login success then redirect to home page
-          history.push("/");
+          if (res.data.role === "admin") {
+            history.push("/admin");
+          } else {
+            // after login success then redirect to home page
+            history.push("/");
+          }
         } else if (res.data.status === 401) {
           swal("Warning", res.data.message, "warning");
         } else {
@@ -45,6 +51,7 @@ function Login() {
   };
   return (
     <div>
+      <Navbar />
       <section className="login py-5 bg-primary">
         <div className="container">
           <div className="row1 g-0">
@@ -124,6 +131,7 @@ function Login() {
           </div>
         </div>
       </section>
+      {/* <Footer /> */}
     </div>
   );
 }
