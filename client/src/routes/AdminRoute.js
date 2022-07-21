@@ -1,6 +1,7 @@
 import React from "react";
 import HomeDashboard from "../components/admin/HomeDashboard";
-import AddAccount from "../components/admin/account/AddAccount";
+import EditAccount from "../components/admin/account/EditAccount";
+import ViewAccount from "../components/admin/account/ViewAccount";
 
 const AdminRoute = [
   { path: "/admin", exact: true, name: "Admin" },
@@ -11,10 +12,16 @@ const AdminRoute = [
     component: HomeDashboard,
   },
   {
-    path: "/admin/add-account",
+    path: "/admin/view-account",
     exact: true,
-    name: "AddAccount",
-    component: AddAccount,
+    name: "ViewAccount",
+    component: ViewAccount,
+  },
+  {
+    path: "/admin/edit-account",
+    exact: true,
+    name: "EditAccount",
+    component: EditAccount,
   },
   //   {
   //     path: "/admin/view-category",
