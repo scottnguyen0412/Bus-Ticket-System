@@ -5,11 +5,11 @@
 }
 
 svg {
-    position: absolute;
+    /* position: absolute; */
     top: 50%;
     left: 50%;
-    margin-top: -250px;
-    margin-left: -400px;
+    /* margin-top: -250px; */
+    /* margin-left: -400px; */
 }
 
 .message-box {
