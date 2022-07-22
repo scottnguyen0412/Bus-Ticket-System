@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Main from "./Main";
 import NavbarDashboard from "./NavbarDashboard";
 import "../../assets/admin/style-admin.css";
 import Sidebar from "./Sidebar";
@@ -14,12 +13,14 @@ function Dashboard() {
   // toggleButton.onClick = function () {
   //   el.classList.toggle("toggled");
   // };
-  $(function () {
-    $("#menu-toggle").on("click", function () {
-      $("#sidebar-wrapper").toggleClass("toggled");
-    });
-  });
 
+  // const [isOpen, setIsOpen] = useState(false);
+  // const toogle = () => setIsOpen(!isOpen);
+
+  const [isActive, setIsActive] = useState(false);
+  const activeSidebar = () => setIsActive(!isActive);
+  const [close, setClose] = useState(false);
+  const showSidebar = () => setClose(!close);
   return (
     <div>
       <div className="d-flex" id="wrapper">

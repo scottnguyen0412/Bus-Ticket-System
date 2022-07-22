@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
@@ -11,14 +11,18 @@ function Sidebar() {
       </div>
       <div className="list-group list-group-flush my-3">
         <Link
+          className={
+            "list-group-item list-group-item-action bg-transparent second-text"
+          }
           to="/admin/dashboard"
-          className="list-group-item list-group-item-action bg-transparent second-text"
         >
           <i className="fas fa-tachometer-alt me-2"></i>Dashboard
         </Link>
         <Link
           to="/admin/view-account"
-          className="list-group-item list-group-item-action bg-transparent second-text fw-bold"
+          className={
+            "list-group-item list-group-item-action bg-transparent second-text fw-bold"
+          }
         >
           <i className="fa fa-users me-2"></i>Account
         </Link>

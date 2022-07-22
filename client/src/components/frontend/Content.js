@@ -1,10 +1,9 @@
 import React from "react";
-import Slider from "./Slider";
 
 function Content() {
   return (
-    <div>
-      <Slider />
+    <>
+      <br />
       <div className="container">
         <div className="title text-center">
           <h1 className="gradient-text">Trending Routing</h1>
@@ -87,7 +86,7 @@ function Content() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
