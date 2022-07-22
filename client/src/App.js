@@ -8,14 +8,10 @@ import {
 import Register from "./components/frontend/auth/Register";
 import axios from "axios";
 import Login from "./components/frontend/auth/Login";
-import Navbar from "./layouts/frontend/Navbar";
-import Footer from "./layouts/frontend/Footer";
-import Destination from "./layouts/frontend/Destination";
-import Content from "./layouts/frontend/Content";
-import Dashboard from "./layouts/admin/Dashboard";
-import AdminPrivateRoute from "./privaterRoute/AdminPrivateRoute";
+import AdminPrivateRoute from "./privateRoute/AdminPrivateRoute";
 import Page403 from "./components/errors/Page403";
 import Page404 from "./components/errors/Page404";
+import HomePagePrivateRoute from "./privateRoute/HomePagePrivateRoute";
 
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -60,15 +56,10 @@ function App() {
             )}
           </Route>
 
-          <Route exact path="/" component={Content} />
-          <Route exact path="/page403" component={Page403} />
-          <Route exact path="/page404" component={Page404} />
-
-          {/* <Route exact path="/" component={Hero} /> */}
-          <Route exact path="/destination" component={Destination} />
-
           {/* Route for admin dashboard */}
           <AdminPrivateRoute path="/admin" name="Admin" />
+          {/* Route for Home page */}
+          <HomePagePrivateRoute path="/" name="Home" />
         </Switch>
         {/* <Footer /> */}
       </Router>

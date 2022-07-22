@@ -1,10 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../../assets/frontend/css/style.css";
-import Content from "./Content";
-import Destination from "./Destination";
-import Footer from "./Footer";
-import Slider from "./Slider";
+
 import axios from "axios";
 import swal from "sweetalert";
 
@@ -68,12 +65,12 @@ function Navbar() {
     <div>
       {/* navigation */}
       <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           <div className="logo-holder logo-1 mx-2">
             <h3>Bus Management</h3>
             <p>Traveling with us</p>
           </div>
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -99,14 +96,9 @@ function Navbar() {
               </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/destination">
-                Destination
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="/schedule">
                 Schedule
-              </a>
+              </Link>
             </li>
             {CheckLoggedIn}
           </ul>
