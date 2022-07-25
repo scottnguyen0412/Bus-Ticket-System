@@ -16,14 +16,25 @@
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{asset('admin/css/style.css')}}">
+    <!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     @yield('custom-css')
 </head>
 
 <body >
-
-    
+    {{-- Sidebar --}}
+    @include('layouts.includes.sidebar')
+    <section id="content">
+        @include('layouts.includes.adminNavbar')
+        {{-- @include('layouts.includes.adminContent') --}}
+        <main>
+            @yield('content')
+        </main>
+    </section>
     {{-- Sweet alert --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{asset('admin/js/script.js')}}"></script>
     @if(session('status'))
         <script>
             swal("{{session('status')}}");
