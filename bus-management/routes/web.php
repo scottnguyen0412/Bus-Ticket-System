@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Account\AccountController;
+use App\Http\Controllers\Auth\LoginController;
+
+
 
 
 
@@ -23,11 +27,21 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/account',[AccountController::class,'index'])->name('admin.account.index');
+// Route::prefix('admin')->group(function(){
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+//     Route::get('/account',[AccountController::class,'index'])->name('admin.account.index');
+
+// });
+
+Route::group(['middleware' => 'auth'], function () {
+    // Note: 'role:admin,driver' not have any space between
+    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,driver'], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/account',[AccountController::class,'index'])->name('admin.account.index');
+    });
 
 });
