@@ -22,7 +22,9 @@
     @yield('custom-css')
 </head>
 
-<body >
+<body>
+    {{-- Preloader --}}
+    <div id="preloader" class="hidden"></div>
     {{-- Sidebar --}}
     @include('layouts.includes.sidebar')
     <section id="content">
@@ -41,6 +43,14 @@
         </script>
     @endif
     @yield('scripts')
+
+    <script>
+        var loader = document.getElementById("preloader");
+        window.addEventListener("load", function() {
+            loader.style.display = "none";
+
+        })
+    </script>
 </body>
 
 </html>
