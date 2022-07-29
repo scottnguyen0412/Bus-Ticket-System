@@ -29,6 +29,9 @@ li {
     --light-yellow: #FFF2C6;
     --orange: #FD7238;
     --light-orange: #FFE0D3;
+    --light-pink: #FFCDD2;
+    --pink:#EF9A9A;
+
 }
 
 html {
@@ -438,6 +441,10 @@ body {
 #content main .box-info li:nth-child(3) .bx {
     background: var(--light-orange);
     color: var(--orange);
+}
+#content main .box-info li:nth-child(4) .bx {
+    background: var(--light-pink);
+    color: var(--pink);
 }
 
 #content main .box-info li .text h3 {

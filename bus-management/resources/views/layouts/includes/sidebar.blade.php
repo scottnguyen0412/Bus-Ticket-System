@@ -1,6 +1,6 @@
 <!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="{{url('/')}}" class="brand">
 			<i class='bx bxs-smile'></i>
 			<span class="text">Dashboard Pannel</span>
 		</a>
@@ -45,7 +45,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="logout">
+				<a href="{{route('logout')}}" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
