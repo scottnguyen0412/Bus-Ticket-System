@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('content')
-                <div class="container-fluid">
+                <div class="d-sm-flex align-items-center mb-4">
+                    <a class="h5 mb-0 mr-2 text-blue-800" href="{{url('admin/dashboard')}}">Dashboard</a> /
+                    <p class="h5 mb-0 ml-2 text-gray-800">Account</p>
+                </div>
+                <div class="">
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -44,7 +48,7 @@
                                             <input type="text" class="form-control" name="address" id="address" placeholder="123 Da Nang, VietNam">
                                         </div>
                                         <div class="form-group">
-                                            <legend class="@error('email') is-invalid @enderror" role="alert">Choose your gender:</legend>
+                                            <legend class="@error('gender') is-invalid @enderror" role="alert">Choose your gender:</legend>
                                             {{-- <label for="name" class="col-form-label">Male</label> --}}
                                             <input type="radio" class="" name="gender" id="gender" value="M" {{old('gender') == 'M' ? 'checked':''}}> Male |
                                             <input type="radio" class="" name="gender" id="gender" value="F" {{old('gender') == 'F' ? 'checked':''}}> Female |

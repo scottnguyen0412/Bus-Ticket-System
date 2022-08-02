@@ -16,10 +16,10 @@
     <!-- Tempusdominus Bootstrap 4 -->
     {{-- <link rel="stylesheet"
         href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="{{asset('admin/css/style.css')}}"> --}}
-    <link href="{{asset("admin/css/sb-admin-2.min.css")}}" rel="stylesheet">
-    <link href="{{asset("admin/vendor/fontawesome-free/css/all.min.css")}}" rel="stylesheet">
-    <link href="{{asset("admin/vendor/datatables/dataTables.bootstrap4.min.css")}}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{asset('admin/css/style.css')}}">
+    <link type="text/css" href="{{asset("admin/css/sb-admin-2.min.css")}}" rel="stylesheet">
+    <link type="text/css" href="{{asset("admin/vendor/fontawesome-free/css/all.min.css")}}" rel="stylesheet">
+    <link type="text/css" href="{{asset("admin/vendor/datatables/dataTables.bootstrap4.min.css")}}" rel="stylesheet">
     <!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- CSS only -->

@@ -55,6 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/account/create',[AccountController::class, 'create'])->name('admin.account.create');
         // Display all account
         Route::get('/get-all-account', [AccountController::class, 'getAllRowData']);
+        // Edit
+        Route::get('/account/edit/{id}', [AccountController::class, 'edit'])->name('admin.account.edit');
+        Route::post('/account/update/{id}', [AccountController::class, 'update'])->name('admin.account.update');
     });
 
 });

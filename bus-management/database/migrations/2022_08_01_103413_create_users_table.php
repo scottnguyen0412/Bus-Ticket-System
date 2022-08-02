@@ -24,7 +24,7 @@ return new class extends Migration
             // get length với 1 kí tự
             $table->char('gender', '1')->comment('M=Male, F=Female, O=Other')->nullable();
             $table->string('phone_number')->nullable();
-            $table->dateTime('date_of_birth')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->bigInteger('role_id')->unsigned()->default(2);
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('avatar')->nullable();

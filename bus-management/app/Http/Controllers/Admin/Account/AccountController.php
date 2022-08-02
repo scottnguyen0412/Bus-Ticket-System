@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
@@ -24,6 +25,7 @@ class AccountController extends Controller
             ]);
     }
 
+    // Show Account
     public function getAllRowData(Request $request)
     {
         $users = User::all();
@@ -37,7 +39,7 @@ class AccountController extends Controller
             })
             ->editColumn('action', function ($data) {
                 return '
-                    <a class="btn btn-warning btn-sm rounded-pill" href=""><i class="fas fa-edit" title="Edit Account"></i></a>
+                    <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
                 ';
             })
             ->rawColumns(['avatar', 'action'])
@@ -75,6 +77,49 @@ class AccountController extends Controller
         $user->save();
         return redirect()->back()->with('status','Created Account Succesfully');
     }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        // Check user exist
+        if(!$user)
+        {
+            abort(404);
+        }
+        $role_id = Role::all();
+        return view('admin.account.update', compact('user','role_id'));
+    }
+
+    public function update(UpdateAccountRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+            if($request->hasFile('avatar'))
+            {
+                $path = "admin/upload/img/".$user->avatar;
+                // Check if file exist then delete
+                if(File::exists($path))
+                {
+                    File::delete($path);
+                }
+                // Handle avatar
+                $file = $request->file('avatar');
+                $ext = $file->getClientOriginalExtension(); //Lấy tên file bao gồm extension ví dụ: .png, .jpg
+                $filename = time().'.'.$ext;
+                $file->move('admin/upload/img/',$filename);
+                $user->avatar = $filename;
+            }
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->gender = $request->input('gender'); 
+            $user->date_of_birth = $request->input('date_of_birth');
+            $user->address = $request->input('address');
+            $user->phone_number = $request->input('phone_number');
+            $user->role_id = $request->input('role_id');
+
+            $user->update();
+            return redirect('/admin/account')->with('status','Updated Account Successfully');
+    }
+
 
     // Random string
     private function autoRandomString($length = 20) {
