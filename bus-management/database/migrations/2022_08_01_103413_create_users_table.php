@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('address')->nullable();
-            $table->string('gender')->nullable();
+            $table->char('gender', '1')->comment('M=Male, F=Female, O=Other')->nullable();
             $table->string('phone_number')->nullable();
             $table->dateTime('date_of_birth')->nullable();
-            $table->bigInteger('role_id')->unsigned()->default(1);
+            $table->bigInteger('role_id')->unsigned()->default(2);
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('avatar')->nullable();
             $table->boolean('is_banned')->default('0');
