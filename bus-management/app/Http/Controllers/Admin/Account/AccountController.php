@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\Datatables\Datatables;
 use App\Models\User;
 use App\Models\Role;
 use File;
@@ -22,14 +24,23 @@ class AccountController extends Controller
             ]);
     }
 
-    public function getdatarow(Request $request)
+    public function getAllRowData(Request $request)
     {
         $users = User::all();
         return Datatables::of($users)
             ->editColumn('role', function ($user) {
                 return $user->role->name;
             })
-            ->rawColumns(['action'])
+            ->editColumn('avatar', function ($data) {
+                $assetAvatar = asset('admin/upload/img/'.$data->avatar);
+                return '<img src="'.$assetAvatar.'" width="40" height="40" class=" rounded-circle" align="center" />';
+            })
+            ->editColumn('action', function ($data) {
+                return '
+                    <a class="btn btn-warning btn-sm rounded-pill" href=""><i class="fas fa-edit" title="Edit Account"></i></a>
+                ';
+            })
+            ->rawColumns(['avatar', 'action'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -48,7 +59,7 @@ class AccountController extends Controller
             $ext = $file->getClientOriginalExtension(); //Lấy tên file bao gồm extension ví dụ: .png, .jpg
             $filename = time().'.'.$ext;
             $file->move('admin/upload/img/',$filename);
-            $user->avatar = 'admin/upload/img/'.$filename;
+            $user->avatar = $filename;
         }
         // Send Password by email
         $password = $this->autoRandomString(20);

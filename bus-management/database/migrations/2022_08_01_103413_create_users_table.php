@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('address')->nullable();
+            // get length với 1 kí tự
             $table->char('gender', '1')->comment('M=Male, F=Female, O=Other')->nullable();
             $table->string('phone_number')->nullable();
             $table->dateTime('date_of_birth')->nullable();

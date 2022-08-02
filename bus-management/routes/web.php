@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/account',[AccountController::class,'index'])->name('admin.account.index');
         Route::post('/account/create',[AccountController::class, 'create'])->name('admin.account.create');
+        // Display all account
+        Route::get('/get-all-account', [AccountController::class, 'getAllRowData']);
     });
 
 });
