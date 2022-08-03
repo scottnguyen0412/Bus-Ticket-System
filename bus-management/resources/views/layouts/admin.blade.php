@@ -59,11 +59,11 @@
     <script src="{{asset("admin/vendor/datatables/dataTables.bootstrap4.min.js")}}"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if(session('status'))
-        <script>
+    <script>
+        @if(session('status'))
             swal("{{session('status')}}");
-        </script>
-    @endif
+        @endif
+    </script>
     @yield('scripts')
 
     <script>

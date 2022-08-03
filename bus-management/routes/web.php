@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Edit
         Route::get('/account/edit/{id}', [AccountController::class, 'edit'])->name('admin.account.edit');
         Route::post('/account/update/{id}', [AccountController::class, 'update'])->name('admin.account.update');
+        Route::delete('/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
     });
 
 });

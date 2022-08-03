@@ -9,7 +9,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">View All Account
-                                <button class=" btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"> Create New Account</button>
+                                <button class=" btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"> Add New Account</i></button>
                             </h6>
                         </div>
                             <!-- Modal -->
@@ -22,7 +22,7 @@
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('admin.account.create') }}" method="POST"  enctype="multipart/form-data">
+                                <form action="{{ route('admin.account.create') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="form-group">

@@ -40,6 +40,24 @@ class AccountController extends Controller
             ->editColumn('action', function ($data) {
                 return '
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
+                    <button type="button" class="btn btn-danger btn-sm rounded-pill" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" title="Delete Account"></i></button>
+                    <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                    ' . method_field('DELETE') .
+                    '' . csrf_field() .'
+                        <div id="myModal" class="modal fade">
+                            <div class="modal-dialog modal-confirm">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <p>Do you really want to delete this account? This process cannot be undone!!</p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                    </form>
                 ';
             })
             ->rawColumns(['avatar', 'action'])
@@ -118,6 +136,19 @@ class AccountController extends Controller
 
             $user->update();
             return redirect('/admin/account')->with('status','Updated Account Successfully');
+    }
+
+    // Delete account
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        // Check user exist
+        if(!$user)
+        {
+            abort(404);
+        }
+        $user->delete();
+        return redirect()->back()->with('status', 'Account Deleted Successfully');
     }
 
 
