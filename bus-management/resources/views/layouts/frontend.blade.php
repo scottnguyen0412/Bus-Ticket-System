@@ -42,38 +42,40 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item {{Request::routeIs('frontend.index') ? 'active':'';}}"><a href="{{route('frontend.index')}}" class="nav-link">Home</a></li>
 	          <li class="nav-item {{Request::routeIs('frontend.about') ? 'active':'';}}"><a href="{{route('frontend.about')}}" class="nav-link">About</a></li>
-			  {{-- @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('driver')) --}}
-	          <li class="nav-item"><a href="{{url('/admin/dashboard')}}" class="nav-link">Dashboard</a></li>
-			  {{-- @endif --}}
+			  @if(auth()->user())
+				@if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('driver'))
+				<li class="nav-item"><a href="{{url('/admin/dashboard')}}" class="nav-link">Dashboard</a></li>
+				@endif
+			  @endif
 	          <li class="nav-item"><a href="blog.html" class="nav-link">Destination</a></li>
 			  @if(!auth()->user())
-	          <li class="nav-item"><a href="{{url('/contact')}}" class="nav-link">Contact Us</a></li>
+	          	<li class="nav-item"><a href="{{url('/contact')}}" class="nav-link">Contact Us</a></li>
 			  @endif
 			  @if (!auth()->user())
 	          <li class="nav-item"><a href="{{url('/login')}}" class="nav-link">Login In</a></li>
 			  @endif
-			  {{-- @if(auth()->user()->hasRole('admin')||auth()->user()->hasRole('driver')||auth()->user()->hasRole('user')) --}}
-			  	<li class="nav-item dropdown my-1">
-                            <button class="btn" type="button" id="dropdownMenuButton2"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
-                                    id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
-                                    aria-expanded="false">
-
-                                    {{-- <img class="img-account-profile rounded-circle mb-2"
-                                        src="#"
-                                        alt="Avatar"
-                                        style="width: 30px; height: 30px; object-fit: cover;" loading="lazy"> --}}
-
-                                </a>
-                            </button>
-                            <ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Change Password</a></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                            </ul>
-                        </li>
-				{{-- @endif --}}
+			  @if(auth()->user())
+				@if(auth()->user('user')||auth()->user()->hasRole('admin') || auth()->user()->hasRole('driver'))
+					<li class="nav-item dropdown my-1">
+								<button class="btn" type="button" id="dropdownMenuButton2"
+									data-bs-toggle="dropdown" aria-expanded="false">
+									<a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+										id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
+										aria-expanded="false">
+										{{-- <img class="img-account-profile rounded-circle mb-2"
+											src="#"
+											alt="Avatar"
+											style="width: 30px; height: 30px; object-fit: cover;" loading="lazy"> --}}
+									</a>
+								</button>
+								<ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
+									<li><a class="dropdown-item" href="#">My Profile</a></li>
+									<li><a class="dropdown-item" href="#">Change Password</a></li>
+									<li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+								</ul>
+							</li>
+					@endif
+				@endif
 	        </ul>
 	      </div>
 	    </div>
@@ -531,10 +533,5 @@
             swal("{{session('status')}}");
         </script>
     @endif
-    {{-- @if(session('status'))
-        <script>
-            alert("","","success");
-        </script>
-    @endif --}}
 </body>
 </html>

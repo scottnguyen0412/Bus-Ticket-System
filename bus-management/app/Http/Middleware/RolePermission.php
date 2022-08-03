@@ -21,6 +21,6 @@ class RolePermission
                 return $next($request);
             }
         }
-        return redirect()->route('home')->with('status','Access Denied. You cannot access this page!');
+        return redirect()->route('frontend.index')->with('status','Access Denied. You cannot access this page!');
     }
 }

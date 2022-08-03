@@ -12,8 +12,11 @@
                 href="/register"
                 class="btn btn-outline-primary rounded"
                 id="sign-up-btn"
+                
               >
                 Sign up
+              </a>
+              <a href="/" class="fa fa-home btn btn-outline-primary btn-lg" title="Go to Home">
               </a>
             </div>
             <div class="col-lg-7 text-center py-5">
@@ -30,20 +33,20 @@
                     ></i>
                     
                     <input
-                      class="inp px-3"
+                      class="inp px-3 @error('email') is-invalid @enderror" role="alert"
                       type="email"
                       placeholder="Email Address"
                       name="email"
                       value="{{ old('email') }}"
                     />
-                    <br /><br/>
                     @error('email')
-                        <span class="invalid-feedback @error('email') is-invalid @enderror" role="alert">
+                        <span class="invalid-feedback ">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                   </div>
                 </div>
+                <br/>
                 <div class="form-row py-auto">
                   <div class="offset-1 col-lg-10">
                     <i
@@ -51,20 +54,24 @@
                       style="margin-right: 10px"
                     ></i>
                     <input
-                      class="inp px-3"
+                      class="inp px-3 @error('password') is-invalid @enderror" role="alert"
                       type="password"
                       placeholder="Password"
                       name="password"
                       
                     />
-                    <br />
                     @error('password')
-                        <span class="invalid-feedback @error('password') is-invalid @enderror" role="alert">
+                        <span class="invalid-feedback ">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                   </div>
                 </div>
+                {{-- @if (session('error'))
+                      <div class="alert alert-danger">
+                        {{ session('error') }}
+                      </div>
+                @endif --}}
                 <div class="form-row py-3">
                   <div class="offset-1 col-lg-10">
                     <button type="submit" class="btn1">

@@ -38,7 +38,7 @@ Route::get('/',[FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/about',[AboutController::class, 'index'])->name('frontend.about');
 Route::get('/contact', [ContactController::class, 'index'])->name('frontend.contact');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 // Route::prefix('admin')->group(function(){
@@ -52,6 +52,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,driver'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/account',[AccountController::class,'index'])->name('admin.account.index');
+        Route::post('/account/create',[AccountController::class, 'create'])->name('admin.account.create');
+        // Display all account
+        Route::get('/get-all-account', [AccountController::class, 'getAllRowData']);
+        // Edit
+        Route::get('/account/edit/{id}', [AccountController::class, 'edit'])->name('admin.account.edit');
+        Route::post('/account/update/{id}', [AccountController::class, 'update'])->name('admin.account.update');
+        Route::delete('/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
     });
 
 });

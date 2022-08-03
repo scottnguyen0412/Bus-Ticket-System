@@ -15,6 +15,8 @@
               >
                 Sign in
               </a>
+              <a href="/" class="fa fa-home btn btn-outline-primary btn-lg" title="Go to Home">
+              </a>
             </div>
             <div class="col-lg-7 text-center py-5">
               <h1 class="animate__animated animate__rubberBand">
@@ -32,13 +34,13 @@
                       type="text"
                       name="name"
                       placeholder="Your Name"
-                      class="inp px-3"
+                      class="inp px-3 @error('name') is-invalid @enderror" role="alert"
                       value="{{ old('name') }}" 
 
                     />
                     <br /> <br/>
                     @error('name')
-                        <span class="invalid-feedback @error('name') is-invalid @enderror" role="alert">
+                        <span class="invalid-feedback ">
                         <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -55,12 +57,12 @@
                         type="email"
                         name="email"
                         placeholder="Your Email"
-                        class="inp px-3"
+                        class="inp px-3 @error('email') is-invalid @enderror" role="alert"
                         value="{{ old('email') }}" 
                     />
                     <br /> <br/>
                     @error('email')
-                        <span class="invalid-feedback @error('email') is-invalid @enderror" role="alert">
+                        <span class="invalid-feedback ">
                         <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -75,7 +77,7 @@
                         style="margin-right: 10px"
                     ></i>
                     <input
-                      class="inp px-3"
+                      class="inp px-3 @error('password') is-invalid @enderror" role="alert"
                       type="password"
                       placeholder="Password"
                       name="password"
@@ -84,7 +86,7 @@
                     />
                     <br/> <br/>
                     @error('password')
-                        <span class="invalid-feedback @error('password') is-invalid @enderror" role="alert">
+                        <span class="invalid-feedback">
                         <strong>{{ $message }}</strong>
                         </span>
                     @enderror
