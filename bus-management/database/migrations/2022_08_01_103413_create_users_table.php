@@ -28,7 +28,7 @@ return new class extends Migration
             $table->bigInteger('role_id')->unsigned()->default(2);
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('avatar')->nullable();
-            $table->boolean('is_banned')->default('0');
+            $table->boolean('is_banned')->default(0);
             $table->timestamps();
         });
     }

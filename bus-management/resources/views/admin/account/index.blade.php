@@ -4,6 +4,11 @@
                     <a class="h5 mb-0 mr-2 text-blue-800" href="{{url('admin/dashboard')}}">Dashboard</a> /
                     <p class="h5 mb-0 ml-2 text-gray-800">Account</p>
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="">
                     <!-- DataTales -->
                     <div class="card shadow mb-4">

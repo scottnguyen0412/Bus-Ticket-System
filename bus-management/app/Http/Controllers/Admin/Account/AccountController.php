@@ -38,7 +38,11 @@ class AccountController extends Controller
                 return '<img src="'.$assetAvatar.'" width="40" height="40" class=" rounded-circle" align="center" />';
             })
             ->editColumn('action', function ($data) {
+                // is_banned = 1: lock
+                // is_banned = 0: not lock
+                if($data->is_banned == 0)
                 return '
+                    <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fas fa-user-lock" title="Lock account"></i></a>
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
                     <button type="button" class="btn btn-danger btn-sm rounded-pill" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" title="Delete Account"></i></button>
                     <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
@@ -59,6 +63,30 @@ class AccountController extends Controller
                         </div>     
                     </form>
                 ';
+                else
+                return '
+                    <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fas fa-lock-open" title="UnLock account"></i></a>
+                    <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
+                    <button type="button" class="btn btn-danger btn-sm rounded-pill" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" title="Delete Account"></i></button>
+                    <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                    ' . method_field('DELETE') .
+                    '' . csrf_field() .'
+                        <div id="myModal" class="modal fade">
+                            <div class="modal-dialog modal-confirm">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <p>Do you really want to delete this account? This process cannot be undone!!</p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                    </form>
+                ';
+                return ''; 
             })
             ->rawColumns(['avatar', 'action'])
             ->setRowAttr([
@@ -149,6 +177,22 @@ class AccountController extends Controller
         }
         $user->delete();
         return redirect()->back()->with('status', 'Account Deleted Successfully');
+    }
+
+    // Check lock account
+    public function banAccount($id, $status_code)
+    {
+        $ban_account = User::whereId($id)->update([
+            'is_banned' => $status_code
+        ]);
+        if($ban_account == 1 ){
+            return redirect()->route('admin.account.index')->with('success', 'Account is banned successfully');
+        }
+        // else
+        // {
+        //     return redirect()->route('admin.account.index')->with('success', 'Account is Unlock successfully');
+        // }
+        return redirect()->route('admin.account.index')->with('error','Fail to ban account');
     }
 
 

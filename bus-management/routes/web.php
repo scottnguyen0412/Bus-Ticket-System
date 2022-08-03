@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/account/edit/{id}', [AccountController::class, 'edit'])->name('admin.account.edit');
         Route::post('/account/update/{id}', [AccountController::class, 'update'])->name('admin.account.update');
         Route::delete('/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
-    });
+        // Ban Account
+        Route::get('/account/ban/{id}/{status_code}', [AccountController::class,'banAccount'])->name('admin.account.ban');
+    }); 
 
 });
