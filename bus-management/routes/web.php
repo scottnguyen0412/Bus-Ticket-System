@@ -64,6 +64,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/account/ban/{id}/{status_code}', [AccountController::class,'banAccount'])->name('admin.account.ban');
 
         Route::get('/bus', [BusController::class, 'index'])->name('admin.bus.index');
+        Route::post('/bus/create', [BusController::class, 'create'])->name('admin.bus.create');
+
     }); 
 
 });

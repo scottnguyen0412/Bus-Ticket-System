@@ -28,8 +28,8 @@
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                {{-- <form action="{{ route('admin.account.create') }}" method="POST" enctype="multipart/form-data"> --}}
-                                    {{-- @csrf --}}
+                                <form action="{{ route('admin.bus.create') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="bus_name" class="col-form-label @error('bus_name') is-invalid @enderror" role="alert">Bus Name*</label>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="image_bus" class="col-form-label">Image Bus*</label>
-                                            <input type="file" name="image_bus" class=" form-control @error('image_bus') is-invalid @enderror" role="alert" >
+                                            <input type="file" multiple name="image_bus[]" class=" form-control @error('image_bus') is-invalid @enderror" role="alert" >
                                             @error('avatar')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
@@ -74,9 +74,9 @@
                                         <div class="form-group">
                                             <label for="driver" class="col-form-label">Driver</label>
                                             <select class="form-control" name="driver_id" id="driver">
-                                                {{-- @foreach ($roles as $role) --}}
-                                                {{-- <option value="{{ $role->id }}">{{ $role->name }}</option> --}}
-                                                {{-- @endforeach --}}
+                                                @foreach ($user as $users)
+                                                    <option value="{{ $users->id }}">{{ $users->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary">Create</button>
                                     </div>
-                                {{-- </form> --}}
+                                </form>
                                 </div>
                             </div>
                             </div>

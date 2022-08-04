@@ -95,7 +95,7 @@
                                             <label for="role" class="col-form-label">Role</label>
                                             <select class="form-control" name="role_id" id="role">
                                                 @foreach ($roles as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
