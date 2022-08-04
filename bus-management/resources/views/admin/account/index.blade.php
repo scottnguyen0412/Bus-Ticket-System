@@ -13,7 +13,7 @@
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">View All Account
+                            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Account</i>
                                 <button class=" btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"> Add New Account</i></button>
                             </h6>
                         </div>

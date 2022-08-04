@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Account\AccountController;
+use App\Http\Controllers\Admin\Bus\BusController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -61,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
         // Ban Account
         Route::get('/account/ban/{id}/{status_code}', [AccountController::class,'banAccount'])->name('admin.account.ban');
+
+        Route::get('/bus', [BusController::class, 'index'])->name('admin.bus.index');
     }); 
 
 });

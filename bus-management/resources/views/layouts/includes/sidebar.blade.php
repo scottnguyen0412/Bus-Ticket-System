@@ -30,10 +30,17 @@
                     <span>Account</span>
                 </a>
             </li>
+            <li class="nav-item {{Request::routeIs('admin.bus.index') ? 'active':'';}}">
+                <a class="nav-link" href="{{route('admin.bus.index')}}">
+                    <i class="fas fa-bus"></i>
+                    <span>Bus</span>
+                </a>
+            </li>
 			<li class="nav-item">
                 <a class="nav-link" href="">
                     <i class="fas fa-route"></i>
-                    <span>Route</span></a>
+                    <span>Route</span>
+                </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
