@@ -13,4 +13,15 @@ class Bus extends Model
     protected $guarded = [
 
     ];
+
+    public function setFilenamesAttribute($value)
+    {
+        $this->attributes['image_bus'] = json_encode($value);
+    }
+
+    // Display name of driver
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'driver_id', 'id');
+    }
 }

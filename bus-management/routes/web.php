@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/bus', [BusController::class, 'index'])->name('admin.bus.index');
         Route::post('/bus/create', [BusController::class, 'create'])->name('admin.bus.create');
+        // Display all bus
+        Route::get('/get-all-bus', [BusController::class, 'getAllRowData']);
 
     }); 
 

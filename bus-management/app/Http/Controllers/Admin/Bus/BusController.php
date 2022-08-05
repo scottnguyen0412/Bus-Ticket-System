@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bus;
 use App\Models\User;
+use Yajra\Datatables\Datatables;
 use File;
 
 class BusController extends Controller
@@ -18,6 +19,43 @@ class BusController extends Controller
         return view('admin.bus.index',[
             'user' => $user,
         ]);
+    }
+
+    // Display all bus
+    public function getAllRowData(Request $request)
+    {
+        $bus = Bus::all();
+        return Datatables::of($bus)
+        ->editColumn('image_bus', function ($data) {
+                if($data->image_bus)
+                {
+                    foreach(json_decode($data->image_bus) as $images) //Decode image_bus
+                    {
+                        // dd($images);
+                        $img = '<img src="'.asset('admin/upload/img-bus/'.$images).'" width="40" height="40" class="rounded" align="center" alt=$images/>';
+                        return $img;    
+                    }
+                }
+            })
+            ->editColumn('driver_id', function($data) {
+                if($data->driver_id)
+                {
+                    return $data->users->name;
+                }
+            })
+            ->editColumn('action', function ($data) {
+                return '
+                    
+                ';
+            })
+            ->rawColumns(['image_bus', 'action'])
+            ->setRowAttr([
+                'data-row' => function ($data) {
+                    return $data->id;
+                }
+            ])
+            ->make(true);
+
     }
 
     public function create(Request $request)
@@ -36,12 +74,15 @@ class BusController extends Controller
             $path = 'admin/upload/img-bus/';
             foreach($request->file('image_bus') as $imgBusfile)
             {
-                $ext = $imgBusfile->getClientOriginalExtension();  //Lấy tên file bao gồm extension ví dụ: .png, .jpg
-                $filename = time().$count++.'.'.$ext;
-                $imgBusfile->move($path, $filename);
-                $finalImagePath = $path.$filename;
-                $bus->image_bus = $finalImagePath;
-
+                // $ext = $imgBusfile->getClientOriginalExtension();  //Lấy tên file bao gồm extension ví dụ: .png, .jpg
+                // $filename = time().$count++.'.'.$ext;
+                // $imgBusfile->move($path, $filename);
+                // $finalImagePath = $path.$filename;
+                // $bus->image_bus = $finalImagePath;
+                $name = $imgBusfile->getClientOriginalName();
+                $imgBusfile->move('admin/upload/img-bus/', $name);  
+                $data[] = $name;  
+                $bus->image_bus = json_encode($data); //Convert array $data to string
             }
         }
         $bus->driver_id = $request->input('driver_id');

@@ -98,7 +98,6 @@
                                             <th>Bus Status</th>
                                             <th>Amount of Seats</th>
                                             <th>Image of Bus</th>
-                                            <th>Address</th>
                                             <th>Driver</th>
                                             <th>Action</th>
                                         </tr>
@@ -106,12 +105,12 @@
     
                                     <tfoot>
                                         <tr>
+                                            
                                             <th>Bus Name</th>
                                             <th>Bus Number(license plates)</th>
                                             <th>Bus Status</th>
                                             <th>Amount of Seats</th>
                                             <th>Image of Bus</th>
-                                            <th>Address</th>
                                             <th>Driver</th>
                                             <th>Action</th>
                                         </tr>
@@ -132,7 +131,7 @@
             $('#dataTable').DataTable({
                 processing: true,
                 serverSide: true,
-                // ajax: '{{ url('/admin/get-all-account')}}',
+                ajax: '{{ url('/admin/get-all-bus')}}',
                 columns: [
                     {
                         data: 'bus_name',
@@ -155,8 +154,12 @@
                         name: 'image_bus',
                     },
                     {
-                        data: 'image_bus',
-                        name: 'image_bus',
+                        data: 'driver_id',
+                        name: 'driver_id',
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
                     },
                 ]
             });
