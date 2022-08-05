@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="d-sm-flex align-items-center mb-4">
+                <div class="d-sm-flex align-items-center mb-4">
                     <a class="h5 mb-0 mr-2 text-blue-800" href="{{url('admin/dashboard')}}">Dashboard</a> /
                     <p class="h5 mb-0 ml-2 text-gray-800">Bus</p>
                 </div>
@@ -150,8 +150,8 @@
                         name: 'number_of_seats',
                     },
                     {
-                        data: 'image_bus',
-                        name: 'image_bus',
+                        data: 'images',
+                        name: 'images',
                     },
                     {
                         data: 'driver_id',

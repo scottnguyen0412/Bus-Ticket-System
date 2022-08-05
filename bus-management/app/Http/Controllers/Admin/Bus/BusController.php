@@ -26,16 +26,18 @@ class BusController extends Controller
     {
         $bus = Bus::all();
         return Datatables::of($bus)
-        ->editColumn('image_bus', function ($data) {
-                if($data->image_bus)
-                {
-                    foreach(json_decode($data->image_bus) as $images) //Decode image_bus
-                    {
-                        // dd($images);
-                        $img = '<img src="'.asset('admin/upload/img-bus/'.$images).'" width="40" height="40" class="rounded" align="center" alt=$images/>';
-                        return $img;    
-                    }
-                }
+        ->editColumn('images', function ($data) {
+                return '
+                    <a class="btn btn-primary btn-sm rounded-pill" href="'.route('admin.account.viewImage',$data->id).'"><i class="fas fa-eye" title="See the image bus"> View Image of Bus</i></a>
+                ';
+                // if($data->image_bus)
+                // {
+                //     foreach(json_decode($data->image_bus) as $images) //Decode image_bus
+                //     {
+                //         $img = '<img src="'.asset('admin/upload/img-bus/'.$images).'" width="40" height="40" class="rounded" align="center" alt=$images/>';
+                //         return $img;    
+                //     }
+                // }
             })
             ->editColumn('driver_id', function($data) {
                 if($data->driver_id)
@@ -43,12 +45,25 @@ class BusController extends Controller
                     return $data->users->name;
                 }
             })
+            ->editColumn('bus_status', function($data){
+                $show = 1;
+                $not_show = 0;
+                if($data->bus_status == $not_show)
+                {
+                    return 'Not Shown';
+                }
+                else if($data->bus_status == $show)
+                {
+                    return 'Shown';
+                }
+
+            })
             ->editColumn('action', function ($data) {
                 return '
                     
                 ';
             })
-            ->rawColumns(['image_bus', 'action'])
+            ->rawColumns(['images', 'action'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -89,5 +104,17 @@ class BusController extends Controller
         $bus->save();
 
         return redirect()->back()->with('status', 'New Bus Created Successfully');
+    }
+
+    // View Image Bus
+    public function showImage($id)
+    {
+        $bus = Bus::findOrFail($id);
+        if(!$bus)
+        {
+            abort(404);
+        }
+        $image = $bus->image_bus;
+        return view('admin.bus.viewImageBus', compact('bus', 'image'));
     }
 }

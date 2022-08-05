@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
         // Display all bus
         Route::get('/get-all-bus', [BusController::class, 'getAllRowData']);
 
+        Route::get('/image-bus/{id}', [BusController::class, 'showImage'])->name('admin.account.viewImage');
+
     }); 
 
 });
