@@ -204,5 +204,5 @@
         $("#exampleModal").modal('show');
         }, delayInMilliseconds);
     @endif
-</script>   
+    </script>   
 @endsection

@@ -44,49 +44,23 @@ class AccountController extends Controller
                 return '
                     <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fas fa-user-lock" title="Lock account"></i></a>
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
-                    <button type="button" class="btn btn-danger btn-sm rounded-pill" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" title="Delete Account"></i></button>
                     <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                     ' . method_field('DELETE') .
-                    '' . csrf_field() .'
-                        <div id="myModal" class="modal fade">
-                            <div class="modal-dialog modal-confirm">
-                                <div class="modal-content">
-                                    <div class="modal-body text-center">
-                                        <p>Do you really want to delete this account? This process cannot be undone!!</p>
-                                    </div>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>     
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')"><i class="fa fa-trash" title="Delete Account"></i></button>
                     </form>
                 ';
                 else
                 return '
                     <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fas fa-lock-open" title="UnLock account"></i></a>
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
-                    <button type="button" class="btn btn-danger btn-sm rounded-pill" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" title="Delete Account"></i></button>
                     <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                     ' . method_field('DELETE') .
-                    '' . csrf_field() .'
-                        <div id="myModal" class="modal fade">
-                            <div class="modal-dialog modal-confirm">
-                                <div class="modal-content">
-                                    <div class="modal-body text-center">
-                                        <p>Do you really want to delete this account? This process cannot be undone!!</p>
-                                    </div>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>     
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')"><i class="fa fa-trash" title="Delete Account"></i></button>
                     </form>
                 ';
-                return ''; 
+                // return ''; 
             })
             ->rawColumns(['avatar', 'action'])
             ->setRowAttr([

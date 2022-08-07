@@ -123,7 +123,7 @@
                         </div>
                     </div>
                     <div class="mt-4 pt-2 float-right">
-                        <button class="btn btn-primary btn-lg fas fa-save" type="submit" title="Submit"></button>
+                        <button class="btn btn-primary btn-lg fas fa-save" type="submit" title="Submit"> Update</button>
                     </div>
                     </form>
                 </div>

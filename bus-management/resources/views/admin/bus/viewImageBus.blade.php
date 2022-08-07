@@ -7,6 +7,7 @@
         </p> 
     </div>
     <div class="row mt-4">
+        @if($image)
         @foreach (json_decode($image) as $img)
         <div class="col-md-3">
             <div class="card text-white bg-sencondary mb-3" style="max-width: 20rem">
@@ -16,5 +17,8 @@
             </div>
         </div>    
         @endforeach
+        @else
+            <h5>No Image Added</h5>
+        @endif
     </div>
 @endsection

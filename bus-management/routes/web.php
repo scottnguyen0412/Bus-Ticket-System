@@ -70,6 +70,11 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/image-bus/{id}', [BusController::class, 'showImage'])->name('admin.account.viewImage');
 
+        // Edit
+        Route::get('/bus/edit/{id}', [BusController::class, 'edit'])->name('admin.bus.edit');
+        Route::post('/bus/update/{id}', [BusController::class, 'update'])->name('admin.bus.update');
+
+        Route::get('/bus/delete-image-bus/{bus_image_id}', [BusController::class,'deleteImage'])->name('admin.bus.deleteImage');
     }); 
 
 });

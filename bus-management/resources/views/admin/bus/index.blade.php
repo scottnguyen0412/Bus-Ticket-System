@@ -65,7 +65,7 @@
                                         <div class="form-group">
                                             <label for="image_bus" class="col-form-label">Image Bus*</label>
                                             <input type="file" multiple name="image_bus[]" class=" form-control @error('image_bus') is-invalid @enderror" role="alert" >
-                                            @error('avatar')
+                                            @error('image_bus')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
