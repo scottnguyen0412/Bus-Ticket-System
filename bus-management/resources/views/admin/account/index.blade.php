@@ -4,11 +4,16 @@
                     <a class="h5 mb-0 mr-2 text-blue-800" href="{{url('admin/dashboard')}}">Dashboard</a> /
                     <p class="h5 mb-0 ml-2 text-gray-800">Account</p>
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="">
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">View All Account
+                            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Account</i>
                                 <button class=" btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"> Add New Account</i></button>
                             </h6>
                         </div>
@@ -90,7 +95,7 @@
                                             <label for="role" class="col-form-label">Role</label>
                                             <select class="form-control" name="role_id" id="role">
                                                 @foreach ($roles as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -199,5 +204,5 @@
         $("#exampleModal").modal('show');
         }, delayInMilliseconds);
     @endif
-</script>   
+    </script>   
 @endsection
