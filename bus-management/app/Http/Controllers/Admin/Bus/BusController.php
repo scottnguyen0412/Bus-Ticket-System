@@ -34,7 +34,14 @@ class BusController extends Controller
             ->editColumn('driver_id', function($data) {
                 if($data->driver_id)
                 {
-                    return $data->users->name;
+                    if($data->users->role_id == '3')
+                    {
+                        return $data->users->name;
+                    }
+                    else
+                    {
+                        return 'Not Available';
+                    }
                 }
             })
             ->editColumn('bus_status', function($data){
@@ -53,6 +60,11 @@ class BusController extends Controller
             ->editColumn('action', function ($data) {
                 return '
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.bus.edit',$data->id).'"><i class="fas fa-edit" title="Edit Bus"></i></a>
+                    <form method="POST" action="' . route('admin.bus.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                    ' . method_field('DELETE') .
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->bus_name.' ?\')"><i class="fa fa-trash" title="Delete the Bus"></i></button>
+                    </form>
                 ';
             })
             ->rawColumns(['images', 'action'])
@@ -136,6 +148,14 @@ class BusController extends Controller
         $bus->driver_id = $request->input('driver_id');
         $bus->update();
         return redirect('/admin/bus')->with('status', 'Updated Bus Successfully');
+    }
+
+    public function delete($id)
+    {
+        $bus = Bus::findOrFail($id);
+        $bus->delete();
+
+        return redirect()->back()->with('status', 'Deleted Successfully');
     }
 
     // public function deleteImage($bus_image_id)

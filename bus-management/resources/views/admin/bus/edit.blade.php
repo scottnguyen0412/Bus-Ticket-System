@@ -80,7 +80,7 @@
                                     {{-- <div class="col-md-2"> --}}
                                         <img src="{{asset('admin/upload/img-bus/'.$image)}}" 
                                             class="me-4 border" style="width: 80px; height:80px;"/>
-                                        <a href="{{url('admin/bus/delete-image-bus/'.$image->id)}}" class=" d-inline">Remove</a>    
+                                        {{-- <a href="{{url('admin/bus/delete-image-bus/'.$image->id)}}" class=" d-inline">Remove</a>     --}}
                                     {{-- </div> --}}
                                     @endforeach
                                 @else
