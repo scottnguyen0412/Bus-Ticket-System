@@ -115,7 +115,8 @@ class BusController extends Controller
     {   
         $bus = Bus::findOrFail($id); //Query to get name
         $images_bus = ImageBus::where('bus_id', $id)->pluck('image_bus'); //Get all id and give to array
-        return view('admin.bus.viewImageBus', compact('images_bus', 'bus'));
+        $check = ImageBus::where('bus_id', $id)->exists(); //Check bus có ảnh hay không
+        return view('admin.bus.viewImageBus', compact('images_bus', 'bus','check'));
     }
 
     public function edit($id)

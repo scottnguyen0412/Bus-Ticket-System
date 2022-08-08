@@ -7,7 +7,7 @@
         </p> 
     </div>
     <div class="row mt-4">
-        {{-- @if($bus->imageBus->image_bus) --}}
+        @if($check)
             @foreach ($images_bus as $img)
                 <div class="col-md-3">
                     <div class="card text-white bg-sencondary mb-3" style="max-width: 20rem">
@@ -17,8 +17,8 @@
                     </div>
                 </div>    
             @endforeach
-            {{-- @else
+            @else
                 <h5>No Image Added</h5>
-            @endif --}}
+            @endif
     </div>
 @endsection
