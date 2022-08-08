@@ -7,18 +7,18 @@
         </p> 
     </div>
     <div class="row mt-4">
-        @if($image)
-        @foreach (json_decode($image) as $img)
-        <div class="col-md-3">
-            <div class="card text-white bg-sencondary mb-3" style="max-width: 20rem">
-                <div class="card-body">
-                    <img src="{{asset('admin/upload/img-bus/'.$img)}}" width="200" height="200" class="card-img-top rounded" alt="{{$img}}"/>
-                </div>
-            </div>
-        </div>    
-        @endforeach
-        @else
-            <h5>No Image Added</h5>
-        @endif
+        {{-- @if($bus->imageBus->image_bus) --}}
+            @foreach ($images_bus as $img)
+                <div class="col-md-3">
+                    <div class="card text-white bg-sencondary mb-3" style="max-width: 20rem">
+                        <div class="card-body">
+                            <img src="{{ asset($img) }}" width="200" height="200" class="card-img-top rounded" alt=""/>
+                        </div>
+                    </div>
+                </div>    
+            @endforeach
+            {{-- @else
+                <h5>No Image Added</h5>
+            @endif --}}
     </div>
 @endsection

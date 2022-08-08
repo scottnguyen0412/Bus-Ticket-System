@@ -14,14 +14,14 @@ class Bus extends Model
 
     ];
 
-    public function setFilenamesAttribute($value)
-    {
-        $this->attributes['image_bus'] = json_encode($value);
-    }
-
     // Display name of driver
     public function users()
     {
         return $this->belongsTo(User::class, 'driver_id', 'id');
+    }
+
+    public function imageBus()
+    {
+        return $this->hasMany(ImageBus::class, 'bus_id', 'id');
     }
 }

@@ -74,8 +74,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/bus/edit/{id}', [BusController::class, 'edit'])->name('admin.bus.edit');
         Route::post('/bus/update/{id}', [BusController::class, 'update'])->name('admin.bus.update');
 
+        // Delete bus
         Route::delete('/bus/delete/{id}', [BusController::class, 'delete'])->name('admin.bus.delete');
-        // Route::get('/bus/delete-image-bus/{bus_image_id}', [BusController::class,'deleteImage'])->name('admin.bus.deleteImage');
+        // Delete từng ảnh của bus
+        Route::get('/bus/delete-image-bus/{bus_image_id}', [BusController::class,'deleteImage'])->name('admin.bus.deleteImage');
     }); 
 
 });

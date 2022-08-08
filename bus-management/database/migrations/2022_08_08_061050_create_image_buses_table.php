@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('buses', function (Blueprint $table) {
+        Schema::create('image_buses', function (Blueprint $table) {
             $table->id();
-            $table->string('bus_name');
-            $table->string('bus_number');
-            $table->tinyInteger('bus_status')->default(0)->comment('0=Not Show/ 1=Show');
-            $table->integer('number_of_seats')->nullable();
-            $table->bigInteger('driver_id')->unsigned();
-            $table->foreign('driver_id')->references('id')->on('users');
+            $table->unsignedBigInteger('bus_id');
+            $table->foreign('bus_id')->references('id')->on('buses')->onDelete('cascade');
+            $table->string('image_bus');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buses');
+        Schema::dropIfExists('image_buses');
     }
 };

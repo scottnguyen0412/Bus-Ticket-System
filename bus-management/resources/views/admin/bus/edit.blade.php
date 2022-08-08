@@ -46,8 +46,8 @@
                         <div class="col-md-6 mb-4">
                             <h6 class="mb-2 pb-1 @error('bus_status') is-invalid @enderror" role="alert">Bus Status* </h6>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="bus_status" id="bus_status" 
-                                    {{$bus->bus_status == '1' ?'checked':''}} />Checked=Shown Not Checked=Not Shown
+                                <input class="form-check-input" type="checkbox" name="bus_status" id="bus_status" 
+                                    {{$bus->bus_status == '1' ? 'checked':''}} />Checked=Shown Not Checked=Not Shown
                             </div>
                         </div>
                         @error('bus_status')
@@ -75,14 +75,17 @@
                                             placeholder="Edit Bus Image"/>
                             </div>
                             <div>
-                                @if($bus->image_bus)
-                                    @foreach (json_decode($bus->image_bus) as $image)
-                                    {{-- <div class="col-md-2"> --}}
-                                        <img src="{{asset('admin/upload/img-bus/'.$image)}}" 
-                                            class="me-4 border" style="width: 80px; height:80px;"/>
-                                        {{-- <a href="{{url('admin/bus/delete-image-bus/'.$image->id)}}" class=" d-inline">Remove</a>     --}}
-                                    {{-- </div> --}}
+                                @if($bus->imageBus)
+                                <div class="row">
+                                    @foreach ($bus->imageBus as $image)
+                                    <div class="col-md-3">
+                                            <a href="{{url('admin/bus/delete-image-bus/'.$image->id)}}" class=" d-block" style="right:20px; position:absolute; z-index:1;" title="Delete Image">
+                                                <span class="fas fa-times text-info"></span>    
+                                            </a>    
+                                            <img src="{{asset($image->image_bus)}}" class=" me-4 border" style="width: 90px; height:90px;"/>
+                                    </div>
                                     @endforeach
+                                </div>
                                 @else
                                     <h5>No Image Added</h5>
                                 @endif

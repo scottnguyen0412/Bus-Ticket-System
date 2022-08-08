@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bus;
 use App\Models\User;
+use App\Models\ImageBus;
 use Yajra\Datatables\Datatables;
 use File;
 
@@ -79,39 +80,42 @@ class BusController extends Controller
 
     public function create(Request $request)
     {
-        $bus = new Bus;
-        $bus->bus_name = $request->input('bus_name');
-        $bus->bus_number = $request->input('bus_number');
-        $bus->bus_status = $request->input('bus_status') == TRUE?'1':'0'; 
-        $bus->number_of_seats = $request->input('number_of_seats');
+        $bus = Bus::create([
+            "bus_name" => $request->input('bus_name'),
+            "bus_number" => $request->input('bus_number'),
+            "bus_status" => $request->input('bus_status') == TRUE?'1':'0',
+            "number_of_seats" => $request->input('number_of_seats'),
+            "driver_id"=> $request->input('driver_id'),
+        ]);
+
         // Handle multiple image bus
         if($request->hasFile('image_bus'))
         {
+            $count = 1;
             $path = 'admin/upload/img-bus/';
             foreach($request->file('image_bus') as $imgBusfile)
             {
-                $name = $imgBusfile->getClientOriginalName();
-                $imgBusfile->move('admin/upload/img-bus/', $name);  
-                $data[] = $name;  
-                $bus->image_bus = json_encode($data); //Convert array $data to string
+                $ext = $imgBusfile->getClientOriginalExtension(); //get tên đuôi ảnh
+                $filename = time().$count++.'.'.$ext;
+                $imgBusfile->move($path, $filename);
+                $finalImagePath = $path.$filename;
+                $bus->imageBus()->create([
+                    'bus_id' => $bus->id,
+                    'image_bus' => $finalImagePath
+                ]);
             }
         }
-        $bus->driver_id = $request->input('driver_id');
-        $bus->save();
+        // $bus->save();
 
         return redirect()->back()->with('status', 'New Bus Created Successfully');
     }
 
     // View Image Bus
     public function showImage($id)
-    {
-        $bus = Bus::findOrFail($id);
-        if(!$bus)
-        {
-            abort(404);
-        }
-        $image = $bus->image_bus;
-        return view('admin.bus.viewImageBus', compact('bus', 'image'));
+    {   
+        $bus = Bus::findOrFail($id); //Query to get name
+        $images_bus = ImageBus::where('bus_id', $id)->pluck('image_bus'); //Get all id and give to array
+        return view('admin.bus.viewImageBus', compact('images_bus', 'bus'));
     }
 
     public function edit($id)
@@ -128,39 +132,62 @@ class BusController extends Controller
     public function update(Request $request, $id)
     {
         $bus = Bus::findOrFail($id);
+        $bus->update([
+            "bus_name" => $request['bus_name'],
+            "bus_number" => $request['bus_number'],
+            "bus_status" => $request['bus_status'] == TRUE?'1':'0',
+            "number_of_seats" => $request['number_of_seats'],
+            "driver_id"=> $request['driver_id'],
+        ]);
 
         // Handle image
-        if($request->hasFile('image_bus'))
+         if($request->hasFile('image_bus'))
         {
+            $count = 1;
             $path = 'admin/upload/img-bus/';
             foreach($request->file('image_bus') as $imgBusfile)
             {
-                $name = $imgBusfile->getClientOriginalName(); //get tên ảnh
-                $imgBusfile->move($path,$name);  
-                $data[] = $name;  
-                $bus->image_bus = json_encode($data); //Convert array $data to string
+                $ext = $imgBusfile->getClientOriginalExtension(); //get tên đuôi ảnh png, jpg
+                $filename = time().$count++.'.'.$ext;
+                $imgBusfile->move($path, $filename);
+                $finalImagePath = $path.$filename;
+                $bus->imageBus()->create([
+                    'bus_id' => $bus->id,
+                    'image_bus' => $finalImagePath
+                ]);
             }
         }
-        $bus->bus_name = $request->input('bus_name');
-        $bus->bus_number = $request->input('bus_number');
-        $bus->bus_status = $request->input('bus_status') == TRUE ?'1':'0';
-        $bus->number_of_seats = $request->input('number_of_seats');
-        $bus->driver_id = $request->input('driver_id');
-        $bus->update();
+
         return redirect('/admin/bus')->with('status', 'Updated Bus Successfully');
     }
 
+    // Delete bus
     public function delete($id)
     {
         $bus = Bus::findOrFail($id);
+        if($bus->imageBus()){
+            foreach($bus->imageBus() as $image)
+            {
+                if(File::exists($image->image_bus)) //get image exist to delete
+                {
+                    File::delete($image->image_bus);
+                }
+            }
+        }
         $bus->delete();
-
         return redirect()->back()->with('status', 'Deleted Successfully');
     }
 
-    // public function deleteImage($bus_image_id)
-    // {
-    //     $bus = Bus::all();
-    //     $bus
-    // }
+    // Xóa từng ảnh
+    public function deleteImage($bus_image_id)
+    {
+        $image_bus = ImageBus::findOrFail($bus_image_id);
+        // check image exist
+        if(File::exists($image_bus->image_bus))
+        {
+            File::delete($image_bus->image_bus);
+        }
+        $image_bus->delete();
+        return redirect()->back()->with('status', 'Deleted Bus Image Success');        
+    }
 }
