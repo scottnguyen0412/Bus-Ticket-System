@@ -19,12 +19,17 @@ class StartController extends Controller
     {
         $start_destination = StartDestination::all();
         return Datatables::of($start_destination)
+            ->editColumn('name' , function($data) {
+                return ' 
+                    <a href="' . route('admin.startdestination.detail', $data->id) . '">' . $data->name . '</a>
+                ';
+            })
             ->editColumn('action', function($data) {
                 return '
                 
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'name'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -46,6 +51,15 @@ class StartController extends Controller
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
         ]);
-        return redirect()->route('admin.startdestination.index');
+        return redirect()->route('admin.startdestination.index')->with('status', 'Start Destination Created Successfully');
+    }
+
+    // show Detail with map
+    public function Detail($id)
+    {
+        $start_destination = StartDestination::findOrFail($id);
+        return view('admin.map.startDestination.detail', [
+            'start_destination' => $start_destination
+        ]);
     }
 }

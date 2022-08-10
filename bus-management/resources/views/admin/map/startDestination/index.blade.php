@@ -15,7 +15,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="mt-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Info Start Destination</i>
-                                <button class=" btn btn-primary btn-sm float-right"><i class="fa fa-plus"> Add New Start Destination</i></button>
+                                <a class="btn btn-primary btn-sm float-right" href="{{route('admin.startdestination.create')}}"><i class="fa fa-plus"> Add New Start Destination</i></a>
                             </h6>
                         </div>
                         <div class="card-body">

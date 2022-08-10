@@ -89,17 +89,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/get-all-schedule', [ScheduleController::class, 'getAllRowData']);
 
 
-        
+
         // Index page of start Destination
         Route::get('/start-dest', [StartController::class, 'index'])->name('admin.startdestination.index');
         // Create Start Destination
         Route::get('/start-dest/create', [StartController::class, 'create'])->name('admin.startdestination.create');
+        Route::post('/start-dest/store', [StartController::class, 'store'])->name('admin.startdestination.store');
         // Display all start destination
         Route::get('/get-all-start-dest', [StartController::class, 'getAllRowData']);
-        Route::post('/start-dest/store', [StartController::class, 'store'])->name('admin.startdestination.store');
-        Route::get('/start-dest/show', [StartController::class, 'show'])->name('admin.startdestination.show');
+        Route::get('/start-dest/show-detail/{id}', [StartController::class, 'detail'])->name('admin.startdestination.detail');
         
-        Route::get('/start-dest/show-map', [StartController::class, 'showmap'])->name('admin.startdestination.showmap');
     }); 
 
 });
