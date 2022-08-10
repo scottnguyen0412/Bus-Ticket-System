@@ -68,4 +68,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 -php artisan db:seed (auto generated user and role setup by DatabaseSeeder file);
 -php artisan migrate:fresh (refresh all table in DB)
 
--feature: chatbox, payment, openstreetmap
+-feature: chatbox, payment, openstreetmap:leaflet

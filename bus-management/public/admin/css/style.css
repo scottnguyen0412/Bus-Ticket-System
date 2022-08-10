@@ -37,3 +37,9 @@ input[type="file" i] {
     overflow: hidden !important;
     border-radius: initial;
 }
+
+#map {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 20px;
+}

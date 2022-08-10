@@ -20,6 +20,10 @@
     <link type="text/css" href="{{asset("admin/css/sb-admin-2.min.css")}}" rel="stylesheet">
     <link type="text/css" href="{{asset("admin/vendor/fontawesome-free/css/all.min.css")}}" rel="stylesheet">
     <link type="text/css" href="{{asset("admin/vendor/datatables/dataTables.bootstrap4.min.css")}}" rel="stylesheet">
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
+   
     <!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- CSS only -->
@@ -51,7 +55,15 @@
     {{-- Sweet alert --}}
     <!-- JavaScript Bundle with Popper -->
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script> --}}
-    
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
+     <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+    integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA=="
+    crossorigin=""></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{asset("admin/vendor/jquery/jquery.min.js")}}"></script>
     <script src="{{asset("admin/vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("admin/js/sb-admin-2.min.js")}}"></script>

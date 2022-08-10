@@ -27,11 +27,11 @@ class BusController extends Controller
     {
         $bus = Bus::all();
         return Datatables::of($bus)
-        ->editColumn('images', function ($data) {
-                return '
-                    <a class="btn btn-primary btn-sm rounded-pill" href="'.route('admin.account.viewImage',$data->id).'"><i class="fas fa-eye" title="See the image bus"> View Image of Bus</i></a>
-                ';
-            })
+            ->editColumn('images', function ($data) {
+                    return '
+                        <a class="btn btn-primary btn-sm rounded-pill" href="'.route('admin.account.viewImage',$data->id).'"><i class="fas fa-eye" title="See the image bus"> View Image of Bus</i></a>
+                    ';
+                })
             ->editColumn('driver_id', function($data) {
                 if($data->driver_id)
                 {
@@ -75,7 +75,6 @@ class BusController extends Controller
                 }
             ])
             ->make(true);
-
     }
 
     public function create(Request $request)
@@ -158,7 +157,6 @@ class BusController extends Controller
                 ]);
             }
         }
-
         return redirect('/admin/bus')->with('status', 'Updated Bus Successfully');
     }
 

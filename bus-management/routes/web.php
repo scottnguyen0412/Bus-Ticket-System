@@ -6,6 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Admin\Bus\BusController;
+use App\Http\Controllers\Admin\Schedule\ScheduleController;
+use App\Http\Controllers\Admin\StartDestination\StartController;
+
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -52,6 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Note: 'role:admin,driver' not have any space between
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,driver'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        // Index for account
         Route::get('/account',[AccountController::class,'index'])->name('admin.account.index');
         Route::post('/account/create',[AccountController::class, 'create'])->name('admin.account.create');
         // Display all account
@@ -78,6 +82,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/bus/delete/{id}', [BusController::class, 'delete'])->name('admin.bus.delete');
         // Delete từng ảnh của bus
         Route::get('/bus/delete-image-bus/{bus_image_id}', [BusController::class,'deleteImage'])->name('admin.bus.deleteImage');
+
+        // Index Schedule
+        Route::get('/schedule',[ScheduleController::class, 'index'])->name('admin.schedule.index');
+        // Display all schedule
+        Route::get('/get-all-schedule', [ScheduleController::class, 'getAllRowData']);
+
+
+        
+        // Index page of start Destination
+        Route::get('/start-dest', [StartController::class, 'index'])->name('admin.startdestination.index');
+        // Create Start Destination
+        Route::get('/start-dest/create', [StartController::class, 'create'])->name('admin.startdestination.create');
+        // Display all start destination
+        Route::get('/get-all-start-dest', [StartController::class, 'getAllRowData']);
+        Route::post('/start-dest/store', [StartController::class, 'store'])->name('admin.startdestination.store');
+        Route::get('/start-dest/show', [StartController::class, 'show'])->name('admin.startdestination.show');
+        
+        Route::get('/start-dest/show-map', [StartController::class, 'showmap'])->name('admin.startdestination.showmap');
     }); 
 
 });
