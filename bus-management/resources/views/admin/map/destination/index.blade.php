@@ -3,7 +3,7 @@
 @section('content')
                 <div class="d-sm-flex align-items-center mb-4">
                     <a class="h5 mb-0 mr-2 text-blue-800" href="{{url('admin/dashboard')}}">Dashboard</a> /
-                    <p class="h5 mb-0 ml-2 text-gray-800">Start Destination</p>
+                    <p class="h5 mb-0 ml-2 text-gray-800">Destination</p>
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -14,8 +14,8 @@
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="mt-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Info Start Destination</i>
-                                <a class="btn btn-primary btn-sm float-right" href="{{route('admin.startdestination.create')}}"><i class="fa fa-plus"> Add New Start Destination</i></a>
+                            <h6 class="mt-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Info Destination</i>
+                                <a class="btn btn-primary btn-sm float-right" href="{{route('admin.destination.create')}}"><i class="fa fa-plus"> Add New Destination</i></a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -47,13 +47,14 @@
                 </div>
 @endsection
 
+
 @section('scripts')
     <script>
         $(function(){
             $('#dataTable').DataTable({
                 processing:true,
                 serverSide:true,
-                ajax: '{{ url('/admin/get-all-start-dest')}}',
+                ajax: '{{ url('/admin/get-all-dest')}}',
                 columns: [
                     {
                         data: 'name',

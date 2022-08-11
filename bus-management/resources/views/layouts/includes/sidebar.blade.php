@@ -61,7 +61,7 @@
                             <i class="fas fa-location-arrow"></i>
                             <span>Start Destination</span>
                         </a>
-                        <a class="collapse-item text-primary " href="">
+                        <a class="collapse-item text-primary {{Request::routeIs('admin.destination.index') ? 'active':'';}}" href="{{route('admin.destination.index')}}">
                             <i class="fas fa-map-marked"></i>
                             <span>Destination</span>
                         </a>

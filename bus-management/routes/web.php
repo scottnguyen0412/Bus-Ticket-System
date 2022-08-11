@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Admin\Bus\BusController;
 use App\Http\Controllers\Admin\Schedule\ScheduleController;
 use App\Http\Controllers\Admin\StartDestination\StartController;
+use App\Http\Controllers\Admin\Destination\DestinationController;
+
 
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\AboutController;
@@ -102,6 +104,18 @@ Route::group(['middleware' => 'auth'], function () {
         // Edit start destination
         Route::get('/start-des/edit/{id}', [StartController::class, 'edit'])->name('admin.startdestination.edit');
         Route::post('/start-des/update/{id}', [StartController::class, 'update'])->name('admin.startdestination.update');
+
+        // Delete start destination
+        Route::delete('/start-des/delete/{id}', [StartController::class, 'delete'])->name('admin.startdestination.delete');
+
+        // Index page of destination
+        Route::get('/destination', [DestinationController::class, 'index'])->name('admin.destination.index');
+        // Create destination get form
+        Route::get('/destination/create', [DestinationController::class, 'create'])->name('admin.destination.create');
+        Route::post('/destination/store', [DestinationController::class, 'store'])->name('admin.destination.store');
+
+        // Displat all data destination
+        Route::get('/get-all-dest', [DestinationController::class, 'getAllRowData']);
     }); 
 
 });

@@ -27,7 +27,11 @@ class StartController extends Controller
             ->editColumn('action', function($data) {
                 return '
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.startdestination.edit',$data->id).'"><i class="fas fa-edit" title="Edit Start Destination"></i></a>
-
+                    <form method="POST" action="' . route('admin.startdestination.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                    ' . method_field('DELETE') .
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->name.' ?\')"><i class="fa fa-trash" title="Delete Start Destination"></i></button>
+                    </form>
                 ';
             })
             ->rawColumns(['action', 'name'])
@@ -81,5 +85,12 @@ class StartController extends Controller
         ]);
 
         return redirect('/admin/start-dest')->with('status', 'Updated Location Successfully');
+    }
+
+    public function delete($id)
+    {
+        $start_destination = StartDestination::findOrFail($id);
+        $start_destination->delete();
+        return redirect()->back()->with('status', 'Deleted Start Destination Successfully');
     }
 }
