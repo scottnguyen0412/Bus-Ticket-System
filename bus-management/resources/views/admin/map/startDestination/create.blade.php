@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header text-white bg-primary font-weight-bold">Create Start Destination</div>
             <form method="POST" action="{{ route('admin.startdestination.store') }}" accept-charset="UTF-8">
@@ -22,13 +22,14 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-success">Submit</button>
+                    <a href="{{route('admin.startdestination.index')}}">Go Back</a>
                 </div>
             </form>
         </div>
     </div>
-    <div class="col-md-8">
-        <h2 class="text-center font-weight-bold ">Show on Open Street Map</h2>
-        <div id="map"></div>      
+    <div class="col-md-6">
+            <div class="text-center card-header text-white bg-primary font-weight-bold">Show on Open Street Map</div>
+            <div class="card-body" id="map"></div>      
     </div>
 </div>
 @endsection 

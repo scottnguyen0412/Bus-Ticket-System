@@ -26,7 +26,8 @@ class StartController extends Controller
             })
             ->editColumn('action', function($data) {
                 return '
-                
+                    <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.startdestination.edit',$data->id).'"><i class="fas fa-edit" title="Edit Start Destination"></i></a>
+
                 ';
             })
             ->rawColumns(['action', 'name'])
@@ -61,5 +62,24 @@ class StartController extends Controller
         return view('admin.map.startDestination.detail', [
             'start_destination' => $start_destination
         ]);
+    }
+
+    public function edit($id)
+    {
+        $start_destination = StartDestination::findOrFail($id);
+        return view('admin.map.startDestination.edit', compact('start_destination'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $start_destination = StartDestination::findOrFail($id);
+        $start_destination->update([
+            'name' => $request->name,
+            'address'=> $request->address,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return redirect('/admin/start-dest')->with('status', 'Updated Location Successfully');
     }
 }

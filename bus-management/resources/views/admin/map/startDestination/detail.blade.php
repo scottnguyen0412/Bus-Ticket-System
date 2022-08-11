@@ -24,10 +24,8 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
                 <div class="card-header text-white bg-primary font-weight-bold">Detail Place</div>
                 <div class="card-body" id="map"></div>
-            </div>
         </div>
     </div>
 </div>

@@ -99,6 +99,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/get-all-start-dest', [StartController::class, 'getAllRowData']);
         Route::get('/start-dest/show-detail/{id}', [StartController::class, 'detail'])->name('admin.startdestination.detail');
         
+        // Edit start destination
+        Route::get('/start-des/edit/{id}', [StartController::class, 'edit'])->name('admin.startdestination.edit');
+        Route::post('/start-des/update/{id}', [StartController::class, 'update'])->name('admin.startdestination.update');
     }); 
 
 });
