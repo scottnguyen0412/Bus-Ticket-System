@@ -122,7 +122,8 @@ Route::group(['middleware' => 'auth'], function () {
         // Edit destination
         Route::get('/destination/edit/{id}', [DestinationController::class, 'edit'])->name('admin.destination.edit');
         Route::post('/destination/update/{id}', [DestinationController::class, 'update'])->name('admin.destination.update');
-        
+
+        Route::delete('/destination/delete/{id}', [DestinationController::class, 'delete'])->name('admin.destination.delete');
     }); 
 
 });
