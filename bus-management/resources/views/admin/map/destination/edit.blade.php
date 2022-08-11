@@ -4,21 +4,21 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header text-white bg-primary font-weight-bold">Edit Start Destination</div>
-                <form method="POST" action="{{ route('admin.startdestination.update', ['id' => $start_destination->id]) }}" accept-charset="UTF-8">
+                <div class="card-header text-white bg-primary font-weight-bold">Edit Destination</div>
+                <form method="POST" action="{{ route('admin.destination.update', ['id' => $destination->id]) }}" accept-charset="UTF-8">
                     @csrf
                     <div class="card-body">
                         <label>Name</label>
-                        <input class="form-control form-control-lg" type="text" name="name" placeholder="Name of start point" value="{{$start_destination->name}}"> <br/>
+                        <input class="form-control form-control-lg" type="text" name="name" placeholder="Name of destination" value="{{$destination->name}}"> <br/>
                         
                         <label>Address</label>
-                        <input class="form-control form-control-lg" type="text" name="address" placeholder="Address here.." value="{{$start_destination->address}}"> <br/>
+                        <input class="form-control form-control-lg" type="text" name="address" placeholder="Edit Address here.." value="{{$destination->address}}"> <br/>
                         
                         <label>Latitude</label>
-                        <input class="form-control form-control-lg" id="latitude" type="text" name="latitude" placeholder="Lat" readonly value="{{$start_destination->latitude}}"> <br/>
+                        <input class="form-control form-control-lg" id="latitude" type="text" name="latitude" placeholder="Lat" readonly value="{{$destination->latitude}}"> <br/>
 
                         <label>Longitude</label>
-                        <input class="form-control form-control-lg" id="longitude" type="text" name="longitude" placeholder="Long" readonly value="{{$start_destination->longitude}}"> <br/>
+                        <input class="form-control form-control-lg" id="longitude" type="text" name="longitude" placeholder="Long" readonly value="{{$destination->longitude}}"> <br/>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-success">Update</button>
@@ -38,8 +38,8 @@
     <script>
         // Get lat long cureent
         var mapCenter = [
-            {{ $start_destination->latitude }},
-            {{ $start_destination->longitude }},
+            {{ $destination->latitude }},
+            {{ $destination->longitude }},
         ];
         var map = L.map('map').setView(mapCenter,{{ config('leaflet.zoom_level') }});
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

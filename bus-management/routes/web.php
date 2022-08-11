@@ -118,6 +118,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/get-all-dest', [DestinationController::class, 'getAllRowData']);
         // show detail
         Route::get('/destination/show-detail/{id}', [DestinationController::class, 'detail'])->name('admin.destination.detail');
+
+        // Edit destination
+        Route::get('/destination/edit/{id}', [DestinationController::class, 'edit'])->name('admin.destination.edit');
+        Route::post('/destination/update/{id}', [DestinationController::class, 'update'])->name('admin.destination.update');
+        
     }); 
 
 });

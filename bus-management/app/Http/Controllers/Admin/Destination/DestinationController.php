@@ -46,7 +46,7 @@ class DestinationController extends Controller
             })
             ->editColumn('action', function($data) {
                 return '
-                
+                    <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.destination.edit', $data->id).'"><i class="fas fa-edit" title="Edit Destination"></i></a>
                 ';
             })
             ->rawColumns(['action', 'name'])
@@ -58,6 +58,7 @@ class DestinationController extends Controller
             ->make(true);
     }
 
+    // Show detail with map
     public function detail($id)
     {   
         $destination = Destination::findOrFail($id);
@@ -65,5 +66,24 @@ class DestinationController extends Controller
         return view('admin.map.destination.detail', [
             'destination' => $destination
         ]);
+    }
+
+    public function edit($id)
+    {
+        $destination = Destination::findOrFail($id);
+        return view('admin.map.destination.edit', compact('destination'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $destination = Destination::findOrFail($id);
+        $destination->update([
+            'name' => $request->name,
+            'address'=> $request->address,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return redirect('/admin/destination')->with('status', 'Updated Location Successfully');
     }
 }

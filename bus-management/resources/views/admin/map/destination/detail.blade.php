@@ -38,6 +38,8 @@
                 attribution: '© OpenStreetMap'
             }).addTo(map);
             L.marker([{{ $destination->latitude }},{{ $destination->longitude }}]).addTo(map)
+            
+            // Using Api to display name and address of location
             axios.get('{{ route('api.destination.index') }}')
             .then(function (response) {
                 //console.log(response.data);
