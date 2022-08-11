@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\StartDestinationController;
+use App\Http\Controllers\API\StartController;
+use App\Http\Controllers\API\DestinationController;
+
 
 
 /*
@@ -21,5 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['as' => 'api.'], function () {
-    Route::get('/start-dest', [StartDestinationController::class, 'index'])->name('places.index');
+    Route::get('/start-dest', [StartController::class, 'index'])->name('places.index');
+    Route::get('/destination', [DestinationController::class, 'index'])->name('destination.index');
 });

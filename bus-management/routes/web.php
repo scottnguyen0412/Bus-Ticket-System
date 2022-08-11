@@ -114,8 +114,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/destination/create', [DestinationController::class, 'create'])->name('admin.destination.create');
         Route::post('/destination/store', [DestinationController::class, 'store'])->name('admin.destination.store');
 
-        // Displat all data destination
+        // Display all data destination
         Route::get('/get-all-dest', [DestinationController::class, 'getAllRowData']);
+        // show detail
+        Route::get('/destination/show-detail/{id}', [DestinationController::class, 'detail'])->name('admin.destination.detail');
     }); 
 
 });

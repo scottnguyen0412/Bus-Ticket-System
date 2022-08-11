@@ -5,20 +5,20 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header text-white bg-primary font-weight-bold">Detail Place: {{$start_destination->name}}</div>
+                <div class="card-header text-white bg-primary font-weight-bold">Detail Place: {{$destination->name}}</div>
                 <div class="card-body">
                     <table class="table">
                         <tbody>
                             <tr>
                                 <td>Name </td>
-                                <td>{{ $start_destination->name }}</td>
+                                <td>{{ $destination->name }}</td>
                             </tr>
                             <tr>
                                 <td>Address</td>
-                                <td>{{ $start_destination->address }}</td>
+                                <td>{{ $destination->address }}</td>
                             </tr>
                         </tbody>
-                        <td><a href="{{ url('/admin/start-dest')}}" class="btn btn-secondary">Go Back</a></td>
+                        <td><a href="{{ url('/admin/destination')}}" class="btn btn-secondary">Go Back</a></td>
                     </table>
                 </div>
             </div>
@@ -33,12 +33,12 @@
 
 @section('scripts')
     <script>
-        var map = L.map('map').setView([{{ $start_destination->latitude }},{{ $start_destination->longitude }}],{{ config('leaflet.detail_zoom_level') }});
+        var map = L.map('map').setView([{{ $destination->latitude }},{{ $destination->longitude }}],{{ config('leaflet.detail_zoom_level') }});
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap'
             }).addTo(map);
-            L.marker([{{ $start_destination->latitude }},{{ $start_destination->longitude }}]).addTo(map)
-            axios.get('{{ route('api.places.index') }}')
+            L.marker([{{ $destination->latitude }},{{ $destination->longitude }}]).addTo(map)
+            axios.get('{{ route('api.destination.index') }}')
             .then(function (response) {
                 //console.log(response.data);
                 L.geoJSON(response.data,{
@@ -48,7 +48,7 @@
                 })
                 .bindPopup(function(layer) {
                     //return layer.feature.properties.map_popup_content;
-                    return ('<div class="my-2"><strong>Place Name</strong>: '+layer.feature.properties.name+'<div class="my-2"><strong>Address</strong>: '+layer.feature.properties.address+'</div>');
+                    return ('<div class="my-2"><strong>Destination Name</strong>: '+layer.feature.properties.name+'<div class="my-2"><strong>Address</strong>: '+layer.feature.properties.address+'</div>');
                 }).addTo(map);
                 console.log(response.data);
             })

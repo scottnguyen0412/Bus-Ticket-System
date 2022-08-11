@@ -66,6 +66,17 @@
                             </span>
                         @enderror
                         </div>
+                        <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            <label class="form-label" for="address">Speed</label>
+                            <input type="number" id="speed" name="speed" class="form-control" value="{{$bus->speed}}" placeholder="Edit Amount of Seats*"/>
+                        </div>
+                        @error('speed')
+                            <span>
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
+                        </div>
                         </div>
                         <div class="mb-4 pb-2 mr-2">
                             <div class="form-outline">

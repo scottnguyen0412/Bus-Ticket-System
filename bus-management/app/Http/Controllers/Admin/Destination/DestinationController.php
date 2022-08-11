@@ -40,9 +40,9 @@ class DestinationController extends Controller
         $destination = Destination::all();
         return Datatables::of($destination)
             ->editColumn('name' , function($data) {
-                // return ' 
-                //     <a href="' . route('admin.startdestination.detail', $data->id) . '">' . $data->name . '</a>
-                // ';
+                return ' 
+                    <a href="' . route('admin.destination.detail', $data->id) . '">' . $data->name . '</a>
+                ';
             })
             ->editColumn('action', function($data) {
                 return '
@@ -58,4 +58,12 @@ class DestinationController extends Controller
             ->make(true);
     }
 
+    public function detail($id)
+    {   
+        $destination = Destination::findOrFail($id);
+
+        return view('admin.map.destination.detail', [
+            'destination' => $destination
+        ]);
+    }
 }

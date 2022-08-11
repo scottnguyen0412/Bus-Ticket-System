@@ -97,6 +97,7 @@
                                             <th>Bus Number(license plates)</th>
                                             <th>Bus Status</th>
                                             <th>Amount of Seats</th>
+                                            <th>Speed</th>
                                             <th>Image of Bus</th>
                                             <th>Driver</th>
                                             <th>Action</th>
@@ -110,6 +111,7 @@
                                             <th>Bus Number(license plates)</th>
                                             <th>Bus Status</th>
                                             <th>Amount of Seats</th>
+                                            <th>Speed</th>
                                             <th>Image of Bus</th>
                                             <th>Driver</th>
                                             <th>Action</th>
@@ -148,6 +150,10 @@
                     {
                         data: 'number_of_seats',
                         name: 'number_of_seats',
+                    },
+                    {
+                        data: 'speed',
+                        name: 'speed',
                     },
                     {
                         data: 'images',
