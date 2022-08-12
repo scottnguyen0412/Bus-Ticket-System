@@ -91,7 +91,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/get-all-schedule', [ScheduleController::class, 'getAllRowData']);
 
 
-
         // Index page of start Destination
         Route::get('/start-dest', [StartController::class, 'index'])->name('admin.startdestination.index');
         // Create Start Destination
@@ -124,6 +123,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/destination/update/{id}', [DestinationController::class, 'update'])->name('admin.destination.update');
 
         Route::delete('/destination/delete/{id}', [DestinationController::class, 'delete'])->name('admin.destination.delete');
+
+
+        Route::get('/schedule', [ScheduleController::class, 'index'])->name('admin.schedule.index');
+        // Get form create
+        Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('admin.schedule.create');
+        Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('admin.schedule.store');
+        // Search with autocomplete start destination
+        Route::get('/schedule/start-destination', [ScheduleController::class, 'searchStartDestinationByAjax'])->name('admin.startdestination.search');
+        // Search with autocomplete destination
+        Route::get('/schedule/destination', [ScheduleController::class, 'searchDestinationByAjax'])->name('admin.destination.search');
     }); 
 
 });

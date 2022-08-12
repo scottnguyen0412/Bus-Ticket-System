@@ -20,10 +20,16 @@
     <link type="text/css" href="{{asset("admin/css/sb-admin-2.min.css")}}" rel="stylesheet">
     <link type="text/css" href="{{asset("admin/vendor/fontawesome-free/css/all.min.css")}}" rel="stylesheet">
     <link type="text/css" href="{{asset("admin/vendor/datatables/dataTables.bootstrap4.min.css")}}" rel="stylesheet">
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-   crossorigin=""/>
-   
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin=""/>
+    
+    {{-- Css Get current location --}}
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.css" /> --}}
+
+    {{-- Routing machine css --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
     <!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- CSS only -->
@@ -59,9 +65,16 @@
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin=""></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
-     <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+    <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
     integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA=="
     crossorigin=""></script>
+    
+
+    {{-- Allow get current gps --}}
+    {{-- <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.js" charset="utf-8"></script> --}}
+
+    {{-- Routing machine leaflet --}}
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{asset("admin/vendor/jquery/jquery.min.js")}}"></script>

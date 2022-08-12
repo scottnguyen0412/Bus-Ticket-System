@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('schdules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('bus_id');
             $table->foreign('bus_id')->references('id')->on('buses')->onDelete('cascade');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('destination_id');
             $table->foreign('destination_id')->references('id')->on('destination')->onDelete('cascade');
             $table->dateTime('estimated_arrival_time');
-            $table->longText('notes')->nullable();
+            $table->float('distance');
             $table->timestamps();
         });
     }
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('schdules');
     }
 };
