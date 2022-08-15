@@ -58,11 +58,11 @@
                             <span>Route</span>
                         </a>
                         <a class="collapse-item text-primary {{Request::routeIs('admin.startdestination.index') ? 'active':'';}}" href="{{route('admin.startdestination.index')}}" href="{{route('admin.startdestination.index')}}">
-                            <i class="fas fa-location-arrow"></i>
+                            <i class="fas fa-chevron-circle-right"></i>                   
                             <span>Start Destination</span>
                         </a>
                         <a class="collapse-item text-primary {{Request::routeIs('admin.destination.index') ? 'active':'';}}" href="{{route('admin.destination.index')}}">
-                            <i class="fas fa-map-marked"></i>
+                            <i class="fas fa-chevron-circle-right"></i>
                             <span>Destination</span>
                         </a>
                     </div>

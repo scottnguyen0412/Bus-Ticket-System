@@ -35,8 +35,15 @@ class ScheduleController extends Controller
             ->editColumn('destination_id', function($data) {
                 return $data->destination->name;
             })
+            ->editColumn('distance', function($data) {
+                return '
+                    '.$data->distance.' km
+                ';
+            })
             ->editColumn('action', function ($data) {
                 return '
+                    <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.shedule.detail",['id'=>$data->id]).'"><i class="fas fa-eye" title="See Schedule Detail"></i></a>
+                    <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.schedule.edit', $data->id).'"><i class="fas fa-edit" title="Edit Schedule"></i></a>
 
                 ';
             })
@@ -78,6 +85,37 @@ class ScheduleController extends Controller
         return redirect('/admin/schedule')->with('status', 'Created Schdule Successfully');
     }
 
+    public function edit($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $bus = Bus::all();
+        return view('admin.schedule.edit', [
+            'schedule' => $schedule,
+            'bus' => $bus
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        // get request input
+        $search_start_destination = $request['start_destination_id'];
+        // search start destination
+        $start_destination = DB::table('start_destination')->where("name", "LIKE", "%$search_start_destination%")->first();
+
+        $search_destination = $request['destination_id'];
+        $destination = DB::table('destination')->where("name", "LIKE", "%$search_destination%")->first();
+        $schedule->update([
+            "bus_id" => $request['bus_id'],
+            'start_at' => $request['start_at'],
+            'start_destination_id' => $start_destination->id,
+            'destination_id' => $destination->id,
+            'distance' => $request['distance'],
+            'estimated_arrival_time' => $request['estimated_arrival_time'],
+            'notes' => $request['notes'],
+        ]);
+        return redirect('/admin/schedule')->with('status', 'Updated Schdule Successfully');
+    }
+
     // Search start destination
      public function searchStartDestinationByAjax()
     {
@@ -101,4 +139,13 @@ class ScheduleController extends Controller
         }
         return $data;
     }
+
+    public function details($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        return view('admin.schedule.detail', [
+            'schedule' => $schedule
+        ]);
+    }
+
 }

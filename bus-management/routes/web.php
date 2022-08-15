@@ -133,6 +133,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/schedule/start-destination', [ScheduleController::class, 'searchStartDestinationByAjax'])->name('admin.startdestination.search');
         // Search with autocomplete destination
         Route::get('/schedule/destination', [ScheduleController::class, 'searchDestinationByAjax'])->name('admin.destination.search');
+        // Show detail schedule
+        Route::get('/schedule/detail/{id}', [ScheduleController::class, 'details'])->name('admin.shedule.detail');
+
+        // Edit schedule
+        Route::get('/schedule/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit');
+        Route::post('/schedule/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
     }); 
 
 });
