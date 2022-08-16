@@ -41,13 +41,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror <br/>
-                    <label>Distance*</label>
-                    <input type="text" class="form-control" name="distance" id="distance" placeholder="Distance : 50km...">
-                                            @error('distance')
-                                                <span class="invalid-feedback ">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror <br/>
                     <label>Estimated Arrival Time*</label>
                     <input type="datetime-local" class="form-control" name="estimated_arrival_time" id="estimated_arrival_time"> <br/>
                     <label>Notes</label>

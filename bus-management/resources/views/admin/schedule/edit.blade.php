@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header text-white bg-primary font-weight-bold">Create New Schedule</div>
+            <div class="card-header text-white bg-primary font-weight-bold">Edit The Schedule</div>
             <form method="POST" action="{{ url('admin/schedule/update/'.$schedule->id) }}" accept-charset="UTF-8">
                 @csrf
                 <div class="card-body">
@@ -43,7 +43,7 @@
                                                 </span>
                                             @enderror <br/>
                     <label>Distance*</label>
-                    <input type="text" class="form-control" name="distance" value="{{$schedule->distance}}" id="distance" placeholder="Distance : 50km...">
+                    <input type="text" class="form-control" name="distance" value="{{$schedule->distance}}" id="distance" placeholder="Distance : 50km..." readonly> 
                                             @error('distance')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
@@ -67,6 +67,11 @@
                 </div>
             </form>
         </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card-header text-white bg-primary font-weight-bold">Detail Place</div>
+        <div class="card-body" id="map"></div>
+    </div>
     </div>
 @endsection
 
@@ -111,5 +116,26 @@
                 source: availableTags_destination
             });
         }
+        var mapCenter = [{{ config('leaflet.map_center_latitude') }},
+                    {{ config('leaflet.map_center_longitude') }},
+                ];
+        var map = L.map('map').setView(mapCenter,{{ config('leaflet.detail_zoom_level') }});
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+        var routing = L.Routing.control({
+            waypoints: [
+                L.latLng({{$schedule->start_dest->latitude}}, {{$schedule->start_dest->longitude}}),
+                L.latLng({{$schedule->destination->latitude}}, {{$schedule->destination->longitude}})
+            ]
+        }).addTo(map);
+
+        routing.on('routesfound', function(e) {
+            var routes = e.routes;
+            var summary = routes[0].summary;
+            // tính số km và tự động thêm vào input
+            $('#distance').val(summary.totalDistance / 1000 );
+        });
+
     </script>
 @endsection

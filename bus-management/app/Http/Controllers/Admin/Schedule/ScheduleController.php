@@ -72,12 +72,13 @@ class ScheduleController extends Controller
 
         $search_destination = $request->destination_id;
         $destination = DB::table('destination')->where("name", "LIKE", "%$search_destination%")->first();
+        $distance = '0';
         Schedule::create([
             'bus_id' => $request->bus_id,
             'start_at' => $request->start_at,
             'start_destination_id' => $start_destination->id,
             'destination_id' => $destination->id,
-            'distance' => $request->distance,
+            'distance' => $distance,
             'estimated_arrival_time' => $request->estimated_arrival_time,
             'notes' => $request->notes,
         ]);
@@ -88,6 +89,8 @@ class ScheduleController extends Controller
     public function edit($id)
     {
         $schedule = Schedule::findOrFail($id);
+        // $start_destination = StartDestination::findOrFail($id);
+        // $destination = Destination::findOrFail($id);
         $bus = Bus::all();
         return view('admin.schedule.edit', [
             'schedule' => $schedule,
@@ -113,7 +116,7 @@ class ScheduleController extends Controller
             'estimated_arrival_time' => $request['estimated_arrival_time'],
             'notes' => $request['notes'],
         ]);
-        return redirect('/admin/schedule')->with('status', 'Updated Schdule Successfully');
+        return redirect('/admin/schedule')->with('status', 'Updated Schedule Successfully');
     }
 
     // Search start destination

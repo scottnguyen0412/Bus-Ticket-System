@@ -62,6 +62,7 @@
             $('#longitude').val(longitude);
             updateMarker(latitude,longitude);
         });
+        // Get input 
         var updateMarkerByInputs = function () {
             return updateMarker( $('#latitude').val(), $('#longitude').val());
         }
