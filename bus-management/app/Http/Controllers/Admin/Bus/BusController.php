@@ -57,11 +57,6 @@ class BusController extends Controller
                     return 'Shown';
                 }
             })
-            ->editColumn('speed', function($data) {
-                return '
-                    '.$data->speed.' km/h
-                ';
-            })
             ->editColumn('action', function ($data) {
                 return '
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.bus.edit',$data->id).'"><i class="fas fa-edit" title="Edit Bus"></i></a>
@@ -141,7 +136,6 @@ class BusController extends Controller
             "bus_number" => $request['bus_number'],
             "bus_status" => $request['bus_status'] == TRUE?'1':'0',
             "number_of_seats" => $request['number_of_seats'],
-            "speed" => $request['speed'],
             "driver_id"=> $request['driver_id'],
         ]);
 

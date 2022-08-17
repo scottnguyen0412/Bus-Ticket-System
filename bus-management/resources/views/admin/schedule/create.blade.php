@@ -41,8 +41,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror <br/>
-                    <label>Estimated Arrival Time*</label>
-                    <input type="datetime-local" class="form-control" name="estimated_arrival_time" id="estimated_arrival_time"> <br/>
                     <label>Notes</label>
                     <textarea type="text" multiple name="notes" class=" form-control @error('notes') is-invalid @enderror" role="alert"></textarea>
                                             @error('notes')

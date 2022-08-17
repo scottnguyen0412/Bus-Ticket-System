@@ -50,7 +50,7 @@
                                                 </span>
                                             @enderror <br/>
                     <label>Estimated Arrival Time*</label>
-                    <input type="datetime-local" class="form-control" value="{{$schedule->estimated_arrival_time}}" name="estimated_arrival_time" id="estimated_arrival_time"> <br/>
+                    <input type="text" class="form-control" value="{{$schedule->estimated_arrival_time}}" name="estimated_arrival_time" id="estimated_arrival_time" readonly> <br/>
                     
                     <label>Notes</label>
                     <textarea type="text" multiple name="notes" class=" form-control @error('notes') is-invalid @enderror" role="alert">{{$schedule->notes}}</textarea>
@@ -128,13 +128,20 @@
                 L.latLng({{$schedule->start_dest->latitude}}, {{$schedule->start_dest->longitude}}),
                 L.latLng({{$schedule->destination->latitude}}, {{$schedule->destination->longitude}})
             ]
-        }).addTo(map);
+            }).addTo(map);
 
         routing.on('routesfound', function(e) {
             var routes = e.routes;
+            // Tính tổng số km của cả quãng đường
             var summary = routes[0].summary;
+            // Tính tổng số giờ của cả quãng đường
+            var time = routes[0].summary;
+
             // tính số km và tự động thêm vào input
-            $('#distance').val(summary.totalDistance / 1000 );
+            // $('#distance').val(Math.round(summary.totalDistance / 1000)); Làm tròn số thập phân với Math.round
+            $('#distance').val(summary.totalDistance / 1000);
+            // Tính giờ và phút trên cả quãng đường
+            $('#estimated_arrival_time').val(Math.floor(time.totalTime / 3600 )+ "h"+ Math.floor(summary.totalTime % 3600 / 60 )+ "m");
         });
 
     </script>

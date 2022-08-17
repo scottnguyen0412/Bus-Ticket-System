@@ -36,9 +36,30 @@ class ScheduleController extends Controller
                 return $data->destination->name;
             })
             ->editColumn('distance', function($data) {
-                return '
-                    '.$data->distance.' km
-                ';
+                if($data->distance == '0')
+                    return '
+                        Being calculated
+                    ';
+                else
+                {
+                    return '
+                        '.$data->distance.' km
+                    ';
+                }
+            })
+            ->editColumn('estimated_arrival_time', function($data) {
+                if($data->estimated_arrival_time == '0')
+                {
+                    return '
+                        Being calculated
+                    ';
+                }
+                else
+                {
+                    return '
+                        '.$data->estimated_arrival_time.'
+                    ';
+                }
             })
             ->editColumn('action', function ($data) {
                 return '
@@ -73,13 +94,14 @@ class ScheduleController extends Controller
         $search_destination = $request->destination_id;
         $destination = DB::table('destination')->where("name", "LIKE", "%$search_destination%")->first();
         $distance = '0';
+        $estimate_time = '0';
         Schedule::create([
             'bus_id' => $request->bus_id,
             'start_at' => $request->start_at,
             'start_destination_id' => $start_destination->id,
             'destination_id' => $destination->id,
             'distance' => $distance,
-            'estimated_arrival_time' => $request->estimated_arrival_time,
+            'estimated_arrival_time' => $estimate_time,
             'notes' => $request->notes,
         ]);
 
@@ -91,7 +113,7 @@ class ScheduleController extends Controller
         $schedule = Schedule::findOrFail($id);
         // $start_destination = StartDestination::findOrFail($id);
         // $destination = Destination::findOrFail($id);
-        $bus = Bus::all();
+        $bus = Bus::where('bus_status', '1')->get();
         return view('admin.schedule.edit', [
             'schedule' => $schedule,
             'bus' => $bus

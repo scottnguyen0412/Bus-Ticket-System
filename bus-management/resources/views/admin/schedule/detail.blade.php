@@ -27,11 +27,19 @@
                             </tr>
                             <tr>
                                 <td>Distance</td>
+                                @if($schedule->distance == '0')
+                                <td>Being calculated</td>
+                                @else
                                 <td>{{$schedule->distance}} km</td>
+                                @endif
                             </tr>
                             <tr>
                                 <td>Estimated Arrival Time</td>
+                                @if($schedule->estimated_arrival_time == '0')
+                                <td>Being calculated</td>
+                                @else
                                 <td>{{$schedule->estimated_arrival_time}}</td>
+                                @endif
                             </tr>
                             <tr>
                                 <td>Notes</td>
@@ -71,8 +79,9 @@
         routing.on('routesfound', function(e) {
             var routes = e.routes;
             var summary = routes[0].summary;
+            var time = routes[0].summary;
             // alert time and distance in km and minutes
-            console.log('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+            console.log('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.floor(time.totalTime / 3600) +"h"+ Math.floor(time.totalTime % 3600 / 60) + ' minutes');
             });
         // Show name and address of start destination 
         axios.get('{{ route('api.places.index') }}')

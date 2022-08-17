@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('buses', function (Blueprint $table) {
-            $table->float('speed')->default(50)->after('number_of_seats');
+        Schema::table('schdules', function (Blueprint $table) {
+            $table->bigInteger('estimated_arrival_time')->unsigned()->nullable()->change();
         });
     }
 
@@ -25,8 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('buses', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };
