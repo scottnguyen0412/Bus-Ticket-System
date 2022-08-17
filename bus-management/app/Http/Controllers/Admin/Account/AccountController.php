@@ -160,12 +160,12 @@ class AccountController extends Controller
             'is_banned' => $status_code
         ]);
         if($ban_account == 1 ){
-            return redirect()->route('admin.account.index')->with('success', 'Account is banned successfully');
+            return redirect('/admin/account')->with('success', 'Account is banned successfully');
         }
-        // else
-        // {
-        //     return redirect()->route('admin.account.index')->with('success', 'Account is Unlock successfully');
-        // }
+        else
+        {
+            return redirect('/admin/account')->with('message', 'Account is Unlock successfully');
+        }
         return redirect()->route('admin.account.index')->with('error','Fail to ban account');
     }
 

@@ -24,7 +24,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{Request::routeIs('admin.account.index') ? 'active':'';}}">
-                <a class="nav-link collapsed" href="{{route('admin.account.index')}}"
+                <a class="nav-link" href="{{route('admin.account.index')}}"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-user"></i>
                     <span>Account</span>
@@ -36,24 +36,48 @@
                     <span>Bus</span>
                 </a>
             </li>
-			<li class="nav-item">
-                <a class="nav-link" href="">
+			{{-- <li class="nav-item {{Request::routeIs('admin.schedule.index') ? 'active':'';}}">
+                <a class="nav-link" href="{{route('admin.schedule.index')}}">
                     <i class="fas fa-route"></i>
                     <span>Route</span>
                 </a>
-            </li>
+            </li> --}}
 
             <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"
+                    aria-expanded="true" aria-controls="collapseUtilities1">
+                    <i class="fas fa-calendar"></i>
+                    <span>Manage Schedule</span>
+                </a>
+                <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item text-primary {{Request::routeIs('admin.schedule.index') ? 'active':'';}}" href="{{route('admin.schedule.index')}}">
+                            <i class="fas fa-route text-primary"></i>
+                            <span>Route</span>
+                        </a>
+                        <a class="collapse-item text-primary {{Request::routeIs('admin.startdestination.index') ? 'active':'';}}" href="{{route('admin.startdestination.index')}}" href="{{route('admin.startdestination.index')}}">
+                            <i class="fas fa-chevron-circle-right"></i>                   
+                            <span>Start Destination</span>
+                        </a>
+                        <a class="collapse-item text-primary {{Request::routeIs('admin.destination.index') ? 'active':'';}}" href="{{route('admin.destination.index')}}">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            <span>Destination</span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>Manage</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="utilities-color.html">Colors</a>
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>

@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\StartController;
+use App\Http\Controllers\API\DestinationController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['as' => 'api.'], function () {
+    Route::get('/start-dest', [StartController::class, 'index'])->name('places.index');
+    Route::get('/destination', [DestinationController::class, 'index'])->name('destination.index');
 });

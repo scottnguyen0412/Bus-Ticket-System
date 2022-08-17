@@ -97,8 +97,8 @@
                                             <th>Bus Number(license plates)</th>
                                             <th>Bus Status</th>
                                             <th>Amount of Seats</th>
-                                            <th>Image of Bus</th>
                                             <th>Driver</th>
+                                            <th>Image of Bus</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -110,8 +110,8 @@
                                             <th>Bus Number(license plates)</th>
                                             <th>Bus Status</th>
                                             <th>Amount of Seats</th>
-                                            <th>Image of Bus</th>
                                             <th>Driver</th>
+                                            <th>Image of Bus</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -150,12 +150,12 @@
                         name: 'number_of_seats',
                     },
                     {
-                        data: 'images',
-                        name: 'images',
-                    },
-                    {
                         data: 'driver_id',
                         name: 'driver_id',
+                    },
+                    {
+                        data: 'images',
+                        name: 'images',
                     },
                     {
                         data: 'action',

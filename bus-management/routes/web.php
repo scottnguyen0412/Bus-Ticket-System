@@ -6,6 +6,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Admin\Bus\BusController;
+use App\Http\Controllers\Admin\Schedule\ScheduleController;
+use App\Http\Controllers\Admin\StartDestination\StartController;
+use App\Http\Controllers\Admin\Destination\DestinationController;
+
+
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -52,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Note: 'role:admin,driver' not have any space between
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,driver'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        // Index for account
         Route::get('/account',[AccountController::class,'index'])->name('admin.account.index');
         Route::post('/account/create',[AccountController::class, 'create'])->name('admin.account.create');
         // Display all account
@@ -78,6 +84,61 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/bus/delete/{id}', [BusController::class, 'delete'])->name('admin.bus.delete');
         // Delete từng ảnh của bus
         Route::get('/bus/delete-image-bus/{bus_image_id}', [BusController::class,'deleteImage'])->name('admin.bus.deleteImage');
+
+        // Index Schedule
+        Route::get('/schedule',[ScheduleController::class, 'index'])->name('admin.schedule.index');
+        // Display all schedule
+        Route::get('/get-all-schedule', [ScheduleController::class, 'getAllRowData']);
+
+
+        // Index page of start Destination
+        Route::get('/start-dest', [StartController::class, 'index'])->name('admin.startdestination.index');
+        // Create Start Destination
+        Route::get('/start-dest/create', [StartController::class, 'create'])->name('admin.startdestination.create');
+        Route::post('/start-dest/store', [StartController::class, 'store'])->name('admin.startdestination.store');
+        // Display all start destination
+        Route::get('/get-all-start-dest', [StartController::class, 'getAllRowData']);
+        Route::get('/start-dest/show-detail/{id}', [StartController::class, 'detail'])->name('admin.startdestination.detail');
+        
+        // Edit start destination
+        Route::get('/start-des/edit/{id}', [StartController::class, 'edit'])->name('admin.startdestination.edit');
+        Route::post('/start-des/update/{id}', [StartController::class, 'update'])->name('admin.startdestination.update');
+
+        // Delete start destination
+        Route::delete('/start-des/delete/{id}', [StartController::class, 'delete'])->name('admin.startdestination.delete');
+
+        // Index page of destination
+        Route::get('/destination', [DestinationController::class, 'index'])->name('admin.destination.index');
+        // Create destination get form
+        Route::get('/destination/create', [DestinationController::class, 'create'])->name('admin.destination.create');
+        Route::post('/destination/store', [DestinationController::class, 'store'])->name('admin.destination.store');
+
+        // Display all data destination
+        Route::get('/get-all-dest', [DestinationController::class, 'getAllRowData']);
+        // show detail
+        Route::get('/destination/show-detail/{id}', [DestinationController::class, 'detail'])->name('admin.destination.detail');
+
+        // Edit destination
+        Route::get('/destination/edit/{id}', [DestinationController::class, 'edit'])->name('admin.destination.edit');
+        Route::post('/destination/update/{id}', [DestinationController::class, 'update'])->name('admin.destination.update');
+
+        Route::delete('/destination/delete/{id}', [DestinationController::class, 'delete'])->name('admin.destination.delete');
+
+
+        Route::get('/schedule', [ScheduleController::class, 'index'])->name('admin.schedule.index');
+        // Get form create
+        Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('admin.schedule.create');
+        Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('admin.schedule.store');
+        // Search with autocomplete start destination
+        Route::get('/schedule/start-destination', [ScheduleController::class, 'searchStartDestinationByAjax'])->name('admin.startdestination.search');
+        // Search with autocomplete destination
+        Route::get('/schedule/destination', [ScheduleController::class, 'searchDestinationByAjax'])->name('admin.destination.search');
+        // Show detail schedule
+        Route::get('/schedule/detail/{id}', [ScheduleController::class, 'details'])->name('admin.shedule.detail');
+
+        // Edit schedule
+        Route::get('/schedule/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit');
+        Route::post('/schedule/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
     }); 
 
 });

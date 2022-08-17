@@ -6,7 +6,12 @@
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
-                        {{ session('success') }}
+                        <strong>{{ session()->get('success') }}</strong>
+                    </div>
+                @endif
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        <strong>{{session()->get('message')}}</strong>
                     </div>
                 @endif
                 <div class="">
