@@ -36,13 +36,6 @@
                     <span>Bus</span>
                 </a>
             </li>
-			{{-- <li class="nav-item {{Request::routeIs('admin.schedule.index') ? 'active':'';}}">
-                <a class="nav-link" href="{{route('admin.schedule.index')}}">
-                    <i class="fas fa-route"></i>
-                    <span>Route</span>
-                </a>
-            </li> --}}
-
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"
@@ -69,21 +62,11 @@
                 </div>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Manage</span>
+            <li class="nav-item {{Request::routeIs('admin.coupon.index') ? 'active':'';}}">
+                <a class="nav-link d-flex align-items-end" href="{{route('admin.coupon.index')}}">
+                    <i class='bx bxs-coupon bx-tada text-center' style="font-size: 17px"></i>
+                    <span>Coupons</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Divider -->

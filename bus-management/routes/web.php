@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\Bus\BusController;
 use App\Http\Controllers\Admin\Schedule\ScheduleController;
 use App\Http\Controllers\Admin\StartDestination\StartController;
 use App\Http\Controllers\Admin\Destination\DestinationController;
+use App\Http\Controllers\Admin\Coupon\CouponController;
+
 
 
 use App\Http\Controllers\Frontend\FrontendController;
@@ -139,6 +141,10 @@ Route::group(['middleware' => 'auth'], function () {
         // Edit schedule
         Route::get('/schedule/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit');
         Route::post('/schedule/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
+
+        // Index page of coupon
+        Route::get('/coupon', [CouponController::class , 'index'])->name('admin.coupon.index');
+        Route::get('/get-all-coupon', [CouponController::class, 'getAllRowData']);
     }); 
 
 });
