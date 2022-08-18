@@ -145,6 +145,8 @@ Route::group(['middleware' => 'auth'], function () {
         // Index page of coupon
         Route::get('/coupon', [CouponController::class , 'index'])->name('admin.coupon.index');
         Route::get('/get-all-coupon', [CouponController::class, 'getAllRowData']);
+        Route::post('/coupon/create', [CouponController::class, 'create'])->name('admin.coupon.create');
+        
     }); 
 
 });

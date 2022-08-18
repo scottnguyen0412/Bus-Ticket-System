@@ -159,13 +159,14 @@ class AccountController extends Controller
         $ban_account = User::whereId($id)->update([
             'is_banned' => $status_code
         ]);
-        if($ban_account == 1 ){
-            return redirect('/admin/account')->with('success', 'Account is banned successfully');
-        }
-        else
+        if($status_code == 0 )
         {
             return redirect('/admin/account')->with('message', 'Account is Unlock successfully');
         }
+        elseif($status_code == 1 ){
+            return redirect('/admin/account')->with('success', 'Account is banned successfully');
+        }
+        
         return redirect()->route('admin.account.index')->with('error','Fail to ban account');
     }
 

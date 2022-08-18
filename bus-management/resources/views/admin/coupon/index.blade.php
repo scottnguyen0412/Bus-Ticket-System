@@ -10,9 +10,79 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="mt-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Coupon</i>
-                                {{-- <a class=" btn btn-primary btn-sm float-right" href="{{url('admin/schedule/create')}}"><i class="fa fa-plus"> Add New Schedule</i></a> --}}
+                                <button class=" btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"> Add New Coupon</i></button>
                             </h6>
                         </div>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add New Coupon</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('admin.coupon.create') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name_coupon" class="col-form-label @error('name_coupon') is-invalid @enderror" role="alert">Coupon Name</label>
+                                            <input type="text" class="form-control" name="name_coupon" id="name_coupon" placeholder="">
+                                            @error('name_coupon')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="coupon_limited_quantity" class="col-form-label @error('coupon_limited_quantity') is-invalid @enderror" role="alert">Coupon Limited Quantity</label>
+                                            <input type="coupon_limited_quantity" class="form-control" name="coupon_limited_quantity" id="coupon_limited_quantity" placeholder="">
+                                            @error('coupon_limited_quantity')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="price_coupon" class="col-form-label">Price Coupon</label>
+                                            <input type="number" class="form-control" name="price_coupon" id="price_coupon" placeholder="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valid_from" class="col-form-label">Start Day</label>
+                                            <input type="datetime-local" class="form-control @error('valid_from') is-invalid @enderror" role="alert" name="valid_from" id="valid_from" placeholder="0123456789...">
+                                            @error('valid_from')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valid_until" class="col-form-label">Expiration Date</label>
+                                            <input type="datetime-local" class="form-control @error('valid_until') is-invalid @enderror" role="alert" name="valid_until" id="valid_until">
+                                            @error('valid_until')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <legend for="status" class="col-form-label">Status</legend>
+                                            <input type="checkbox" name="status" class=" @error('status') is-invalid @enderror" role="alert" > Checked=Shown/Not Checked=Not Shown
+                                            @error('status')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                            </div>
                     <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -33,7 +103,7 @@
                                         <tr>
                                             <th>Coupon Name</th>
                                             <th>Coupon Code</th>
-                                            <th>Coupon Limited Quantity	</th>
+                                            <th>Coupon Limited Quantity</th>
                                             <th>Price Coupon</th>
                                             <th>Start Day</th>
                                             <th>Expiration Date</th>
@@ -52,10 +122,46 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable({
+            var table = $('#dataTable').DataTable({
                 processing: true,
                 serverSide: true,
+                select: true,
                 ajax: '{{url('/admin/get-all-coupon')}}',
+                // export csv, excel, pdf...
+                dom: 'lBfrtip',
+                    
+                    buttons: [
+                        {
+                            extend: 'copy', 
+                            text: '<i class="fas fa-copy"> Copy</i>',
+                            className: 'btn-default',
+                            titleAttr: 'Copy'
+                        },
+                        {
+                            extend: 'pdf',
+                            text: '<i class="fas fa-file-pdf"> Export PDF</i>',
+                            className: 'btn-danger',
+                            titleAttr: 'Pdf'
+                        },
+                        {
+                            extend: 'csv',
+                            text: '<i class="fas fa-file-csv"> Export CSV</i>',
+                            className: 'btn-info',
+                            titleAttr: 'Csv'
+                        },
+                        {
+                            extend: 'excel',
+                            text: '<i class="fas fa-file-excel"> Export Excel</i>',
+                            className: 'btn-success',
+                            titleAttr: 'Excel'
+                        },
+                        {
+                            extend: 'print',
+                            text: '<i class="fas fa-print"> Print</i>',
+                            className: 'btn-light',
+                            titleAttr: 'Print'
+                        },
+                    ],
                 columns: [
                     {
                         data: 'name_coupon',
@@ -89,7 +195,7 @@
                         data: 'action',
                         name: 'action',
                     }
-                ]
+                ],
             });
         });
     </script>
