@@ -144,8 +144,13 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Index page of coupon
         Route::get('/coupon', [CouponController::class , 'index'])->name('admin.coupon.index');
+        // Show all data coupon
         Route::get('/get-all-coupon', [CouponController::class, 'getAllRowData']);
+        // Create coupon
         Route::post('/coupon/create', [CouponController::class, 'create'])->name('admin.coupon.create');
+        // Edit coupon
+        Route::get('/coupon/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupon.edit');
+        Route::post('/coupon/update/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
         
     }); 
 

@@ -27,7 +27,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name_coupon" class="col-form-label @error('name_coupon') is-invalid @enderror" role="alert">Coupon Name</label>
-                                            <input type="text" class="form-control" name="name_coupon" id="name_coupon" placeholder="">
+                                            <input type="text" class="form-control" name="name_coupon" id="name_coupon" placeholder="Enter Coupon Name">
                                             @error('name_coupon')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
@@ -36,7 +36,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="coupon_limited_quantity" class="col-form-label @error('coupon_limited_quantity') is-invalid @enderror" role="alert">Coupon Limited Quantity</label>
-                                            <input type="coupon_limited_quantity" class="form-control" name="coupon_limited_quantity" id="coupon_limited_quantity" placeholder="">
+                                            <input type="number" class="form-control" name="coupon_limited_quantity" id="coupon_limited_quantity" placeholder="Enter Coupon Quantity">
                                             @error('coupon_limited_quantity')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
@@ -45,11 +45,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="price_coupon" class="col-form-label">Price Coupon</label>
-                                            <input type="number" class="form-control" name="price_coupon" id="price_coupon" placeholder="">
+                                            <input type="number" class="form-control" name="price_coupon" id="price_coupon" placeholder="Enter the price">
                                         </div>
                                         <div class="form-group">
                                             <label for="valid_from" class="col-form-label">Start Day</label>
-                                            <input type="datetime-local" class="form-control @error('valid_from') is-invalid @enderror" role="alert" name="valid_from" id="valid_from" placeholder="0123456789...">
+                                            <input type="datetime-local" class="form-control @error('valid_from') is-invalid @enderror" role="alert" name="valid_from" id="valid_from">
                                             @error('valid_from')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
@@ -67,7 +67,10 @@
                                         </div>
                                         <div class="form-group">
                                             <legend for="status" class="col-form-label">Status</legend>
-                                            <input type="checkbox" name="status" class=" @error('status') is-invalid @enderror" role="alert" > Checked=Shown/Not Checked=Not Shown
+                                            <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" name="status" id="customSwitches">
+                                                    <label class="custom-control-label" for="customSwitches">Switch on=Shown/ Switch Off=Not Shown</label>
+                                            </div>
                                             @error('status')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
