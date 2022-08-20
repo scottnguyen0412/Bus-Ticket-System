@@ -34,6 +34,11 @@ class CouponController extends Controller
             ->editColumn('action', function ($data) {
                 return '
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.coupon.edit",['id'=>$data->id]).'"><i class="fas fa-edit" title="Edit Coupon"></i></a>
+                     <form method="POST" action="' . route('admin.coupon.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                    ' . method_field('DELETE') .
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->name_coupon.' ?\')"><i class="fa fa-trash" title="Delete the Coupon"></i></button>
+                    </form>    
                 ';
             })
             ->rawColumns(['status','action'])
@@ -79,6 +84,13 @@ class CouponController extends Controller
             'status' => $request['status'] == TRUE?'1':'0',
         ]);
         return redirect('/admin/coupon')->with('status', 'Coupon Updated Successfully');
+    }
+
+    public function delete($id)
+    {
+        $coupon = Coupon::findOrFail($id);
+        $coupon->delete();
+        return redirect()->back()->with('status', 'Deleted Successfully');
     }
 
     // Random string

@@ -151,6 +151,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Edit coupon
         Route::get('/coupon/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupon.edit');
         Route::post('/coupon/update/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
+        Route::delete('/coupon/delete/{id}', [CouponController::class, 'delete'])->name('admin.coupon.delete');
         
     }); 
 

@@ -51,24 +51,6 @@
               			</div>
               			<div class="col-md align-items-end">
               				<div class="form-group">
-              					<label for="#">Check In</label>
-              					<div class="form-field">
-	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control checkin_date" placeholder="Check In">
-					              </div>
-				              </div>
-              			</div>
-              			<div class="col-md align-items-end">
-              				<div class="form-group">
-              					<label for="#">Check Out</label>
-              					<div class="form-field">
-	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control checkout_date" placeholder="From">
-					              </div>
-				              </div>
-              			</div>
-              			<div class="col-md align-items-end">
-              				<div class="form-group">
               					<label for="#">Travelers</label>
               					<div class="form-field">
 	              					<div class="select-wrap">

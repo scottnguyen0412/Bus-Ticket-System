@@ -91,10 +91,10 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Coupon Name</th>
-                                            <th>Coupon Code</th>
-                                            <th>Coupon Limited Quantity	</th>
-                                            <th>Price Coupon</th>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
                                             <th>Start Day</th>
                                             <th>Expiration Date</th>
                                             <th>Status</th>
@@ -104,10 +104,10 @@
     
                                     <tfoot>
                                         <tr>
-                                            <th>Coupon Name</th>
-                                            <th>Coupon Code</th>
-                                            <th>Coupon Limited Quantity</th>
-                                            <th>Price Coupon</th>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
                                             <th>Start Day</th>
                                             <th>Expiration Date</th>
                                             <th>Status</th>
