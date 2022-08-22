@@ -116,6 +116,7 @@
                 source: availableTags_destination
             });
         }
+        
         var mapCenter = [{{ config('leaflet.map_center_latitude') }},
                     {{ config('leaflet.map_center_longitude') }},
                 ];

@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="{{asset("frontend/css/magnific-popup.css")}}">
     <link rel="stylesheet" href="{{asset("frontend/css/owl.carousel.min.css")}}">
     <link rel="stylesheet" href="{{asset("frontend/css/owl.theme.default.min.css")}}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <body>
@@ -142,7 +145,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> | This Website is made with <i class="icon-heart" aria-hidden="true"></i> by Khoi Nguyen
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> | This Website is made with <i class="icon-heart" aria-hidden="true"></i> Khoi Nguyen
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>

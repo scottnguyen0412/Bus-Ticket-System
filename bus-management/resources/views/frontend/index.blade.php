@@ -49,21 +49,12 @@
 					              </div>
 				              </div>
               			</div>
-              			<div class="col-md align-items-end">
+						<div class="col-md align-items-end">
               				<div class="form-group">
-              					<label for="#">Check In</label>
+              					<label for="#">Start Day</label>
               					<div class="form-field">
-	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control checkin_date" placeholder="Check In">
-					              </div>
-				              </div>
-              			</div>
-              			<div class="col-md align-items-end">
-              				<div class="form-group">
-              					<label for="#">Check Out</label>
-              					<div class="form-field">
-	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control checkout_date" placeholder="From">
+	              					<div class="icon"><span class="fas fa-calendar-alt"></span></div>
+					                <input type="datetime-local" class="form-control">
 					              </div>
 				              </div>
               			</div>
@@ -225,7 +216,7 @@
     		<div class="row">
     			<div class="col-sm col-md-6 col-lg ftco-animate">
     				<div class="destination">
-    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/destination-1.jpg);">
+    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(https://www.telegraph.co.uk/content/dam/travel/Spark/Hayes-and-Jarvis/HayesJarvis-da-nang-night-getty.jpg);">
     						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-link"></span>
     						</div>
@@ -233,7 +224,7 @@
     					<div class="text p-3">
     						<div class="d-flex">
     							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
+		    						<h3><a href="#">Da Nang</a></h3>
 		    						<p class="rate">
 		    							<i class="icon-star"></i>
 		    							<i class="icon-star"></i>
@@ -248,10 +239,9 @@
     							</div>
     						</div>
     						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
     						<hr>
     						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span> 
+    							<a href="https://goo.gl/maps/XMiy3a4xkuWkX9Js9"><i class="icon-map-o"></i> Da Nang, Viet Nam</a> 
     							<span class="ml-auto"><a href="#">Discover</a></span>
     						</p>
     					</div>
@@ -259,7 +249,7 @@
     			</div>
     			<div class="col-sm col-md-6 col-lg ftco-animate">
     				<div class="destination d-md-flex flex-column-reverse">
-    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/destination-2.jpg);">
+    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('https://bcp.cdnchinhphu.vn/Uploaded/hoangtrongdien/2021_09_16/thanh-pho-thu-duc-tp-ho-chi-minh-41120.jpg');">
     						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-link"></span>
     						</div>
@@ -267,7 +257,7 @@
     					<div class="text p-3">
     						<div class="d-flex">
     							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
+		    						<h3><a href="#">Ho Chi Minh</a></h3>
 		    						<p class="rate">
 		    							<i class="icon-star"></i>
 		    							<i class="icon-star"></i>
@@ -282,10 +272,9 @@
     							</div>
     						</div>
     						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
     						<hr>
     						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span> 
+    							<a href="https://goo.gl/maps/94GPfhwTnXKQryuW6"><i class="icon-map-o"></i> Ho Chi Minh, Viet Nam</a> 
     							<span class="ml-auto"><a href="#">Discover</a></span>
     						</p>
     					</div>
@@ -293,7 +282,7 @@
     			</div>
     			<div class="col-sm col-md-6 col-lg ftco-animate">
     				<div class="destination">
-    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/destination-3.jpg);">
+    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('https://a.cdn-hotels.com/gdcs/production144/d1394/a304783d-6dc9-4bb2-9239-d124a16a154e.jpg');">
     						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-link"></span>
     						</div>
@@ -301,7 +290,7 @@
     					<div class="text p-3">
     						<div class="d-flex">
     							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
+		    						<h3><a href="#">Ha Noi</a></h3>
 		    						<p class="rate">
 		    							<i class="icon-star"></i>
 		    							<i class="icon-star"></i>
@@ -316,10 +305,10 @@
     							</div>
     						</div>
     						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
+    						{{-- <p class="days"><span>2 days 3 nights</span></p> --}}
     						<hr>
     						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span> 
+    							<a href="https://goo.gl/maps/pGPcxr8Pc7H8GNG29"><i class="icon-map-o"></i> Ha Noi, Viet Nam</a> 
     							<span class="ml-auto"><a href="#">Discover</a></span>
     						</p>
     					</div>
@@ -327,7 +316,7 @@
     			</div>
     			<div class="col-sm col-md-6 col-lg ftco-animate">
     				<div class="destination d-md-flex flex-column-reverse">
-    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/destination-4.jpg);">
+    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(https://i0.wp.com/datvandon.net/wp-content/uploads/2019/11/vinh-ha-long-o-tinh-nao-viet-nam.jpeg?fit=960%2C720&ssl=1);">
     						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-link"></span>
     						</div>
@@ -335,7 +324,7 @@
     					<div class="text p-3">
     						<div class="d-flex">
     							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
+		    						<h3><a href="#">Ha Long</a></h3>
 		    						<p class="rate">
 		    							<i class="icon-star"></i>
 		    							<i class="icon-star"></i>
@@ -350,10 +339,9 @@
     							</div>
     						</div>
     						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
     						<hr>
     						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span> 
+    							<a href="https://goo.gl/maps/vmAfiSRguDZVTvbQA"><i class="icon-map-o"></i> Ha Long Bay, Viet Nam</a> 
     							<span class="ml-auto"><a href="#">Discover</a></span>
     						</p>
     					</div>

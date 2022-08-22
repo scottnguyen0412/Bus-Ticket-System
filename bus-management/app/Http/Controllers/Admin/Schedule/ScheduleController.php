@@ -37,9 +37,12 @@ class ScheduleController extends Controller
             })
             ->editColumn('distance', function($data) {
                 if($data->distance == '0')
+                {
                     return '
                         Being calculated
                     ';
+                }
+                    
                 else
                 {
                     return '

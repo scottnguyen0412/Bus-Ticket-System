@@ -50,7 +50,9 @@ class BusController extends Controller
                 $not_show = 0;
                 if($data->bus_status == $not_show)
                 {
-                    return 'Not Shown';
+                    return '
+                        Not Shown
+                    ';
                 }
                 else if($data->bus_status == $show)
                 {
@@ -67,7 +69,7 @@ class BusController extends Controller
                     </form>
                 ';
             })
-            ->rawColumns(['images', 'action'])
+            ->rawColumns(['images', 'action', 'bus_status'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
