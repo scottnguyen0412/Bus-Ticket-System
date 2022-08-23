@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 
 @section('content')
-	      <div class="hero-wrap js-fullheight" style="background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80">
+	<div class="hero-wrap js-fullheight" style="background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
@@ -223,9 +223,9 @@
 					<div class="card-body">
 						<h5 class="card-title text-center font-weight-bold text-primary">Routing</h5>
 						<a href="#" class="card-link"><i class='bx bx-map-pin'></i> {{$route->start_dest->name}}</a><br/>
-						<i class="fa ml-1">&#x7c;</i><br/>
+						<i class="fa ml-1 text-info">&#x7c;</i><br/>
 						<div class="text-warning">{{$route->estimated_arrival_time}}</div>
-						<i class="fa ml-1">&#x7c;</i><br/>
+						<i class="fa ml-1 text-info">&#x7c;</i><br/>
 
 						<a href="#" class="card-link"><i class='bx bxs-map-pin' ></i> {{$route->destination->name}}</a>
 					</div>

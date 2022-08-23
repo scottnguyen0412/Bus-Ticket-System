@@ -52,7 +52,7 @@
 				<li class="nav-item"><a href="{{url('/admin/dashboard')}}" class="nav-link">Dashboard</a></li>
 				@endif
 			  @endif
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Schedule</a></li>
+	          <li class="nav-item {{Request::routeIs('frontend.schedules') ? 'active':'';}}"><a href="{{route('frontend.schedules')}}" class="nav-link">Schedule</a></li>
 			  @if(!auth()->user())
 	          	<li class="nav-item"><a href="{{url('/contact')}}" class="nav-link">Contact Us</a></li>
 			  @endif
