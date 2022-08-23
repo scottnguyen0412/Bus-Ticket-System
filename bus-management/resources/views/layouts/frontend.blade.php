@@ -31,7 +31,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
+	@yield('custom-css')
 </head>
 <body>
      <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -50,7 +52,7 @@
 				<li class="nav-item"><a href="{{url('/admin/dashboard')}}" class="nav-link">Dashboard</a></li>
 				@endif
 			  @endif
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Destination</a></li>
+	          <li class="nav-item"><a href="blog.html" class="nav-link">Schedule</a></li>
 			  @if(!auth()->user())
 	          	<li class="nav-item"><a href="{{url('/contact')}}" class="nav-link">Contact Us</a></li>
 			  @endif
@@ -133,9 +135,9 @@
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">123 Nguyen Tat Thanh, Da Nang, Viet Nam</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+84 795797078</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">scottnguyen0412@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>

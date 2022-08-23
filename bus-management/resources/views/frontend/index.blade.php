@@ -204,13 +204,43 @@
     		</div>
     	</div>
     </section>
+
+	{{-- Popular --}}
+	<section class="ftco-section">
+    	<div class="container">
+			<div class="row justify-content-center mb-5 pb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<h2 class="mb-4">Popular routes in VietNam</h2>
+
+				</div>
+        	</div>    		
+    	</div>
+		<div class="container">
+		<div class="row g-2">
+			@foreach ($schedule as $route)
+			<div class="col-4 p-3">
+					<div class="card shadow bg-white rounded" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title text-center font-weight-bold text-primary">Routing</h5>
+						<a href="#" class="card-link"><i class='bx bx-map-pin'></i> {{$route->start_dest->name}}</a><br/>
+						<i class="fa ml-1">&#x7c;</i><br/>
+						<div class="text-warning">{{$route->estimated_arrival_time}}</div>
+						<i class="fa ml-1">&#x7c;</i><br/>
+
+						<a href="#" class="card-link"><i class='bx bxs-map-pin' ></i> {{$route->destination->name}}</a>
+					</div>
+				</div>
+			</div>
+			@endforeach
+		</div>
+	</section>
     <section class="ftco-section">
     	<div class="container">
-				<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h2 class="mb-4">Most Popular Destination</h2>
-          </div>
-        </div>    		
+			<div class="row justify-content-center mb-5 pb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<h2 class="mb-4">Most Popular Destination</h2>
+				</div>
+        	</div>    		
     	</div>
     	<div class="container-fluid">
     		<div class="row">
