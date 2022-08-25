@@ -30,6 +30,7 @@
                                             <th>Start Point</th>
                                             <th>Destination</th>
                                             <th>Distance</th>
+                                            <th>Price</th>
                                             <th>Estimated Arrival Time</th>
                                             <th>Notes</th>
                                             <th>Action</th>
@@ -43,6 +44,7 @@
                                             <th>Start Point</th>
                                             <th>Destination</th>
                                             <th>Distance</th>
+                                            <th>Price</th>
                                             <th>Estimated Arrival Time</th>
                                             <th>Notes</th>
                                             <th>Action</th>
@@ -117,6 +119,10 @@
                     {
                         data: 'distance',
                         name: 'distance',
+                    },
+                    {
+                        data: 'price_schedules',
+                        name: 'price_schedules',
                     },
                     {
                         data: 'estimated_arrival_time',

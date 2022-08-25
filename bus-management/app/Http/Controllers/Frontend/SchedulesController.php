@@ -8,6 +8,10 @@ use App\Models\Schedule;
 use App\Models\Bus;
 use App\Models\ImageBus;
 use \stdClass;
+use Illuminate\Pagination\Paginator;
+
+
+use DB;
 
 class SchedulesController extends Controller
 {
@@ -22,6 +26,7 @@ class SchedulesController extends Controller
             $item->images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();
             array_push($schedules, $item);
         }
+        
         return view('frontend.schedule', [
             'schedules'=> $schedules,
         ]);

@@ -154,7 +154,7 @@
 							<div class="card-body">
 								<h5 class="card-title font-weight-bold">
 									{{$schedule_a->schedule->bus->bus_name}}
-									<p class="text-secondary float-right">Price</p>
+									<p class="text-secondary float-right">{{$schedule_a->schedule->price_schedules}}$</p>
 								</h5>
 								<small class="card-text">{{$schedule_a->schedule->bus->number_of_seats}} Seats</small><br/>
 								{{-- Icon --}}
@@ -277,6 +277,7 @@
 				</div>
         	</div>
 			@endforeach
+			
       	</div>
     </section> <!-- .section -->
 @endsection

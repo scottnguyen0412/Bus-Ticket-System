@@ -104,8 +104,10 @@ class ScheduleController extends Controller
             'start_destination_id' => $start_destination->id,
             'destination_id' => $destination->id,
             'distance' => $distance,
+            'price_schedules' => $request->price_schedules,
             'estimated_arrival_time' => $estimate_time,
             'notes' => $request->notes,
+
         ]);
 
         return redirect('/admin/schedule')->with('status', 'Created Schdule Successfully');
@@ -138,6 +140,7 @@ class ScheduleController extends Controller
             'start_destination_id' => $start_destination->id,
             'destination_id' => $destination->id,
             'distance' => $request['distance'],
+            'price_schedules' => $request['price_schedules'],
             'estimated_arrival_time' => $request['estimated_arrival_time'],
             'notes' => $request['notes'],
         ]);

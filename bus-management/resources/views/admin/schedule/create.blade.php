@@ -41,6 +41,14 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror <br/>
+                                                
+                    <label>Price*</label>
+                    <input type="number" class="form-control form-control-lg @error('price_schedules') is-invalid @enderror" role="alert" name="price_schedules" id="price_schedules">
+                                            @error('price_schedules')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror<br/>                        
                     <label>Notes</label>
                     <textarea type="text" multiple name="notes" class=" form-control @error('notes') is-invalid @enderror" role="alert"></textarea>
                                             @error('notes')
