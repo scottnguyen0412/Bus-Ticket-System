@@ -32,6 +32,9 @@
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+
 
 	@yield('custom-css')
 </head>
@@ -169,6 +172,8 @@
     <script src="{{asset("frontend/js/scrollax.min.js")}}"></script>
     <script src="{{asset("frontend/js/owl.carousel.min.js")}}"></script>
   	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 
 
@@ -532,6 +537,7 @@
 		var map = new google.maps.Map(document.getElementById("map"), mapOptions);  
 	</script>
 
+    @yield('scripts')
 
     @if(session('status'))
         <script>

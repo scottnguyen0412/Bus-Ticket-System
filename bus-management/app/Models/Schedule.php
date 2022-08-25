@@ -29,4 +29,5 @@ class Schedule extends Model
     {
         return $this->belongsTo(Destination::class, 'destination_id', 'id');
     }
+
 }
