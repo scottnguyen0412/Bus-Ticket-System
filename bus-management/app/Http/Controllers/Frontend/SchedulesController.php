@@ -10,6 +10,7 @@ use App\Models\ImageBus;
 use \stdClass;
 
 
+
 use DB;
 
 class SchedulesController extends Controller
@@ -29,6 +30,21 @@ class SchedulesController extends Controller
         {
             $all_schedules = Schedule::orderBy('created_at', 'desc')->get();
         }
+        
+        // Search by key
+        $search_bus = $request->input('bus_name');
+        // Check if have input request
+        if($search_bus)
+        {
+            // Check name from input request have same name in table buses
+            $bus = DB::table('buses')->where('bus_name','LIKE',"%{$search_bus}%")->get();
+            foreach($bus as $bus_search)
+            {
+                // Display value on view
+                $all_schedules = Schedule::where('bus_id', $bus_search->id)->get();
+            }
+        }
+
         $schedules = array();
         foreach($all_schedules as $schedule)
         {
@@ -37,7 +53,6 @@ class SchedulesController extends Controller
             $item->images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();
             array_push($schedules, $item);
         }
-
         return view('frontend.schedule', [
             'schedules'=> $schedules,
         ]);
@@ -45,38 +60,15 @@ class SchedulesController extends Controller
 
     // public function searchBusHouseByAjax()
     // {
-    //     $schedule = Schedule::select('price_schedules')->get();
+    //     $bus = Bus::join('schdules', 'schdules.bus_id','buses.id')->first();
+    //     $schedule = Schedule::where('bus_id', $bus)->select('bus_id')->get();
     //     $data = [];
     //     foreach ($schedule as $items)
     //     {
     //         $data[] = $items['price_schedules'];
     //     }
-    //     // dd($data);
+    //     dd($data);
     //     return $data;
-    // }
-
-    // public function searchBusHouse(Request $request)
-    // {
-    //     $search_bus = $request->bus_name;
-    //     // $bus = Bus::where('bus_name', $search_bus)->first()->id;
-    //     if ($search_bus != " ") {
-    //         $schedule = Schedule::where("price_schedules", "LIKE", "%$search_bus%")->get();
-    //         // dd($schedule);
-    //         if ($schedule) {
-    //             return redirect('/schedules');
-    //         } else {
-    //             return redirect()->back()->with("status", "No products matched your search");
-    //         }
-    //     } else {
-    //         return redirect()->back();
-    //     }
-    // }
-
-    // public function searchBusHouse(Request $request)
-    // {
-    //     $search_bus = $request->input('bus_name');
-    //     $schedule = Schedule::where("price_schedules", "LIKE", "%$search_bus%")->get();
-    //     return view('frontend.schedule')->with('schedule',$schedule );
     // }
 
 }

@@ -1,8 +1,5 @@
 @extends('layouts.frontend')
-@section('custom-css')
-	{{-- CSS Jquery --}}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-@endsection
+
 @section('content')
     <div class="hero-wrap js-fullheight" style="background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');">
       <div class="overlay"></div>
@@ -133,8 +130,8 @@
             <div class="font-weight-bold">
                 Sort by:
 				<a href="{{URL::current()}}" class="btn btn-primary">All</a>
-                <a href="{{URL::current()."?sort=price_asc"}}" class="btn btn-success">Highest Price</a>
-                <a href="{{URL::current()."?sort=price_desc"}}" class="btn btn-info">Lowest Price</a>
+                <a href="{{URL::current()."?sort=price_desc"}}" class="btn btn-success">Highest Price</a>
+                <a href="{{URL::current()."?sort=price_asc"}}" class="btn btn-info">Lowest Price</a>
                 <a href="{{URL::current()."?sort=newest"}}" class="btn btn-secondary text-white">Newest</a>
             </div>
 			
@@ -278,27 +275,4 @@
 			{{-- @endforeach --}}
       	</div>
     </section> <!-- .section -->
-@endsection
-
-@section('scripts')
-	{{-- Jquery --}}
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    {{-- <script>
-        var availableTags = [
-        ];
-        $.ajax({
-            method: "GET",
-            url:"/schedules/searchBusHouseByAjax",
-            success: function(response){
-                // console.log(response)
-                startAutoComplete(response);
-            }
-        });
-        function startAutoComplete(availableTags)
-        {
-            $( "#bus_name" ).autocomplete({
-                source: availableTags
-            });
-        }
-  </script> --}}
 @endsection
