@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('schdules', function (Blueprint $table) {
-            $table->string('price_schedules')->after('distance')->nullable();
-
+            $table->integer('price_schedules')->after('distance')->nullable();
         });
     }
 

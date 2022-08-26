@@ -1,5 +1,8 @@
 @extends('layouts.frontend')
-
+@section('custom-css')
+	{{-- CSS Jquery --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+@endsection
 @section('content')
     <div class="hero-wrap js-fullheight" style="background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');">
       <div class="overlay"></div>
@@ -54,17 +57,10 @@
 
                 <div class="sidebar-wrap ftco-animate">
         			<h3 class="heading mb-4 font-weight-bold">Bus House</h3>
-                    <form>
-                        <div class="input-group">
-                            <div class="form-outline">
-                                <input type="search" id="form1" class="form-control form-control-sm rounded" placeholder="Search something..."/>
-                            </div>
-                        </div><br/>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            name of bus
-                        </div>
-                    </form>
+                    @include('frontend.searchBusHouse')
+					<input type="checkbox" class="form-check-input" id="exampleCheck1">
+						name of bus
+					</div>
                 </div>
 
                 <div class="sidebar-wrap ftco-animate">
@@ -135,12 +131,14 @@
 
         <div class="col-lg-9">
             <div class="font-weight-bold">
-                Sort by: 
-                <button type="button" class="btn btn-primary">Earliest start destination time</button>
-                <button type="button" class="btn btn-success">Highest Price</button>
-                <button type="button" class="btn btn-info">Lowest Price</button>
+                Sort by:
+				<a href="{{URL::current()}}" class="btn btn-primary">All</a>
+                <a href="{{URL::current()."?sort=price_asc"}}" class="btn btn-success">Highest Price</a>
+                <a href="{{URL::current()."?sort=price_desc"}}" class="btn btn-info">Lowest Price</a>
+                <a href="" class="btn btn-secondary text-white">Earliest start destination time</a>
             </div>
 			
+			{{-- @foreach ($schedule as $sche) --}}
 			@foreach ($schedules as $schedule_a)
 			<div class="gx-5 mt-3">
 				<div class="col mb-2">
@@ -277,7 +275,30 @@
 				</div>
         	</div>
 			@endforeach
-			
+			{{-- @endforeach --}}
       	</div>
     </section> <!-- .section -->
+@endsection
+
+@section('scripts')
+	{{-- Jquery --}}
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    {{-- <script>
+        var availableTags = [
+        ];
+        $.ajax({
+            method: "GET",
+            url:"/schedules/searchBusHouseByAjax",
+            success: function(response){
+                // console.log(response)
+                startAutoComplete(response);
+            }
+        });
+        function startAutoComplete(availableTags)
+        {
+            $( "#bus_name" ).autocomplete({
+                source: availableTags
+            });
+        }
+  </script> --}}
 @endsection
