@@ -71,17 +71,11 @@
                 </div>
                 <div class="sidebar-wrap ftco-animate">
         			<h3 class="heading mb-4 font-weight-bold">Destination</h3>
-                    <form>
-                        <div class="input-group">
-                            <div class="form-outline">
-                                <input type="search" id="destination" class="form-control form-control-sm rounded" placeholder="Search destination"/>
-                            </div>
-                        </div><br/>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            name of destination
-                        </div>
-                    </form>
+					@include('frontend.search.searchDestination')
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        name of destination
+                    </div>
                 </div>
 
         		<div class="sidebar-wrap ftco-animate">

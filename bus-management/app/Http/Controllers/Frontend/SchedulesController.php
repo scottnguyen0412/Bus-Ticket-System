@@ -57,6 +57,18 @@ class SchedulesController extends Controller
             }
         }
 
+        // Search by Destination
+        $search_destination = $request->input('destination');
+        if($search_destination)
+        {
+            $destination = DB::table('destination')->where('name','LIKE',"%{$search_destination}%")->get();
+            foreach($destination as $des)
+            {
+                // Display value on view
+                $all_schedules = Schedule::where('destination_id', $des->id)->get();
+            }
+        }
+
         $schedules = array();
         foreach($all_schedules as $schedule)
         {
