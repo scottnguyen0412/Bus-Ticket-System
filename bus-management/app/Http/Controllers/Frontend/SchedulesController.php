@@ -25,6 +25,10 @@ class SchedulesController extends Controller
         {
             $all_schedules = Schedule::orderBy('price_schedules', 'desc')->get();
         }
+        elseif(\Request::get('sort') == 'newest')
+        {
+            $all_schedules = Schedule::orderBy('created_at', 'desc')->get();
+        }
         $schedules = array();
         foreach($all_schedules as $schedule)
         {

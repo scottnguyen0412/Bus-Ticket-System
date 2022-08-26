@@ -135,7 +135,7 @@
 				<a href="{{URL::current()}}" class="btn btn-primary">All</a>
                 <a href="{{URL::current()."?sort=price_asc"}}" class="btn btn-success">Highest Price</a>
                 <a href="{{URL::current()."?sort=price_desc"}}" class="btn btn-info">Lowest Price</a>
-                <a href="" class="btn btn-secondary text-white">Earliest start destination time</a>
+                <a href="{{URL::current()."?sort=newest"}}" class="btn btn-secondary text-white">Newest</a>
             </div>
 			
 			{{-- @foreach ($schedule as $sche) --}}
