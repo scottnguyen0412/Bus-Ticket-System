@@ -54,7 +54,8 @@
 
                 <div class="sidebar-wrap ftco-animate">
         			<h3 class="heading mb-4 font-weight-bold">Bus House</h3>
-                    @include('frontend.searchBusHouse')
+                    @include('frontend.search.searchBusHouse')
+					<div class="form-check">
 					<input type="checkbox" class="form-check-input" id="exampleCheck1">
 						name of bus
 					</div>
@@ -62,17 +63,11 @@
 
                 <div class="sidebar-wrap ftco-animate">
         			<h3 class="heading mb-4 font-weight-bold">Start Destination</h3>
-                    <form>
-                        <div class="input-group">
-                            <div class="form-outline">
-                                <input type="search" id="start_destination" class="form-control form-control-sm rounded" placeholder="Search start destination"/>
-                            </div>
-                        </div><br/>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            name of start destination
-                        </div>
-                    </form>
+					@include('frontend.search.searchStartDestination')
+                    <div class="form-check">
+						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+							name of start destination
+                    </div>
                 </div>
                 <div class="sidebar-wrap ftco-animate">
         			<h3 class="heading mb-4 font-weight-bold">Destination</h3>

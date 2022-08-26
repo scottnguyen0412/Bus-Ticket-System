@@ -31,7 +31,7 @@ class SchedulesController extends Controller
             $all_schedules = Schedule::orderBy('created_at', 'desc')->get();
         }
         
-        // Search by key
+        // Search by bus house
         $search_bus = $request->input('bus_name');
         // Check if have input request
         if($search_bus)
@@ -42,6 +42,18 @@ class SchedulesController extends Controller
             {
                 // Display value on view
                 $all_schedules = Schedule::where('bus_id', $bus_search->id)->get();
+            }
+        }
+
+        // Search by start destination
+        $search_start_destination = $request->input('start_destination');
+        if($search_start_destination)
+        {
+            $start_destination = DB::table('start_destination')->where('name','LIKE',"%{$search_start_destination}%")->get();
+            foreach($start_destination as $start)
+            {
+                // Display value on view
+                $all_schedules = Schedule::where('start_destination_id', $start->id)->get();
             }
         }
 

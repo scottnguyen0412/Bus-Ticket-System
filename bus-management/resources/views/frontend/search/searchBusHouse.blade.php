@@ -10,5 +10,4 @@
 										placeholder="Search bus house..."/>
 						</div>
 						</div><br/>
-						<div class="form-check">
-					</form>
+	</form>
