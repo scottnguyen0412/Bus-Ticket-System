@@ -1,5 +1,33 @@
 @extends('layouts.frontend')
-
+@section('custom-css')
+	<style>
+         .mall-slider-handles{
+         margin-top: 50px;
+         }
+         .filter-container-1{
+         display: flex;
+         justify-content: center;
+         margin-top: 60px;
+         }
+         .filter-container-1 input{
+         border: 1px solid #ddd;
+         width: 100%;
+         text-align: center;
+         height: 30px;
+         border-radius: 5px;
+         }
+         .filter-container-1 button{
+         background: #51a179;
+         color:#fff;
+         padding: 5px 20px;
+         }
+         .filter-container-1 button:hover{
+         background: #2e7552;
+         color:#fff;
+         }
+          
+      </style>
+@endsection
 @section('content')
 <div class="hero-wrap js-fullheight"
 	style="background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');">
@@ -9,7 +37,7 @@
 			data-scrollax-parent="true">
 			<div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 				<p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-						class="mr-2"><a href="index.html">Home</a></span> <span>Schedules</span></p>
+						class="mr-2"><a href="{{url('/')}}">Home</a></span> <span>Schedules</span></p>
 				<h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Schedules</h1>
 			</div>
 		</div>
@@ -22,6 +50,40 @@
 				<div class="sidebar-wrap ftco-animate">
 					<h3 class="heading mb-4 font-weight-bold">Find Schedule</h3>
 					@include('frontend.search.searchSchedule')
+					<form action="{{route('frontend.schedules')}}" method="Get">
+						@csrf
+						<div class="mall-property">
+							<div class="mall-property__label">
+								Price
+								<a class="mall-property__clear-filter js-mall-clear-filter" href="javascript:;" data-filter="price" style="">
+								</a> 
+							</div>
+							<div class="mall-slider-handles" data-start="{{ $filter_min_price ?? $min_price }}" data-end="{{ $filter_max_price ?? $max_price }}" data-min="{{ $min_price}}" data-max="{{ $max_price }}" data-target="price" style="width: 100%">
+							</div>
+							<div class="row filter-container-1">
+								<div class="col-md-4">
+								{{-- Trả về giá trị đầu tiên nếu $filter_min_price ko null hoặc undefined, Mặt khác sẽ trả về giá trị thứ 2 là $min_price --}}
+								<input data-min="price" id="skip-value-lower" name="min_price" value="{{ $filter_min_price ?? $min_price }}" readonly>  
+								</div>
+								<div class="col-md-4">
+								<input data-max="price" id="skip-value-upper" name="max_price" value="{{ $filter_max_price ?? $max_price }}" readonly>
+								</div>
+								<div class="col-md-4">
+								<button type="submit" class="btn btn-sm">Filter</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					{{-- <div class="form-group">
+						<div class="range-slider">
+							<span>
+								<input type="number" id="val1" value="25000" min="0" max="120000" /> -
+								<input type="number" value="50000" min="0" max="120000" />
+							</span>
+							<input value="25000" min="0" max="120000" step="500" type="range" />
+							<input value="50000" min="0" max="120000" step="500" type="range" />
+						</div>
+					</div> --}}
 				</div>
 
 				<div class="sidebar-wrap ftco-animate">
@@ -302,4 +364,33 @@
 				{{-- @endforeach --}}
 			</div>
 </section> <!-- .section -->
+@endsection
+
+@section('scripts')
+	<script>
+	$(function () {
+           var $propertiesForm = $('.mall-category-filter');
+           var $body = $('body');
+           $('.mall-slider-handles').each(function () {
+               var el = this;
+               noUiSlider.create(el, {
+                   start: [el.dataset.start, el.dataset.end],
+                   connect: true,
+                   tooltips: true,
+                   range: {
+                       min: [parseFloat(el.dataset.min)],
+                       max: [parseFloat(el.dataset.max)]
+                   },
+                   pips: {
+                       mode: 'range',
+                       density: 20
+                   }
+               }).on('change', function (values) {
+                   $('[data-min="' + el.dataset.target + '"]').val(values[0])
+                   $('[data-max="' + el.dataset.target + '"]').val(values[1])
+                   $propertiesForm.trigger('submit');
+               });
+           })
+       })     
+	   </script>
 @endsection

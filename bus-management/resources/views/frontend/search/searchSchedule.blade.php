@@ -27,16 +27,6 @@
                 value="{{request()->input('checkin_date')}}"
                 autocomplete="off" placeholder="Date">
         </div>
-        {{-- <div class="form-group">
-            <div class="range-slider">
-                <span>
-                    <input type="number" id="val1" value="25000" min="0" max="120000" /> -
-                    <input type="number" value="50000" min="0" max="120000" />
-                </span>
-                <input value="25000" min="0" max="120000" step="500" type="range" />
-                <input value="50000" min="0" max="120000" step="500" type="range" />
-            </div>
-        </div> --}}
         <div class="form-group">
             <input type="submit" value="Search" class="btn btn-outline-warning py-3 px-5">
         </div>

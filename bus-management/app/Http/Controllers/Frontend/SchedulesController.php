@@ -76,7 +76,6 @@ class SchedulesController extends Controller
         $destination = $request->input('destination_schedule');
         $chekin_date = $request->input('checkin_date');
  
-        // dd(Schedule::whereDate('start_at', Carbon::parse($chekin_date)->format('Y/m/d'))->get());
         if($start_schedule)
         {
             $start = DB::table('start_destination')->where('name','LIKE',"%{$start_schedule}%")->get();
@@ -86,10 +85,24 @@ class SchedulesController extends Controller
                                             ->where('destination_id', $destination)
                                             ->orWhereDate('start_at', Carbon::parse($chekin_date)->format('Y/m/d'))
                                             ->get();   
-                // dd($all_schedules);                         
             }
         }
         
+        // Get min and max to set price in range
+        $min_price = Schedule::min('price_schedules');
+        $max_price = Schedule::max('price_schedules');
+
+        // get request from range form
+        $filter_min_price = $request->min_price;
+        $filter_max_price = $request->max_price;
+
+        // Nếu có request thực thi
+        if($filter_min_price && $filter_max_price){
+            if($filter_min_price >0 && $filter_max_price >0)
+            {
+                $all_schedules = Schedule::whereBetween('price_schedules',[$filter_min_price,$filter_max_price])->get();
+            }
+        }
 
         $schedules = array();
         foreach($all_schedules as $schedule)
@@ -102,7 +115,11 @@ class SchedulesController extends Controller
         return view('frontend.schedule', [
             'schedules'=> $schedules,
             'all_schedules' => $all_schedules,
-            'request' => $request
+            'request' => $request,
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+            'filter_min_price'=> $filter_min_price,
+            'filter_max_price'=> $filter_max_price,
         ]);
     }
 
