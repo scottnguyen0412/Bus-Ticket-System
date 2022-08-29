@@ -29,14 +29,15 @@
             <div class="tab-content p-4 px-5" id="v-pills-tabContent">
 
               <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-              	<form action="#" class="search-destination">
+              	<form action="{{route('frontend.schedules')}}" class="search-destination" method="GET"> 
+					@csrf
               		<div class="row">
               			<div class="col-md align-items-end">
               				<div class="form-group">
               					<label for="#">From</label>
 	              				<div class="form-field">
 	              					<div class="icon"><span class="icon-my_location"></span></div>
-					                <input type="text" class="form-control" placeholder="From">
+					                <input type="text" name="start_schedule" value="{{request()->input('start_destination_id')}}" class="form-control" placeholder="From">
 					              </div>
 				              </div>
               			</div>
@@ -45,7 +46,13 @@
               					<label for="#">Where</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control" placeholder="Where">
+					                {{-- <input type="text"  name="destination_schedule" class="form-control" placeholder="Where"> --}}
+									<select name="destination_schedule" id="" class="form-control" placeholder="Keyword search">
+										<option value="0" selected class="text-primary">--Select Destination--</option>
+										@foreach ($schedule as $sche)
+										<option value="{{$sche->destination_id}}" >{{$sche->destination->name}}</option>
+										@endforeach
+									</select>
 					              </div>
 				              </div>
               			</div>
@@ -54,24 +61,7 @@
               					<label for="#">Start Day</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="fas fa-calendar-alt"></span></div>
-					                <input type="datetime-local" class="form-control">
-					              </div>
-				              </div>
-              			</div>
-              			<div class="col-md align-items-end">
-              				<div class="form-group">
-              					<label for="#">Travelers</label>
-              					<div class="form-field">
-	              					<div class="select-wrap">
-			                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-			                      <select name="" id="" class="form-control">
-			                      	<option value="">1</option>
-			                        <option value="">2</option>
-			                        <option value="">3</option>
-			                        <option value="">4</option>
-			                        <option value="">5</option>
-			                      </select>
-			                    </div>
+					                <input type="date" name="checkin_date" class="form-control">
 					              </div>
 				              </div>
               			</div>
@@ -227,12 +217,15 @@
 						<div class="text-warning"><i class="fa-solid fa-clock"></i> {{$route->estimated_arrival_time}}</div>
 						<i class="fa ml-1 text-info">&#x7c;</i><br/>
 
-						<a href="#" class="card-link"><i class='bx bxs-map-pin' ></i> {{$route->destination->name}}</a>
+						<a href="{{url('/')}}" class="card-link"><i class='bx bxs-map-pin' ></i> {{$route->destination->name}}</a>
 					</div>
 				</div>
 			</div>
 			@endforeach
 		</div>
+			<div class="text-center">
+				<a href="{{url('/schedules')}}" class="text-primary h5 font-weight-bold"><u>View All</u></a>
+			</div>
 	</section>
     <section class="ftco-section">
     	<div class="container">
@@ -272,7 +265,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/XMiy3a4xkuWkX9Js9"><i class="icon-map-o"></i> Da Nang, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>
@@ -305,7 +298,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/94GPfhwTnXKQryuW6"><i class="icon-map-o"></i> Ho Chi Minh, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>
@@ -339,7 +332,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/pGPcxr8Pc7H8GNG29"><i class="icon-map-o"></i> Ha Noi, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>
@@ -372,7 +365,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/vmAfiSRguDZVTvbQA"><i class="icon-map-o"></i> Ha Long Bay, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>

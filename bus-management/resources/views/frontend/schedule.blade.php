@@ -74,42 +74,24 @@
 							</div>
 						</div>
 					</form>
-					{{-- <div class="form-group">
-						<div class="range-slider">
-							<span>
-								<input type="number" id="val1" value="25000" min="0" max="120000" /> -
-								<input type="number" value="50000" min="0" max="120000" />
-							</span>
-							<input value="25000" min="0" max="120000" step="500" type="range" />
-							<input value="50000" min="0" max="120000" step="500" type="range" />
-						</div>
-					</div> --}}
 				</div>
 
 				<div class="sidebar-wrap ftco-animate">
 					<h3 class="heading mb-4 font-weight-bold">Bus House</h3>
 					@include('frontend.search.searchBusHouse')
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1">
-						name of bus
-					</div>
 				</div>
 
 				<div class="sidebar-wrap ftco-animate">
 					<h3 class="heading mb-4 font-weight-bold">Start Destination</h3>
 					@include('frontend.search.searchStartDestination')
-					<div class="form-check">
+					{{-- <div class="form-check">
 						<input type="checkbox" class="form-check-input" id="exampleCheck1">
 						name of start destination
-					</div>
+					</div> --}}
 				</div>
 				<div class="sidebar-wrap ftco-animate">
 					<h3 class="heading mb-4 font-weight-bold">Destination</h3>
 					@include('frontend.search.searchDestination')
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1">
-						name of destination
-					</div>
 				</div>
 
 				<div class="sidebar-wrap ftco-animate">
