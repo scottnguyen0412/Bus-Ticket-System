@@ -217,12 +217,15 @@
 						<div class="text-warning"><i class="fa-solid fa-clock"></i> {{$route->estimated_arrival_time}}</div>
 						<i class="fa ml-1 text-info">&#x7c;</i><br/>
 
-						<a href="#" class="card-link"><i class='bx bxs-map-pin' ></i> {{$route->destination->name}}</a>
+						<a href="{{url('/')}}" class="card-link"><i class='bx bxs-map-pin' ></i> {{$route->destination->name}}</a>
 					</div>
 				</div>
 			</div>
 			@endforeach
 		</div>
+			<div class="text-center">
+				<a href="{{url('/schedules')}}" class="text-primary h5 font-weight-bold"><u>View All</u></a>
+			</div>
 	</section>
     <section class="ftco-section">
     	<div class="container">
@@ -262,7 +265,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/XMiy3a4xkuWkX9Js9"><i class="icon-map-o"></i> Da Nang, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>
@@ -295,7 +298,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/94GPfhwTnXKQryuW6"><i class="icon-map-o"></i> Ho Chi Minh, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>
@@ -329,7 +332,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/pGPcxr8Pc7H8GNG29"><i class="icon-map-o"></i> Ha Noi, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>
@@ -362,7 +365,7 @@
     						<hr>
     						<p class="bottom-area d-flex">
     							<a href="https://goo.gl/maps/vmAfiSRguDZVTvbQA"><i class="icon-map-o"></i> Ha Long Bay, Viet Nam</a> 
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span class="ml-auto"><a href="{{url('/schedules')}}">Discover</a></span>
     						</p>
     					</div>
     				</div>
