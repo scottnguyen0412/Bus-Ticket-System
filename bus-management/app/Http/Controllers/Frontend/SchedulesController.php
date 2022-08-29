@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Bus;
 use App\Models\ImageBus;
+use App\Models\Destination;
+use Carbon\Carbon;
 use \stdClass;
 
 
@@ -69,6 +71,26 @@ class SchedulesController extends Controller
             }
         }
 
+        // Search by Schedule
+        $start_schedule = $request->input('start_schedule');
+        $destination = $request->input('destination_schedule');
+        $chekin_date = $request->input('checkin_date');
+ 
+        // dd(Schedule::whereDate('start_at', Carbon::parse($chekin_date)->format('Y/m/d'))->get());
+        if($start_schedule)
+        {
+            $start = DB::table('start_destination')->where('name','LIKE',"%{$start_schedule}%")->get();
+            foreach($start as $starts)
+            {
+                $all_schedules = Schedule::where('start_destination_id', $starts->id)
+                                            ->where('destination_id', $destination)
+                                            ->orWhereDate('start_at', Carbon::parse($chekin_date)->format('Y/m/d'))
+                                            ->get();   
+                // dd($all_schedules);                         
+            }
+        }
+        
+
         $schedules = array();
         foreach($all_schedules as $schedule)
         {
@@ -79,6 +101,8 @@ class SchedulesController extends Controller
         }
         return view('frontend.schedule', [
             'schedules'=> $schedules,
+            'all_schedules' => $all_schedules,
+            'request' => $request
         ]);
     }
 
