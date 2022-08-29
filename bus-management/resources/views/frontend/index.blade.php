@@ -224,7 +224,7 @@
 						<h5 class="card-title text-center font-weight-bold text-primary">Routing</h5>
 						<a href="#" class="card-link"><i class='bx bx-map-pin'></i> {{$route->start_dest->name}}</a><br/>
 						<i class="fa ml-1 text-info">&#x7c;</i><br/>
-						<div class="text-warning">{{$route->estimated_arrival_time}}</div>
+						<div class="text-warning"><i class="fa-solid fa-clock"></i> {{$route->estimated_arrival_time}}</div>
 						<i class="fa ml-1 text-info">&#x7c;</i><br/>
 
 						<a href="#" class="card-link"><i class='bx bxs-map-pin' ></i> {{$route->destination->name}}</a>

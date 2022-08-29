@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('schdules', function (Blueprint $table) {
-            $table->integer('price_schedules')->after('distance')->nullable();
+        Schema::table('coupons', function (Blueprint $table) {
+            $table->integer('price_coupon')->nullable()->change();
         });
     }
 
@@ -25,8 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('schdules', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

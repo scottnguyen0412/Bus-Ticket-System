@@ -37,7 +37,7 @@
 		            <div class="block-18 text-center">
 		              <div class="text">
 		                <strong class="number" data-number="87000">0</strong>
-		                <span>Hotels</span>
+		                <span>Routing</span>
 		              </div>
 		            </div>
 		          </div>
