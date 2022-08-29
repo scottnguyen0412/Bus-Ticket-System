@@ -10,9 +10,6 @@ use App\Models\ImageBus;
 use App\Models\Destination;
 use Carbon\Carbon;
 use \stdClass;
-
-
-
 use DB;
 
 class SchedulesController extends Controller
@@ -88,6 +85,7 @@ class SchedulesController extends Controller
             }
         }
         
+        // Filter by Price
         // Get min and max to set price in range
         $min_price = Schedule::min('price_schedules');
         $max_price = Schedule::max('price_schedules');
