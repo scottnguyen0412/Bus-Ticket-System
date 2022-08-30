@@ -224,7 +224,7 @@
 			@endforeach
 		</div>
 			<div class="text-center">
-				<a href="{{url('/schedules')}}" class="text-primary h5 font-weight-bold"><u>View All</u></a>
+				<a href="{{url('/schedules')}}" class="text-primary h5 font-weight-bold"><u>Show all routes</u></a>
 			</div>
 	</section>
     <section class="ftco-section">

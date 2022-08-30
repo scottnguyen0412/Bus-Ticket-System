@@ -166,7 +166,8 @@
 										<h5 class="card-title font-weight-bold">
 											{{$schedule_a->schedule->bus->bus_name}}
 											<p class="text-secondary float-right">
-												{{$schedule_a->schedule->price_schedules}}$</p>
+												from US ${{$schedule_a->schedule->price_schedules}}
+											</p>
 										</h5>
 										<small class="card-text">{{$schedule_a->schedule->bus->number_of_seats}}
 											Seats</small><br />
@@ -202,8 +203,88 @@
 										aria-controls="collapseExample">
 										Details Information
 									</a>
-									<div class="btn btn-outline-success rounded-0">
+
+									{{-- Booking --}}
+									<button class="btn btn-outline-success rounded-0" type="button" data-toggle="collapse" data-target="#collapseExample{{$schedule_a->schedule->id}}" aria-expanded="false" aria-controls="collapseExample">
 										Book now
+									</button>
+									<div class="collapse" id="collapseExample{{$schedule_a->schedule->id}}">
+										<div class="card-body d-print-none">
+											<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link active" id="seats-tab" data-toggle="pill" href="#seats{{$schedule_a->schedule->id}}" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fa-solid fa-1"></i> Choose the seats</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="pick-tab" data-toggle="pill" href="#pick{{$schedule_a->schedule->id}}" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fa-solid fa-2"></i> Pick up & Drop off</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="info-tab" data-toggle="pill" href="#info{{$schedule_a->schedule->id}}" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fa-solid fa-3"></i> Fulfill information</a>
+												</li>
+											</ul>
+												<div class="tab-content" id="pills-tabContent">
+													<div class="tab-pane fade show active" id="seats{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-home-tab">
+														<div class="alert alert-primary d-flex align-items-center" role="alert">
+															<div class="font-weight-bold" d-inline>
+																<i class='bx bxs-badge-check h4' style='color:#5672c1'></i>
+																We make sure you are seated in the seat of your choice.
+															</div>
+														</div>
+														<div class="container text-center">
+															<div class="row align-items-start">
+																<div class="col-5">
+																	<strong class="font-weight-bold">Note</strong><br/>
+																	<div><i class="fas fa-couch"></i> Selected</div>
+																	<div><i class="fas fa-couch text-primary"></i> Empty</div>
+																	<div><i class="fas fa-couch text-info"></i> Not Available</div>
+																</div>
+																<div class="col-5">
+																	<div class="row flex-nowrap ">
+																		<div class="card card-block bg-light border">
+																			<table class="table table-responsive">
+																				<tbody>
+																					<tr>
+																						<td>
+																							<div data-disabled="true" disable>
+																							<img src="{{asset('frontend/img/steeringwheel.svg')}}">
+																							</div>
+																						</td>
+																					</tr>
+																					{{-- Foreach here --}}
+																					<tr>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																					</tr>
+																					<tr>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<hr/>
+														<p class="font-weight-bold">Total: $
+															<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
+														</p>
+													</div>
+
+													<div class="tab-pane fade" id="pick{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+														
+														<a class="btn btn-success text-white btnPreviousPage"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+														<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
+													</div>
+
+													<div class="tab-pane fade" id="info{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+													
+													</div>
+												</div>
 									</div>
 									<div class="collapse" id="{{$schedule_a->schedule->id}}">
 										<div class="card-body">
@@ -374,5 +455,16 @@
                });
            })
        })     
+
+	$('.btnNextPage').click(function() {
+		const nextTabLinkEl = $('.nav-pills .active').closest('li').next('li:first').find('a')[0];
+		const nextTab = new bootstrap.Tab(nextTabLinkEl);
+		nextTab.show();
+		});
+	$('.btnPreviousPage').click(function() {
+		const prevTabLinkEl = $('.nav-pills .active').closest('li').prev('li:last').find('a')[0];
+		const prevTab = new bootstrap.Tab(prevTabLinkEl);
+		prevTab.show();
+		});
 	   </script>
 @endsection
