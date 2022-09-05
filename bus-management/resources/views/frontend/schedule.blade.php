@@ -54,7 +54,7 @@
 						@csrf
 						<div class="mall-property">
 							<div class="mall-property__label">
-								Price
+								<h3 class="heading mb-4 font-weight-bold">Price</h3>
 								<a class="mall-property__clear-filter js-mall-clear-filter" href="javascript:;" data-filter="price" style="">
 								</a> 
 							</div>
@@ -229,60 +229,28 @@
 																We make sure you are seated in the seat of your choice.
 															</div>
 														</div>
-														<div class="container text-center">
-															<div class="row align-items-start">
-																<div class="col-5">
-																	<strong class="font-weight-bold">Note</strong><br/>
-																	<div><i class="fas fa-couch"></i> Selected</div>
-																	<div><i class="fas fa-couch text-primary"></i> Empty</div>
-																	<div><i class="fas fa-couch text-info"></i> Not Available</div>
-																</div>
-																<div class="col-5">
-																	<div class="row flex-nowrap ">
-																		<div class="card card-block bg-light border">
-																			<table class="table table-responsive">
-																				<tbody>
-																					<tr>
-																						<td>
-																							<div data-disabled="true" disable>
-																							<img src="{{asset('frontend/img/steeringwheel.svg')}}">
-																							</div>
-																						</td>
-																					</tr>
-																					{{-- Foreach here --}}
-																					<tr>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																					</tr>
-																					<tr>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																						<td class="p-3"><i class="fas fa-couch text-primary"></i></td>
-																					</tr>
-																				</tbody>
-																			</table>
-																		</div>
-																	</div>
-																</div>
-															</div>
+														{{-- Choose seats --}}
+														<div class="amount">
+															<strong>Enter the number of seats: </strong>
+															<input type="number" min="0" name="choose_seats" 
+																	value="{{request()->input('choose_seats')}}"
+																	placeholder="Quantity of seats" 
+																	class="text-secondary rounded border border-success font-weight-bold choose_seats">
 														</div>
+														<div class="cost d-none" value="0">{{$schedule_a->schedule->price_schedules}}</div>
 														<hr/>
-														<p class="font-weight-bold">Total: $
+														<div class="font-weight-bold ">Total: <p class="total d-inline-block"></p>$
 															<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
-														</p>
+														</div>
 													</div>
-
+													{{-- Show map --}}
 													<div class="tab-pane fade" id="pick{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-														
+														<div id="map1"></div>
 														<a class="btn btn-success text-white btnPreviousPage"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
 														<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
 													</div>
-
-													<div class="tab-pane fade" id="info{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-													
+													<div class="tab-pane fade" id="info{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-contact-tab">
+													</div>
 													</div>
 												</div>
 									</div>
@@ -466,5 +434,20 @@
 		const prevTab = new bootstrap.Tab(prevTabLinkEl);
 		prevTab.show();
 		});
-	   </script>
+
+	//Auto calculate price from input quality of user
+	$('.amount > .choose_seats').on('input', updateTotal);
+	function updateTotal(e){
+	var amount = parseInt(e.target.value);
+	
+	if (!amount || amount < 0)
+		return;
+		
+	var $parentRow = $(e.target).parent().parent();
+	var cost = parseFloat($parentRow.find('.cost').text());
+	var total = (cost * amount).toFixed(0);
+	
+	$parentRow.find('.total').text(total);
+	}
+	</script>
 @endsection

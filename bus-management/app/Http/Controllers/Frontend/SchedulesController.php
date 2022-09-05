@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use \stdClass;
 use DB;
 
+
 class SchedulesController extends Controller
 {
     public function index(Request $request)
@@ -102,6 +103,9 @@ class SchedulesController extends Controller
             }
         }
 
+        // Get quantity
+        $user_choose_seat = $request->input('choose_seats');
+        
         $schedules = array();
         foreach($all_schedules as $schedule)
         {
@@ -110,6 +114,7 @@ class SchedulesController extends Controller
             $item->images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();
             array_push($schedules, $item);
         }
+
         return view('frontend.schedule', [
             'schedules'=> $schedules,
             'all_schedules' => $all_schedules,
