@@ -102,9 +102,6 @@ class SchedulesController extends Controller
                 $all_schedules = Schedule::whereBetween('price_schedules',[$filter_min_price,$filter_max_price])->get();
             }
         }
-
-        // Get quantity
-        $user_choose_seat = $request->input('choose_seats');
         
         $schedules = array();
         foreach($all_schedules as $schedule)
@@ -123,6 +120,14 @@ class SchedulesController extends Controller
             'max_price' => $max_price,
             'filter_min_price'=> $filter_min_price,
             'filter_max_price'=> $filter_max_price,
+        ]);
+    }
+
+    public function showMap($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        return view('frontend.map.mapSchedules', [
+            'schedule' => $schedule
         ]);
     }
 

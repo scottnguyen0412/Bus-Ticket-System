@@ -245,7 +245,10 @@
 													</div>
 													{{-- Show map --}}
 													<div class="tab-pane fade" id="pick{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-														<div id="map1"></div>
+														{{-- <div class="col-md-6"> --}}
+														<a href="{{url('/schedules/show-map/'.$schedule_a->schedule->id)}}" class="btn text-white font-weight-bold" style="background-color: #DDC3A5"><i class="fa-solid fa-location-dot"></i> View Location On Map</a>
+															
+														{{-- </div> --}}
 														<a class="btn btn-success text-white btnPreviousPage"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
 														<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
 													</div>

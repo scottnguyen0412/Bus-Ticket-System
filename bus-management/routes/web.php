@@ -47,6 +47,7 @@ Route::get('/',[FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/about',[AboutController::class, 'index'])->name('frontend.about');
 Route::get('/contact', [ContactController::class, 'index'])->name('frontend.contact');
 Route::get('/schedules', [SchedulesController::class, 'index'])->name('frontend.schedules');
+Route::get('/schedules/show-map/{id}', [SchedulesController::class, 'showMap'])->name('frontend.showmap');
 
 // Search bus house
 Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'searchBusHouseByAjax'])->name('frontend.searchBusHouse.ajax');
