@@ -217,10 +217,9 @@
 												<li class="nav-item">
 													<a class="nav-link" id="pick-tab" data-toggle="pill" href="#pick{{$schedule_a->schedule->id}}" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fa-solid fa-2"></i> Pick up & Drop off</a>
 												</li>
-												<li class="nav-item">
-													<a class="nav-link" id="info-tab" data-toggle="pill" href="#info{{$schedule_a->schedule->id}}" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fa-solid fa-3"></i> Fulfill information</a>
-												</li>
 											</ul>
+												<form action="{{url('schedules/show-map/'.$schedule_a->schedule->id)}}" method="GET">
+												@csrf
 												<div class="tab-content" id="pills-tabContent">
 													<div class="tab-pane fade show active" id="seats{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-home-tab">
 														<div class="alert alert-primary d-flex align-items-center" role="alert">
@@ -243,16 +242,19 @@
 															<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
 														</div>
 													</div>
+													</form>
 													{{-- Show map --}}
 													<div class="tab-pane fade" id="pick{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-														{{-- <div class="col-md-6"> --}}
+														<div class="alert alert-primary d-flex align-items-center" role="alert">
+															<div class="font-weight-bold" d-inline>
+																<i class="fa-sharp fa-solid fa-shield-check"></i>
+																Pick you up and drop you off exactly where you selected, change whenever you want.
+															</div>
+														</div>
 														<a href="{{url('/schedules/show-map/'.$schedule_a->schedule->id)}}" class="btn text-white font-weight-bold" style="background-color: #DDC3A5"><i class="fa-solid fa-location-dot"></i> View Location On Map</a>
-															
-														{{-- </div> --}}
+														<button type="submit" class="btn btn-outline-primary">Save</button>
 														<a class="btn btn-success text-white btnPreviousPage"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
-														<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
-													</div>
-													<div class="tab-pane fade" id="info{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-contact-tab">
+
 													</div>
 													</div>
 												</div>

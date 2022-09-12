@@ -22,6 +22,37 @@
             <div class="row">
                 <div class="col-lg-3 order-md-last ftco-animate">
                     <a class="btn rounded text-white" style="background:#2F3C7E" href="{{url('/schedules')}}"><i class="fa-solid fa-square-caret-left"></i> Back</a>
+                    <div class="card mt-2">
+                        <div class="card-body mt-2">
+                            <form method="Post" action="{{url('/booking')}}">
+                            @csrf
+                            <h5 class="card-title font-weight-bold text-center">Detail Booking</h5>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Quantiy of seats</label>
+                                <input type="number" min="0" name="choose_seats" 
+                                            value="{{request()->input('choose_seats')}}"
+                                            placeholder="Quantity of seats" 
+                                            class="form-control text-secondary rounded border border-success font-weight-bold choose_seats" readonly>
+                            </div>
+                            {{-- <div class="form-group">
+                                
+                            </div> --}}
+                            <div class="form-group">
+                                <label>Start Destination</label>
+                                <input type="text" id="start_dest" name="start_dest" class="form-control" 
+                                    value="{{$schedule->start_dest->name}}"
+                                    autocomplete="off" placeholder="Date" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Destination</label>
+                                <input type="text" id="dest" name="dest" class="form-control" 
+                                    value="{{$schedule->destination->name}}"
+                                    autocomplete="off" placeholder="Date" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-9">
                     <div>
@@ -71,7 +102,7 @@
                 })
                 .bindPopup(function(layer) {
                     //return layer.feature.properties.map_popup_content;
-                    return ('<div class="my-2"><strong>Destination Name</strong>: '+layer.feature.properties.name+'<div class="my-2"><strong>Address</strong>: '+layer.feature.properties.address+'</div>');
+                    return ('<div class="my-2"><strong>Start Destination Name</strong>: '+layer.feature.properties.name+'<div class="my-2"><strong>Address</strong>: '+layer.feature.properties.address+'</div>');
                 }).addTo(map);
                 // console.log(response.data);
             })

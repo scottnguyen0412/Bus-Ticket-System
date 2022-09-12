@@ -123,13 +123,26 @@ class SchedulesController extends Controller
         ]);
     }
 
-    public function showMap($id)
+    public function showMap(Request $request, $id)
     {
         $schedule = Schedule::findOrFail($id);
+        $empty = $request->input('choose_seats');
+
         return view('frontend.map.mapSchedules', [
             'schedule' => $schedule
         ]);
     }
+
+    // public function getSeat(Request $request, $id)
+    // {
+    //     $schedule = Schedule::findOrFail($id);
+    //     $empty = $request->input('choose_seats');
+    //     $schedule->update([
+    //         'empty_seats_amount' => $request['choose_seats']
+    //     ]);
+    //     return redirect('/schedules/get-seat/'.$id);
+    // }
+    
 
     // public function searchBusHouseByAjax()
     // {
