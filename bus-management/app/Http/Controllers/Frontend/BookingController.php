@@ -23,7 +23,6 @@ class BookingController extends Controller
         $booking->title = 'test1';
         $booking->seat_number = $request->input('choose_seats');
         $booking->booking_date = Carbon::now();
-        $booking->ticket_amount = '20';
         $booking->schedule_id = $request->input('schedule_id');
         $booking->coupon_id = '1';
         $booking->save();
