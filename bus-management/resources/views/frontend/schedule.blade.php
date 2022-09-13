@@ -254,7 +254,6 @@
 														<a href="{{url('/schedules/show-map/'.$schedule_a->schedule->id)}}" class="btn text-white font-weight-bold" style="background-color: #DDC3A5"><i class="fa-solid fa-location-dot"></i> View Location On Map</a>
 														<button type="submit" class="btn btn-outline-primary">Save</button>
 														<a class="btn btn-success text-white btnPreviousPage"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
-
 													</div>
 													</div>
 												</div>

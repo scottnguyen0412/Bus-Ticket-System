@@ -51,7 +51,9 @@ Route::get('/contact', [ContactController::class, 'index'])->name('frontend.cont
 Route::get('/schedules', [SchedulesController::class, 'index'])->name('frontend.schedules');
 Route::get('/schedules/show-map/{id}', [SchedulesController::class, 'showMap'])->name('frontend.showmap');
 Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.booking');
-// Route::post('/schedules/get-seat/{id}', [SchedulesController::class, 'getSeat'])->name('frontend.getseat');
+
+// Check coupon
+Route::post('/check-coupon-code', [BookingController::class, 'checkCoupon'])->name('frontend.checkcoupon');
 // Search bus house
 Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'searchBusHouseByAjax'])->name('frontend.searchBusHouse.ajax');
 // Route::get('/schedules/searchBusHouse', [SchedulesController::class, 'searchBusHouse'])->name('frontend.searchBusHouse');
