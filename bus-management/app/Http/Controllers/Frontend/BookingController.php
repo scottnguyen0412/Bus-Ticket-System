@@ -60,13 +60,13 @@ class BookingController extends Controller
             $currentDate = date('Y-m-d');
             $expired_date_coupon = $apply_coupon->valid_until;
            
-            // if($expired_date_coupon < $currentDate)
-            // {
-            //     //  dd($expired_date_coupon < $currentDate);
-            //     return redirect()->back()->with('warning', "Coupon is expired");
-            // }
-            // else
-            //     {
+            if($expired_date_coupon < $currentDate)
+            {
+                //  dd($expired_date_coupon < $currentDate);
+                return redirect()->back()->with('warning', "Coupon is expired");
+            }
+            else
+                {
                     $coupon_session = Session::get('coupon');
                     if($coupon_session)
                     {
@@ -93,7 +93,7 @@ class BookingController extends Controller
                     }
                     Session::save();
                     return back()->with('success', 'Apply coupon successfully');
-                // }
+                }
             } 
     }
 
