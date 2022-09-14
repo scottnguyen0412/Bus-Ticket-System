@@ -54,7 +54,7 @@
 						@csrf
 						<div class="mall-property">
 							<div class="mall-property__label">
-								Price
+								<h3 class="heading mb-4 font-weight-bold">Price</h3>
 								<a class="mall-property__clear-filter js-mall-clear-filter" href="javascript:;" data-filter="price" style="">
 								</a> 
 							</div>
@@ -166,7 +166,8 @@
 										<h5 class="card-title font-weight-bold">
 											{{$schedule_a->schedule->bus->bus_name}}
 											<p class="text-secondary float-right">
-												{{$schedule_a->schedule->price_schedules}}$</p>
+												from US ${{$schedule_a->schedule->price_schedules}}
+											</p>
 										</h5>
 										<small class="card-text">{{$schedule_a->schedule->bus->number_of_seats}}
 											Seats</small><br />
@@ -202,8 +203,60 @@
 										aria-controls="collapseExample">
 										Details Information
 									</a>
-									<div class="btn btn-outline-success rounded-0">
+
+									{{-- Booking --}}
+									<button class="btn btn-outline-success rounded-0" type="button" data-toggle="collapse" data-target="#collapseExample{{$schedule_a->schedule->id}}" aria-expanded="false" aria-controls="collapseExample">
 										Book now
+									</button>
+									<div class="collapse" id="collapseExample{{$schedule_a->schedule->id}}">
+										<div class="card-body d-print-none">
+											<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link active" id="seats-tab" data-toggle="pill" href="#seats{{$schedule_a->schedule->id}}" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fa-solid fa-1"></i> Choose the seats</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="pick-tab" data-toggle="pill" href="#pick{{$schedule_a->schedule->id}}" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fa-solid fa-2"></i> Pick up & Drop off</a>
+												</li>
+											</ul>
+												<form action="{{url('schedules/show-map/'.$schedule_a->schedule->id)}}" method="GET">
+												@csrf
+												<div class="tab-content" id="pills-tabContent">
+													<div class="tab-pane fade show active" id="seats{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-home-tab">
+														<div class="alert alert-primary d-flex align-items-center" role="alert">
+															<div class="font-weight-bold" d-inline>
+																<i class='bx bxs-badge-check h4' style='color:#5672c1'></i>
+																We make sure you are seated in the seat of your choice.
+															</div>
+														</div>
+														{{-- Choose seats --}}
+														<div class="amount">
+															<strong>Enter the number of seats: </strong>
+															<input type="number" min="0" name="choose_seats" 
+																	value="{{request()->input('choose_seats')}}"
+																	placeholder="Quantity of seats" 
+																	class="text-secondary rounded border border-success font-weight-bold choose_seats">
+														</div>
+														<div class="cost d-none" value="0">{{$schedule_a->schedule->price_schedules}}</div>
+														<hr/>
+														<div class="font-weight-bold ">Total: <p class="total d-inline-block"></p>$
+															<a class="btn btn-primary btnNextPage"><i class="fas fa-arrow-alt-circle-right"></i> Next</a>
+														</div>
+													</div>
+													</form>
+													{{-- Show map --}}
+													<div class="tab-pane fade" id="pick{{$schedule_a->schedule->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+														<div class="alert alert-primary d-flex align-items-center" role="alert">
+															<div class="font-weight-bold" d-inline>
+																<i class="fa-sharp fa-solid fa-shield-check"></i>
+																Pick you up and drop you off exactly where you selected, change whenever you want.
+															</div>
+														</div>
+														<a href="{{url('/schedules/show-map/'.$schedule_a->schedule->id)}}" class="btn text-white font-weight-bold" style="background-color: #DDC3A5"><i class="fa-solid fa-location-dot"></i> View Location On Map</a>
+														<button type="submit" class="btn btn-outline-primary">Save</button>
+														<a class="btn btn-success text-white btnPreviousPage"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+													</div>
+													</div>
+												</div>
 									</div>
 									<div class="collapse" id="{{$schedule_a->schedule->id}}">
 										<div class="card-body">
@@ -374,5 +427,31 @@
                });
            })
        })     
-	   </script>
+
+	$('.btnNextPage').click(function() {
+		const nextTabLinkEl = $('.nav-pills .active').closest('li').next('li:first').find('a')[0];
+		const nextTab = new bootstrap.Tab(nextTabLinkEl);
+		nextTab.show();
+		});
+	$('.btnPreviousPage').click(function() {
+		const prevTabLinkEl = $('.nav-pills .active').closest('li').prev('li:last').find('a')[0];
+		const prevTab = new bootstrap.Tab(prevTabLinkEl);
+		prevTab.show();
+		});
+
+	//Auto calculate price from input quality of user
+	$('.amount > .choose_seats').on('input', updateTotal);
+	function updateTotal(e){
+	var amount = parseInt(e.target.value);
+	
+	if (!amount || amount < 0)
+		return;
+		
+	var $parentRow = $(e.target).parent().parent();
+	var cost = parseFloat($parentRow.find('.cost').text());
+	var total = (cost * amount).toFixed(0);
+	
+	$parentRow.find('.total').text(total);
+	}
+	</script>
 @endsection

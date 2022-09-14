@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use \stdClass;
 use DB;
 
+
 class SchedulesController extends Controller
 {
     public function index(Request $request)
@@ -101,7 +102,7 @@ class SchedulesController extends Controller
                 $all_schedules = Schedule::whereBetween('price_schedules',[$filter_min_price,$filter_max_price])->get();
             }
         }
-
+        
         $schedules = array();
         foreach($all_schedules as $schedule)
         {
@@ -110,6 +111,7 @@ class SchedulesController extends Controller
             $item->images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();
             array_push($schedules, $item);
         }
+
         return view('frontend.schedule', [
             'schedules'=> $schedules,
             'all_schedules' => $all_schedules,
@@ -120,6 +122,27 @@ class SchedulesController extends Controller
             'filter_max_price'=> $filter_max_price,
         ]);
     }
+
+    public function showMap(Request $request, $id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $empty = $request->input('choose_seats');
+
+        return view('frontend.map.mapSchedules', [
+            'schedule' => $schedule
+        ]);
+    }
+
+    // public function getSeat(Request $request, $id)
+    // {
+    //     $schedule = Schedule::findOrFail($id);
+    //     $empty = $request->input('choose_seats');
+    //     $schedule->update([
+    //         'empty_seats_amount' => $request['choose_seats']
+    //     ]);
+    //     return redirect('/schedules/get-seat/'.$id);
+    // }
+    
 
     // public function searchBusHouseByAjax()
     // {

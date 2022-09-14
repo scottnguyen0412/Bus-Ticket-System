@@ -34,7 +34,15 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	{{-- Leaflet css --}}
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link type="text/css" href="{{asset("frontend/css/css/custom.css")}}">
 	@yield('custom-css')
 </head>
 <body>
@@ -155,7 +163,17 @@
         </div>
       </div>
     </footer>
-    
+    {{-- Leaftet map --}}
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+    integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA=="
+    crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     <script src="{{asset("frontend/js/aos.js")}}"></script>
     <script src="{{asset("frontend/js/jquery.min.js")}}"></script>
@@ -170,12 +188,11 @@
     <script src="{{asset("frontend/js/bootstrap.min.js")}}"></script>
     <script src="{{asset("frontend/js/scrollax.min.js")}}"></script>
     <script src="{{asset("frontend/js/owl.carousel.min.js")}}"></script>
-  	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js" integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
+	<!-- alert -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	{{-- Handle animate on scroll --}}
 	<script>
@@ -528,13 +545,6 @@
 				autoclose: true,
 			});
 		})(jQuery);
-		
-		var mapOptions = {  
-			center:new google.maps.LatLng(16.0472484,108,108.206706,13),  
-			zoom: 10,  
-			mapTypeId: google.maps.MapTypeId.HYBRID  
-		}  
-		var map = new google.maps.Map(document.getElementById("map"), mapOptions);  
 	</script>
 
     @yield('scripts')
@@ -544,5 +554,21 @@
             swal("{{session('status')}}");
         </script>
     @endif
+	<script>
+		@if(Session::has('warning'))
+					toastr.options = {
+						"closeButton": true,
+						"progressBar": true,
+					}
+					toastr.warning("{{session('warning')}}")
+		@elseif (Session::has('success'))
+					toastr.options = {
+						"closeButton": true,
+						"progressBar": true,
+					}
+					toastr.success("{{session('success')}}")
+		@endif
+	</script>
+	
 </body>
 </html>

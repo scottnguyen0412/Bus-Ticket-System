@@ -17,6 +17,8 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\SchedulesController;
+use App\Http\Controllers\Frontend\BookingController;
+
 
 
 
@@ -47,7 +49,13 @@ Route::get('/',[FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/about',[AboutController::class, 'index'])->name('frontend.about');
 Route::get('/contact', [ContactController::class, 'index'])->name('frontend.contact');
 Route::get('/schedules', [SchedulesController::class, 'index'])->name('frontend.schedules');
+Route::get('/schedules/show-map/{id}', [SchedulesController::class, 'showMap'])->name('frontend.showmap');
+Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.booking');
 
+// Check coupon
+Route::post('/check-coupon-code', [BookingController::class, 'checkCoupon'])->name('frontend.checkcoupon');
+// Remove coupon
+Route::get('/remove-coupon', [BookingController::class, 'removeCoupon'])->name('frontend.removecoupon');
 // Search bus house
 Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'searchBusHouseByAjax'])->name('frontend.searchBusHouse.ajax');
 // Route::get('/schedules/searchBusHouse', [SchedulesController::class, 'searchBusHouse'])->name('frontend.searchBusHouse');
