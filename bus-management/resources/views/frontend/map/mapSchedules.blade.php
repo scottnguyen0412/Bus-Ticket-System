@@ -80,25 +80,32 @@
                         <div id="map">
                         </div>
                         <hr/>
-                            <form action="{{url('/check-coupon-code')}}" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                        Coupon Code
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control coupon_code" placeholder="Enter Coupon Code" name="coupon_code">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-secondary apply_coupon_code_btn" type="submit">Apply</button>
+                        <div class="form-row">
+                            <div class="form-group col-md-9">
+                                <form action="{{url('/check-coupon-code')}}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                            Coupon Code
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" value="{{old('coupon_code')}}" placeholder="Enter Coupon Code" name="coupon_code">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-secondary apply_coupon_code_btn" type="submit">Apply</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                </div>
-                            </form>
-                            @if(Session::get('coupon'))
-                                <a class="btn btn-primary" href="{{url('/remove-coupon')}}">Remove Coupon</a>
-                            @endif
-                        <ul>
-                            <li>Total Price: <span>{{number_format($total,0,',','.')}}</span></li>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="form-group col-md-3 d-flex align-items-center mt-2">
+                                {{-- Check if have coupon value then display remove coupon button--}}
                                 @if(Session::get('coupon'))
-                                    <li>
+                                    <a class="btn text-white" style="background-color:red;" href="{{url('/remove-coupon')}}"><i class="fas fa-trash"></i> Remove Coupon</a>
+                                @endif
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item font-weight-bold">Total Price: <span>{{number_format($total,0,',','.')}} USD</span></li>
+                                @if(Session::get('coupon'))
+                                    <li class="list-group-item font-weight-bold">
                                         @foreach (Session::get('coupon') as $key => $count)
                                             Coupon: {{number_format($count['price_coupon'],0,',','.')}} USD
                                             <p>
@@ -106,7 +113,7 @@
                                                 $total_coupon = $total-$count['price_coupon'];
                                                 @endphp
                                             </p>
-                                            <p><li>Total amount after applying coupon: {{number_format($total_coupon,0,','.'.')}} USD</li></p>
+                                            <p><li class="list-group-item font-weight-bold">Total amount after applying coupon: {{number_format($total_coupon,0,','.'.')}} USD</li></p>
                                         @endforeach
                                     </li>
                                 @endif

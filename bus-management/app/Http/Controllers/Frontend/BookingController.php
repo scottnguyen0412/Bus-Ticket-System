@@ -32,14 +32,12 @@ class BookingController extends Controller
         $booking->seat_number = $request->input('choose_seats');
         $booking->booking_date = Carbon::now();
         $booking->schedule_id = $request->input('schedule_id');
-        $coupon = $request->input('coupon_code');
-        $coupon_code = DB::table('coupons')->where('coupon_code', $coupon)->get();
-        foreach($coupon_code as $coupons)
-        {
-                // Display value on view
-                $coupon_id = Booking::where('coupon_id','=',$coupons->id)->first();
-                $booking->coupon_id = $coupon_id;
-        }
+
+        // Get coupon value through session
+        $coupon = Session::get('coupon');
+        // check value and get id
+        $coupon_code = Coupon::where('coupon_code', $coupon)->first()->id;
+        $booking->coupon_id = $coupon_code;
         $booking->save();
 
         return redirect('/schedules')->with('status', 'Your order successfully');
