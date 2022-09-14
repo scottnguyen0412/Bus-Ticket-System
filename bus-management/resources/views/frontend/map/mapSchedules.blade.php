@@ -64,31 +64,14 @@
                                     value="{{$schedule->start_at}}"
                                     autocomplete="off" placeholder="Date" readonly>
                             </div>
-                            <div class="form-group">
-                                    Coupon Code
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control coupon_code" placeholder="Enter Coupon Code" name="coupon_code">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-secondary apply_coupon_code_btn" type="button">Apply</button>
-                                        </div>
-                                    </div>
-                                    <small id="error_coupon" class="text-danger"></small>
-                            </div>
-                            {{-- @if(isset($booking_data))
-                                @if(Cookie::get('shopping_cart'))
-                                    @php $total="0"; @endphp
-                                    @foreach ($booking_data as $data)    
-                                        <div>
-                                            @php $total = $total + ($data["seat_number"] * $data["price"]) @endphp
-                                        </div>
-                                    @endforeach
-                                    <hr/>
-                                    <p class="grand_total">Total: {{number_format($total, 0)}}</p>
-                                @endif
-                            @endif --}}
+
                             <button type="submit" class="btn btn-success">Next</button>
+                            @php $total = 0; @endphp
+                            @php $total =  request()->input('choose_seats') * $schedule->price_schedules; @endphp
                             </form>
+                            
                         </div>
+                        
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -96,19 +79,47 @@
                         <div class="card-header text-white bg-primary font-weight-bold rounded-top">Detail Place (Pick up & Drop off)</div>
                         <div id="map">
                         </div>
+                        <hr/>
+                            <form action="{{url('/check-coupon-code')}}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                        Coupon Code
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control coupon_code" placeholder="Enter Coupon Code" name="coupon_code">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary apply_coupon_code_btn" type="submit">Apply</button>
+                                            </div>
+                                        </div>
+                                </div>
+                            </form>
+                            @if(Session::get('coupon'))
+                                <a class="btn btn-primary" href="{{url('/remove-coupon')}}">Remove Coupon</a>
+                            @endif
+                        <ul>
+                            <li>Total Price: <span>{{number_format($total,0,',','.')}}</span></li>
+                                @if(Session::get('coupon'))
+                                    <li>
+                                        @foreach (Session::get('coupon') as $key => $count)
+                                            Coupon: {{number_format($count['price_coupon'],0,',','.')}} USD
+                                            <p>
+                                                @php
+                                                $total_coupon = $total-$count['price_coupon'];
+                                                @endphp
+                                            </p>
+                                            <p><li>Total amount after applying coupon: {{number_format($total_coupon,0,','.'.')}} USD</li></p>
+                                        @endforeach
+                                    </li>
+                                @endif
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    {{-- @if(session('status'))
-        <script>
-            swal("{{session('status')}}");
-        </script>
-    @endif --}}
 @endsection
 
 @section('scripts')
+
 <script>
         var mapCenter = [{{ config('leaflet.map_center_latitude') }},
                     {{ config('leaflet.map_center_longitude') }},
@@ -169,56 +180,6 @@
                 console.log(error);
             });
 
-        $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            //Check error when click apply coupon
-            $('.apply_coupon_code_btn').click(function (e) {
-                e.preventDefault();
-
-                var coupon_code = $('.coupon_code').val();
-                
-                if($.trim(coupon_code).length == 0) {
-                    error_coupon = "Please enter valid Coupon Code";
-                    $('#error_coupon').text(error_coupon)
-                }
-                else {
-                    error_coupon = '';
-                    $('#error_coupon').text(error_coupon);
-                }
-
-                if(error_coupon != '')
-                {
-                    return false;
-                }
-
-                $.ajax({
-                method: "POST",
-                url: "/check-coupon-code",
-                data: {
-                    'coupon_code': coupon_code
-                },
-                success: function(response){
-                    if(response.error_status == 'error')
-                    {
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success(response.status);
-                        $('.coupon_code').val('');
-                    }
-                    else
-                    {
-                        var discount_price = response.discount_price;
-                        var grand_total = response.grand_total;
-                        $('.grand_total').text(grand_total);
-                        
-                    }
-                }
-            });
-        });    
-    })
+        
 </script>
 @endsection

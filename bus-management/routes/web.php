@@ -54,6 +54,8 @@ Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.b
 
 // Check coupon
 Route::post('/check-coupon-code', [BookingController::class, 'checkCoupon'])->name('frontend.checkcoupon');
+// Remove coupon
+Route::get('/remove-coupon', [BookingController::class, 'removeCoupon'])->name('frontend.removecoupon');
 // Search bus house
 Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'searchBusHouseByAjax'])->name('frontend.searchBusHouse.ajax');
 // Route::get('/schedules/searchBusHouse', [SchedulesController::class, 'searchBusHouse'])->name('frontend.searchBusHouse');

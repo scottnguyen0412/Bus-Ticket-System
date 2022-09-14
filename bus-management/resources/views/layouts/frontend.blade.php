@@ -41,10 +41,7 @@
     crossorigin=""/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
-	{{-- Alertify --}}
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-	<!-- Default theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link type="text/css" href="{{asset("frontend/css/css/custom.css")}}">
 	@yield('custom-css')
 </head>
@@ -194,9 +191,8 @@
 	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js" integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<!-- Alertify -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
+	<!-- alert -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	{{-- Handle animate on scroll --}}
 	<script>
@@ -558,5 +554,21 @@
             swal("{{session('status')}}");
         </script>
     @endif
+	<script>
+		@if(Session::has('warning'))
+					toastr.options = {
+						"closeButton": true,
+						"progressBar": true,
+					}
+					toastr.warning("{{session('warning')}}")
+		@elseif (Session::has('success'))
+					toastr.options = {
+						"closeButton": true,
+						"progressBar": true,
+					}
+					toastr.success("{{session('success')}}")
+		@endif
+	</script>
+	
 </body>
 </html>

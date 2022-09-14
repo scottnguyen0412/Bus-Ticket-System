@@ -8,9 +8,10 @@ use App\Models\Booking;
 use App\Models\Coupon;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
 use DB;
+use Session;
+
 
 
 class BookingController extends Controller
@@ -47,31 +48,61 @@ class BookingController extends Controller
     public function checkCoupon(Request $request) 
     {
         $coupon_code = $request->input('coupon_code');
-        // Check coupon exist
-        if(Coupon::where('coupon_code', $coupon_code)->exists())
+        $coupon = Coupon::where('coupon_code', $coupon_code)->count();
+        if($coupon == 0)
         {
-            $coupon = Coupon::where('coupon_code', $coupon_code)->first();
-            $schedule_id = $request->input('schedule_id');
-            $schedule = Schedule::where('id',$schedule_id)->get();
-            // Valid time coupon
-            if($coupon->valid_from <= Carbon::today()->format('Y/m/d') && Carbon::today()->format('Y/m/d') <= $coupon->valid_until)
-            {
-                
-            }
-            else
-            {
-                return response()->json([
-                    'status'=>'Coupon code has been expired',
-                    'error_status'=> 'error'
-                ]);
-            }
+            return back()->with('warning', 'You entered an invalid coupon');
         }
         else
         {
-            return response()->json([
-                'status'=>'Coupon Code does not exist',
-                'error_status'=> 'error'
-            ]);
+            $apply_coupon = Coupon::where('coupon_code', $coupon_code)->get()->first();
+
+            $currentDate = date('Y-m-d');
+            $expired_date_coupon = $apply_coupon->valid_until;
+           
+            // if($expired_date_coupon < $currentDate)
+            // {
+            //     //  dd($expired_date_coupon < $currentDate);
+            //     return redirect()->back()->with('warning', "Coupon is expired");
+            // }
+            // else
+            //     {
+                    $coupon_session = Session::get('coupon');
+                    if($coupon_session)
+                    {
+                        $is_available = 0;
+                        if($is_available == 0)
+                        {
+                            $count[] = array(
+                                'coupon_code' => $apply_coupon->coupon_code,
+                                'price_coupon' => $apply_coupon->price_coupon,
+                            );
+                            // Create new session 
+                            Session::put('coupon', $count);
+                        }
+                    }
+                    // Nếu chưa nhập mã giảm giá
+                    else
+                    {
+                        $count[] = array(
+                                'coupon_code' => $apply_coupon->coupon_code,
+                                'price_coupon' => $apply_coupon->price_coupon,
+                            );
+                            // Create new session 
+                            Session::put('coupon', $count);
+                    }
+                    Session::save();
+                    return back()->with('success', 'Apply coupon successfully');
+                // }
+            } 
+    }
+
+    public function removeCoupon(){
+        $coupon = Session::get('coupon');
+        if($coupon)
+        {
+            Session::forget('coupon');
         }
+        return redirect()->back()->with('success','Removed Coupon Successfully');
     }
 }
