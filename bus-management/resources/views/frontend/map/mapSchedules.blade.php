@@ -24,50 +24,53 @@
                     <a class="btn rounded text-white" style="background:#2F3C7E" href="{{url('/schedules')}}"><i class="fa-solid fa-square-caret-left"></i> Back</a>
                     <div class="card mt-2">
                         <div class="card-body mt-2">
-                            <form method="Post" action="{{url('/booking')}}">
+                            <form method="POST" action="{{url('/booking')}}">
                             @csrf
-                            <h5 class="card-title font-weight-bold text-center">Detail Booking</h5>
-                            <div class="form-group">
-                                <input type="hidden" name="schedule_id" value="{{$schedule->id}}"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Bus Name</label>
-                                <input type="text" class="form-control" placeholder="bus name" value="{{$schedule->bus->bus_name}}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Quantiy of seats</label>
-                                <input type="number" min="0" name="choose_seats" 
-                                            value="{{request()->input('choose_seats')}}"
-                                            placeholder="Quantity of seats" 
-                                            class="form-control text-secondary rounded border border-success font-weight-bold choose_seats" readonly>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Start Destination</label>
-                                <input type="text" id="start_dest" name="start_dest" class="form-control" 
-                                    value="{{$schedule->start_dest->name}}"
-                                    autocomplete="off" placeholder="Date" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Destination</label>
-                                <input type="text" id="dest" name="dest" class="form-control" 
-                                    value="{{$schedule->destination->name}}"
-                                    autocomplete="off" placeholder="Date" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Estimated Arrival Time</label>
-                                <input type="text" value="{{$schedule->estimated_arrival_time}}" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Start Date</label>
-                                <input type="datetime-local" id="start_day" name="start_day" class="form-control" 
-                                    value="{{$schedule->start_at}}"
-                                    autocomplete="off" placeholder="Date" readonly>
-                            </div>
+                                <h5 class="card-title font-weight-bold text-center">Detail Booking</h5>
+                                <div class="form-group">
+                                    <input type="hidden" name="schedule_id" class="schedule_id" value="{{$schedule->id}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bus Name</label>
+                                    <input type="text" class="form-control" placeholder="bus name" value="{{$schedule->bus->bus_name}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Quantiy of seats</label>
+                                    <input type="number" min="0" name="choose_seats" 
+                                                value="{{request()->input('choose_seats')}}"
+                                                placeholder="Quantity of seats" 
+                                                class="form-control text-secondary rounded border border-success font-weight-bold seat_number" readonly>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Start Destination</label>
+                                    <input type="text" id="start_dest" name="start_dest" class="form-control" 
+                                        value="{{$schedule->start_dest->name}}"
+                                        autocomplete="off" placeholder="Date" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Destination</label>
+                                    <input type="text" id="dest" name="dest" class="form-control" 
+                                        value="{{$schedule->destination->name}}"
+                                        autocomplete="off" placeholder="Date" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estimated Arrival Time</label>
+                                    <input type="text" value="{{$schedule->estimated_arrival_time}}" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="datetime-local" id="start_day" name="start_day" class="form-control" 
+                                        value="{{$schedule->start_at}}"
+                                        autocomplete="off" placeholder="Date" readonly>
+                                </div>
+                                <button type="submit" class="btn btn-success">Next</button>
+                                @php $total = 0; @endphp
+                                @php $total = request()->input('choose_seats') * $schedule->price_schedules; @endphp
+                                <input type="hidden" name="payment_mode" value="COD">
+                                <button class="btn btn-secondary w-100 mt-3" type="submit">Place Order | COD</button>
+                                <div id="paypal-button-container" class="paypal-button-container"></div>
 
-                            <button type="submit" class="btn btn-success">Next</button>
-                            @php $total = 0; @endphp
-                            @php $total =  request()->input('choose_seats') * $schedule->price_schedules; @endphp
                             </form>
                             
                         </div>
@@ -103,12 +106,12 @@
                             </div>
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item font-weight-bold">Total Price: <span>{{number_format($total,0,',','.')}} USD</span></li>
+                            <li class="list-group-item font-weight-bold">Total Price: <span name="total" value="{{request()->input('choose_seats') * $schedule->price_schedules}}">{{number_format($total,0,',','.')}} USD</span></li>
                                 @if(Session::get('coupon'))
                                     <li class="list-group-item font-weight-bold">
                                         @foreach (Session::get('coupon') as $key => $count)
                                             Coupon: {{number_format($count['price_coupon'],0,',','.')}} USD
-                                            <p>
+                                            <p class="coupon_id">
                                                 @php
                                                 $total_coupon = $total-$count['price_coupon'];
                                                 @endphp
@@ -119,6 +122,24 @@
                                 @endif
                         </ul>
                     </div>
+
+                    {{-- <div class="card" style="width: 18rem;">
+                    <form action="{{url('/checkout')}}" method="POST">
+                        @csrf
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <input type="hidden" name="booking_id">
+                            <input type="hidden" name="payment_mode" value="COD">
+                            <li class="list-group-item font-weight-bold">Total Price: <span name="total" value="{{request()->input('choose_seats') * $schedule->price_schedules}}">{{number_format($total,0,',','.')}} USD</span></li>
+
+                            <button class="btn btn-secondary w-100 mt-3" type="submit">Place Order | COD</button>
+                            <button class="btn btn-success w-100 mt-3 razorpay-btn" type="submit">Pay With Razorpay</button>
+                            <br/><br/>
+                            <div id="paypal-button-container" class="paypal-button-container"></div>
+                        </div>
+                    </form>
+                    </div> --}}
+
                 </div>
             </div>
         </div>
@@ -126,6 +147,7 @@
 @endsection
 
 @section('scripts')
+<script src="https://www.paypal.com/sdk/js?client-id=AcImd653WkVeUKRGVYq1GnlC9eiImFU5JaoHWwFjdEwt-KFFjO-iL5B0DUAWheL15GrQfnYDWCxgp-4-&currency=USD"></script>
 
 <script>
         var mapCenter = [{{ config('leaflet.map_center_latitude') }},
@@ -187,6 +209,60 @@
                 console.log(error);
             });
 
-        
+        //Checkout by paypal        
+        paypal.Buttons({
+        // Sets up the transaction when a payment button is clicked
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '{{$total}}' // Can also reference a variable or function
+              }
+            }]
+          });
+        },
+        // Finalize the transaction after payer approval
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(function(orderData) {
+            // Successful capture! For dev/demo purposes:
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            const transaction = orderData.purchase_units[0].payments.captures[0];
+            // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+            var seat_number = $('.seat_number').val();
+            var schedule_id = $('.schedule_id').val();
+            var coupon_id = $('.coupon_id').val(); 
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+                method: "POST",
+                url: "/booking",
+                    // Bên trái là giá trị input từ controller
+                    data: {
+                    'choose_seats': seat_number,
+                    'payment_mode': "Paid by Paypal",
+                    'payment_id': transaction.id,
+                    'schedule_id': schedule_id,
+                    'coupon_id': coupon_id,
+                    },
+                    success: function(responseb){
+                                // Sau khi thông báo thành công thì sẽ đợi người dùng xác nhận 
+                                swal(responseb.status).then((value) => { 
+                                        window.location.href ="/schedules";
+                                    });
+                            }
+                        });
+            
+            // When ready to go live, remove the alert and show a success message within this page. For example:
+            // const element = document.getElementById('paypal-button-container');
+            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            // Or go to another URL:  actions.redirect('thank_you.html');
+          });
+        }
+      }).render('#paypal-button-container');
+
 </script>
+    
 @endsection

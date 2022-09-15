@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Coupon;
 use App\Models\Schedule;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DB;
@@ -30,6 +31,7 @@ class BookingController extends Controller
             return redirect()->back()->with('status', "Please Login to continute");
         }
         $booking->seat_number = $request->input('choose_seats');
+        
         $booking->booking_date = Carbon::now();
         $booking->schedule_id = $request->input('schedule_id');
 
@@ -43,10 +45,23 @@ class BookingController extends Controller
             
             $booking->coupon_id = $coupon_code;
         }
+        $schedule = Schedule::where('id',$booking->schedule_id)->get();
+        $total = 0;
+        foreach($schedule as $sche)
+        {
+            $total += $request->input('choose_seats') * $sche->price_schedules;
+        }
+        $booking->total_price = $total;
+        $booking->payment_method = $request->input('payment_mode');
+        $booking->payment_id = $request->input('payment_id');
+        // dd($booking);
         $booking->save();
+        if ($request->input('payment_mode') == "Paid by Razorpay" || $request->input('payment_mode') == "Paid by Paypal") {
+            return response()->json(['status' => 'Order placed successfully']);
+        }
         // If order successfully then delete session coupon with condition user have coupon
         Session::forget('coupon');
-        return redirect('/payment');
+        return redirect('/schedules')->with('status', 'Order Successfully');
     }
 
     public function checkCoupon(Request $request) 
