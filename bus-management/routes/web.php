@@ -18,9 +18,7 @@ use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\SchedulesController;
 use App\Http\Controllers\Frontend\BookingController;
-
-
-
+use App\Http\Controllers\Frontend\PaymentController;
 
 use App\Http\Controllers\Auth\LoginController;
 
@@ -56,6 +54,8 @@ Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.b
 Route::post('/check-coupon-code', [BookingController::class, 'checkCoupon'])->name('frontend.checkcoupon');
 // Remove coupon
 Route::get('/remove-coupon', [BookingController::class, 'removeCoupon'])->name('frontend.removecoupon');
+// Payment
+Route::get('/payment', [PaymentController::class, 'index'])->name('frontend.indexpayment');
 // Search bus house
 Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'searchBusHouseByAjax'])->name('frontend.searchBusHouse.ajax');
 // Route::get('/schedules/searchBusHouse', [SchedulesController::class, 'searchBusHouse'])->name('frontend.searchBusHouse');

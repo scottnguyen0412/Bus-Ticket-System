@@ -35,13 +35,18 @@ class BookingController extends Controller
 
         // Get coupon value through session
         $coupon = Session::get('coupon');
-        // check value and get id
-        $coupon_code = Coupon::where('coupon_code', $coupon)->first()->id;
-        $booking->coupon_id = $coupon_code;
+        // Check if have session coupon
+        if($coupon)
+        {
+            // check value and get id
+            $coupon_code = Coupon::where('coupon_code', $coupon)->first()->id;
+            
+            $booking->coupon_id = $coupon_code;
+        }
         $booking->save();
         // If order successfully then delete session coupon with condition user have coupon
         Session::forget('coupon');
-        return redirect('/schedules')->with('status', 'Your order successfully');
+        return redirect('/payment');
     }
 
     public function checkCoupon(Request $request) 
