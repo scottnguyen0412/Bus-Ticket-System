@@ -124,4 +124,32 @@ class BookingController extends Controller
         }
         return redirect()->back()->with('success','Removed Coupon Successfully');
     }
+
+    public function razorpayCheck(Request $request)
+    {
+        $booking = Booking::where('user_id', Auth::id())->get();
+
+        if(!$booking)
+        {
+            return redirect()->back()->with('status', "Please Login to continute");
+        }
+        $schedule = Schedule::where('id',$request->input('schedule_id'))->get();
+        $total = 0;
+        foreach($schedule as $sche)
+        {
+            $total += $request->input('choose_seats') * $sche->price_schedules;
+        }
+        // dd($total);
+        $seat_number = $request->input('choose_seats');
+        $schedule_id = $request->input('schedule_id');
+        $coupon_id = $request->input('coupon_id');
+
+        return response()->json([
+            'choose_seats' => $seat_number,
+            'schedule_id' => $schedule_id,
+            'coupon_id' => $coupon_id,
+            'total_price' => $total,
+        ]);
+
+    }
 }

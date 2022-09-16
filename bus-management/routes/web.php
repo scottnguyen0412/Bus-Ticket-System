@@ -49,11 +49,12 @@ Route::get('/contact', [ContactController::class, 'index'])->name('frontend.cont
 Route::get('/schedules', [SchedulesController::class, 'index'])->name('frontend.schedules');
 Route::get('/schedules/show-map/{id}', [SchedulesController::class, 'showMap'])->name('frontend.showmap');
 Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.booking');
-
 // Check coupon
 Route::post('/check-coupon-code', [BookingController::class, 'checkCoupon'])->name('frontend.checkcoupon');
 // Remove coupon
 Route::get('/remove-coupon', [BookingController::class, 'removeCoupon'])->name('frontend.removecoupon');
+// Checkout with razorpay
+Route::post('/proceed-to-pay', [BookingController::class, 'razorpayCheck'])->name('frontend.razorpay');
 
 // Search bus house
 Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'searchBusHouseByAjax'])->name('frontend.searchBusHouse.ajax');
