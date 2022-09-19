@@ -18,7 +18,6 @@
                                                     <option value="{{$bus_name->id}}">{{$bus_name->bus_name}}</option>
                                                 @endforeach
                                             </select><br/>
-                    
                     <label>Departure Time*</label>
                     <input type="datetime-local" value="{{$schedule->start_at}}" class="form-control form-control-lg @error('start_at') is-invalid @enderror" role="alert" name="start_at" id="start_at">
                                             @error('start_at')
