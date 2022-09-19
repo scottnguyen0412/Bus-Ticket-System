@@ -132,6 +132,39 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ url('/admin/get-all-bus')}}',
+                dom: 'lBfrtip',
+                    buttons: [
+                        {
+                            extend: 'copy', 
+                            text: '<i class="fas fa-copy"> Copy</i>',
+                            className: 'btn-default',
+                            titleAttr: 'Copy'
+                        },
+                        {
+                            extend: 'pdf',
+                            text: '<i class="fas fa-file-pdf"> Export PDF</i>',
+                            className: 'btn-danger',
+                            titleAttr: 'Pdf'
+                        },
+                        {
+                            extend: 'csv',
+                            text: '<i class="fas fa-file-csv"> Export CSV</i>',
+                            className: 'btn-info',
+                            titleAttr: 'Csv'
+                        },
+                        {
+                            extend: 'excel',
+                            text: '<i class="fas fa-file-excel"> Export Excel</i>',
+                            className: 'btn-success',
+                            titleAttr: 'Excel'
+                        },
+                        {
+                            extend: 'print',
+                            text: '<i class="fas fa-print"> Print</i>',
+                            className: 'btn-light',
+                            titleAttr: 'Print'
+                        },
+                    ],
                 columns: [
                     {
                         data: 'bus_name',
