@@ -51,7 +51,10 @@
                                         </div>
                                         <div class="form-group">
                                             <legend class="@error('bus_status') is-invalid @enderror" role="alert">Status*</legend>
-                                            <input type="checkbox" class="" name="bus_status" id="bus_status"> Checked=Shown/Not Checked=Not Shown
+                                            <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" name="bus_status" id="customSwitches">
+                                                    <label class="custom-control-label" for="customSwitches">Switch on=Shown/ Switch Off=Not Shown</label>
+                                            </div>
                                             @error('bus_status')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
@@ -59,11 +62,16 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="number_of_seats" class="col-form-label">Amount of Seats*</label>
+                                            <label for="number_of_seats" class="col-form-label @error('number_of_seats') is-invalid @enderror">Amount of Seats*</label>
                                             <input type="number" class="form-control" name="number_of_seats" id="number_of_seats" placeholder="Enter amount of seat in bus">
+                                            @error('number_of_seats')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="image_bus" class="col-form-label">Image Bus*</label>
+                                            <label for="image_bus" class="col-form-label">Multiple Image Bus*</label>
                                             <input type="file" multiple name="image_bus[]" class=" form-control @error('image_bus') is-invalid @enderror" role="alert" >
                                             @error('image_bus')
                                                 <span class="invalid-feedback ">
@@ -199,8 +207,7 @@
         });
     </script>
     <script>
-    @if ($errors->has('name')||$errors->has('email')||$errors->has('avatar')||$errors->has('gender')
-        ||$errors->has('phone_number')||$errors->has('date_of_birth'))
+    @if ($errors->has('bus_name')||$errors->has('bus_number')||$errors->has('number_of_seats'))
         var delayInMilliseconds = 1000;
         setTimeout(function() {
         $("#exampleModal").modal('show');

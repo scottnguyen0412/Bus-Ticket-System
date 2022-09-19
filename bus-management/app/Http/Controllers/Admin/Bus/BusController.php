@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Bus;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\BusRequest;
+use App\Http\Requests\UpdateBusRequest;
 use App\Models\Bus;
 use App\Models\User;
 use App\Models\ImageBus;
@@ -51,12 +53,14 @@ class BusController extends Controller
                 if($data->bus_status == $not_show)
                 {
                     return '
-                        Not Shown
+                        <div class="badge badge-pill badge-warning">Not Shown</div>
                     ';
                 }
                 else if($data->bus_status == $show)
                 {
-                    return 'Shown';
+                    return '
+                        <div class="badge badge-pill badge-success">Shown</div>
+                    ';
                 }
             })
             ->editColumn('action', function ($data) {
@@ -78,7 +82,7 @@ class BusController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request)
+    public function create(BusRequest $request)
     {
         $bus = Bus::create([
             "bus_name" => $request->input('bus_name'),
@@ -130,7 +134,7 @@ class BusController extends Controller
         return view('admin.bus.edit', compact('bus', 'driver_id'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateBusRequest $request, $id)
     {
         $bus = Bus::findOrFail($id);
         $bus->update([
