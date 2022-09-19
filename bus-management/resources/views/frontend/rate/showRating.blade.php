@@ -84,7 +84,7 @@
 @endsection
 @section('content')
 	<div class="hero-wrap js-fullheight"
-	style="background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');">
+	style="background-image: url('https://images.unsplash.com/photo-1633613286991-611fe299c4be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"

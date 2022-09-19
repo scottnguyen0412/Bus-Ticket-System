@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use App\Models\User;
 use App\Models\Role;
+use App\Jobs\SendMailCreateNewAccount;
 use File;
 
 
@@ -112,18 +113,27 @@ class AccountController extends Controller
             $file->move('admin/upload/img/',$filename);
             $user->avatar = $filename;
         }
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $gender = $request->input('gender');
+        $birthday = $request->input('date_of_birth');
+        $address = $request->input('address');
+        $phone_number = $request->input('phone_number');
+        $role_id = $request->input('role_id');
         // Send Password by email
         $password = $this->autoRandomString(20);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->gender = $request->input('gender'); 
-        $user->date_of_birth = $request->input('date_of_birth');
-        $user->address = $request->input('address');
-        $user->phone_number = $request->input('phone_number');
+        $user->name = $name;
+        $user->email = $email;
+        $user->gender =  $gender;
+        $user->date_of_birth = $birthday;
+        $user->address = $address;
+        $user->phone_number = $phone_number;
         $user->password = Hash::make($password);
-        $user->role_id = $request->input('role_id');
+        $user->role_id = $role_id;
         // dd($user);
         $user->save();
+        SendMailCreateNewAccount::dispatch($user, $password)->delay(now());
+        
         return redirect()->back()->with('status','Created Account Succesfully');
     }
 

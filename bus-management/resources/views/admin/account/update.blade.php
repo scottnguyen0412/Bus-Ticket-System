@@ -119,7 +119,6 @@
                         @if($user->avatar)
                             <img src="{{asset('admin/upload/img/'.$user->avatar)}}" class="img-thumbnail rounded" alt="{{$user->avatar}}">
                         @endif
-
                     </div><br/>
                     <div class="row">
                         <div class="col-12">
