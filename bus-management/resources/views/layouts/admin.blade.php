@@ -36,6 +36,7 @@
 
     <!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    {{-- CSS sweet alert --}}
     <!-- CSS only -->
 {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"> --}}
 
@@ -99,13 +100,21 @@
     
    
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    @yield('scripts')
     <script>
         @if(session('status'))
-            swal("{{session('status')}}");
+            Swal.fire({
+				type: 'success',
+				text: "{{session('status')}}"
+				});
+        @elseif(session('error'))
+                Swal.fire({
+                    type: 'warning',
+                    text: "{{session('error')}}"
+                })
         @endif
     </script>
-    @yield('scripts')
 
     <script>
         var loader = document.getElementById("preloader");

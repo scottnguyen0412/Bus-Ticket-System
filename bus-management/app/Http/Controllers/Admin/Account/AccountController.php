@@ -45,6 +45,12 @@ class AccountController extends Controller
                         return 
                         '
                             <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
+                            <button class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'" disabled><i class="fas fa-user-lock" title="Lock account"></i></button>
+                            <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                            ' . method_field('DELETE') .
+                                '' . csrf_field() .
+                                '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')" disabled><i class="fa fa-trash" title="Delete Account"></i></button>
+                            </form>
                         ';
                     }
                 else {
@@ -144,8 +150,9 @@ class AccountController extends Controller
             $user->address = $request->input('address');
             $user->phone_number = $request->input('phone_number');
             $user->role_id = $request->input('role_id');
-
+            
             $user->update();
+            // dd($user);
             return redirect('/admin/account')->with('status','Updated Account Successfully');
     }
 

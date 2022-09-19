@@ -22,31 +22,37 @@
                             <label class="form-label" for="name">Full Name</label>
                             <input type="text" id="name" name="name" class="form-control form-control-lg @error('name') is-invalid @enderror" role="alert" placeholder="Edit the name *" value="{{$user->name}}"/>
                         </div>
-                        @error('name')
-                                <span class="invalid-feedback ">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                        @enderror
+                        @if ($errors->has('name'))
+                            @error('name')
+                                <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+                            @enderror
+                        @endif
                         </div>
+
                     <div class="col-md-6 mb-4">
                         <div class="form-outline">
                             <label class="form-label" for="email">Email</label>
                             <input type="email" id="email" name="email" placeholder="Edit the email*" class="form-control form-control-lg @error('email') is-invalid @enderror" role="alert" value="{{$user->email}}"/>
                         </div>
+                        @if ($errors->has('email'))
+                            @error('email')
+                                <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+                            @enderror
+                        @endif
                     </div>
-                    @error('email')
-                            <span class="invalid-feedback ">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                    @enderror
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-4 d-flex align-items-center">
-                        <div class="form-outline datepicker w-100">
-                            <label for="date_of_birth" class="form-label">Birthday*</label>
-                            <input type="date" class="form-control form-control-lg" id="date_of_birth" name="date_of_birth" value="{{$user->date_of_birth}}" placeholder="dd-mm-yyyy"/>
-                        </div>
+                            <div class="form-outline datepicker w-100 @error('date_of_birth') is-invalid @enderror">
+                                <label for="date_of_birth" class="form-label " role="alert">Birthday*</label>
+                                <input type="date" class="form-control form-control-lg " id="date_of_birth" name="date_of_birth" value="{{$user->date_of_birth}}" placeholder="dd-mm-yyyy"/>
+                            @if ($errors->has('date_of_birth'))
+                            @error('date_of_birth')
+                                <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+                            @enderror
+                            @endif
+                            </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <h6 class="mb-2 pb-1 @error('gender') is-invalid @enderror" role="alert">Gender* </h6>
@@ -65,20 +71,22 @@
                                 {{$user->gender == 'O' ? 'checked':''}} />
                                 <label class="form-check-label" for="gender">Other</label>
                             </div>
+                            @if ($errors->has('gender'))
                             @error('gender')
-                                <span class="invalid-feedback ">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
                             @enderror
+                            @endif
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-4 pb-2">
-                        <div class="form-outline">
-                            <label class="form-label" for="address">Address</label>
-                            <input type="text" id="address" value="{{$user->address}}" name="address" class="form-control form-control-lg" placeholder="Edit address"/>
-                        </div>
-
+                            <div class="form-outline">
+                                <label class="form-label" for="address">Address</label>
+                                <input type="text" id="address" 
+                                    class="form-control form-control-lg" 
+                                    value="{{$user->address}}" name="address" 
+                                    placeholder="Edit address"/>
+                            </div>
                         </div>
                         <div class="col-md-6 mb-4 pb-2">
                             <div class="form-outline">
@@ -89,23 +97,25 @@
                                             value="{{$user->phone_number}}"
                                             />
                             </div>
-                            @error('phone_number')
-                                <span class="invalid-feedback ">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            @if ($errors->has('phone_number'))
+                                @error('phone_number')
+                                {{-- <div class="alert alert-danger">{{ $message }}</div> --}}
+                                    <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+                                @enderror
+                            @endif
                         </div>
-                    </div>
+                        </div>
                     <div class="row">
                         <div class="col-12">
                                     <label for="avatar" class="form-label">Avatar</label>
                                     <input class="form-control @error('avatar') is-invalid @enderror" role="alert" name="avatar" type="file" id="avatar">
                         </div>
-                        @error('avatar')
-                            <span class="invalid-feedback ">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        {{-- @if ($errors->has('avatar')) --}}
+                                @error('avatar')
+                                {{-- <div class="alert alert-danger">{{ $message }}</div> --}}
+                                    <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+                                @enderror
+                        {{-- @endif --}}
                         @if($user->avatar)
                             <img src="{{asset('admin/upload/img/'.$user->avatar)}}" class="img-thumbnail rounded" alt="{{$user->avatar}}">
                         @endif
