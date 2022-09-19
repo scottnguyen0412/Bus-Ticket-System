@@ -17,7 +17,11 @@
                                                     <option value="{{$bus_name->id}}">{{$bus_name->bus_name}}</option>
                                                 @endforeach
                                             </select><br/>
-                    
+                                            @error('bus_id')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror<br/>
                     <label>Departure Time*</label>
                     <input type="datetime-local" class="form-control form-control-lg @error('start_at') is-invalid @enderror" role="alert" name="start_at" id="start_at">
                                             @error('start_at')
@@ -36,14 +40,14 @@
 
                     <label>Destination*</label>
                     <input type="search" class="form-control" name="destination_id" id="destination_id" placeholder="Search Location: Da Nang, Ha Noi, HCM...">
-                                            @error('destination')
+                                            @error('destination_id')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror <br/>
                                                 
                     <label>Price*</label>
-                    <input type="number" class="form-control form-control-lg @error('price_schedules') is-invalid @enderror" role="alert" name="price_schedules" id="price_schedules">
+                    <input type="number" class="form-control form-control-lg @error('price_schedules') is-invalid @enderror" role="alert" name="price_schedules" id="price_schedules" placeholder="10, 15, 20,100USD..">
                                             @error('price_schedules')
                                                 <span class="invalid-feedback ">
                                                     <strong>{{ $message }}</strong>

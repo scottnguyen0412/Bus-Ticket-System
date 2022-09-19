@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <label for="bus_id" class="col-form-label">Bus Name*</label>
                                             <select class="form-control" name="bus_id" id="bus_id">
-                                                <option selected>-- Select The Bus --</option>
+                                                <option value="{{$schedule->bus->id}}" selected>-- Select The Bus --</option>
                                                 <option disabled class="text-primary" value="{{$schedule->bus->id}}">Current Bus: {{$schedule->bus->bus_name}}</option>
                                                 @foreach ($bus as $bus_name)
                                                     <option value="{{$bus_name->id}}">{{$bus_name->bus_name}}</option>
