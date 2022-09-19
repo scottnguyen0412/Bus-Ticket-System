@@ -29,7 +29,7 @@ class FeedbackController extends Controller
                 return redirect()->back()->with('status', 'Thank you for writting a review');
             }
         } else {
-            return redirect()->back()->with('status', 'This bus does not exist');
+            return redirect()->back()->with('error', 'This bus does not exist');
         }
     }
 }

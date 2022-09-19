@@ -36,7 +36,7 @@ class RatingController extends Controller
                 }
                 return redirect()->back()->with('status', 'Thank you for Rating this Bus');
             } else {
-                return redirect()->back()->with('status', "This bus not exists");
+                return redirect()->back()->with('error', "This bus not exists");
             }
     }
 }
