@@ -33,6 +33,20 @@ class AccountController extends Controller
             ->editColumn('role', function ($user) {
                 return $user->role->name;
             })
+            ->editColumn('gender', function ($user) {
+                if($user->gender == 'O')
+                {
+                    return '<div class="badge badge-success">Other</div>';
+                }
+                elseif($user->gender == 'F')
+                {
+                    return '<div class="badge badge-info">Female</div>';
+                }
+                elseif($user->gender == 'M')
+                {
+                    return '<div class="badge badge-primary">Male</div>';
+                }
+            })
             ->editColumn('avatar', function ($data) {
                 $assetAvatar = asset('admin/upload/img/'.$data->avatar);
                 return '<img src="'.$assetAvatar.'" width="40" height="40" class=" rounded-circle" align="center" />';
@@ -77,7 +91,7 @@ class AccountController extends Controller
                 }
                 // return ''; 
             })
-            ->rawColumns(['avatar', 'action'])
+            ->rawColumns(['avatar', 'action', 'gender'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;

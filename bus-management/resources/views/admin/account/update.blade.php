@@ -125,6 +125,7 @@
                         <div class="col-12">
                         <label class="form-label select-label">Choose the role</label>
                         <select class="form-control" name="role_id">
+                            <option class="text-primary" value="{{$user->role->id}}">--Select the roles--</option>
                             <option disabled class="text-primary">Current role: {{$user->role->name}}</option>
                             @foreach ($role_id as $roles )
                                 <option value="{{$roles->id}}">{{$roles->name}}</option>
