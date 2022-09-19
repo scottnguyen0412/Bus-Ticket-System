@@ -18,7 +18,9 @@ use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\SchedulesController;
 use App\Http\Controllers\Frontend\BookingController;
-
+use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\RatingController;
+use App\Http\Controllers\Frontend\FeedbackController;
 
 
 
@@ -51,11 +53,17 @@ Route::get('/contact', [ContactController::class, 'index'])->name('frontend.cont
 Route::get('/schedules', [SchedulesController::class, 'index'])->name('frontend.schedules');
 Route::get('/schedules/show-map/{id}', [SchedulesController::class, 'showMap'])->name('frontend.showmap');
 Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.booking');
-
 // Check coupon
 Route::post('/check-coupon-code', [BookingController::class, 'checkCoupon'])->name('frontend.checkcoupon');
 // Remove coupon
 Route::get('/remove-coupon', [BookingController::class, 'removeCoupon'])->name('frontend.removecoupon');
+// Checkout with razorpay
+Route::post('/proceed-to-pay', [BookingController::class, 'razorpayCheck'])->name('frontend.razorpay');
+Route::get('/show-rating/{id}', [SchedulesController::class, 'showRating'])->name('frontend.showrating');
+// Rating
+Route::post('/add-rating', [RatingController::class, 'addRatings'])->name('frontend.rating.bus');
+// Feedback
+Route::post('/add-feedback', [FeedbackController::class, 'addFeedback'])->name('frontend.feedback.bus');
 // Search bus house
 Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'searchBusHouseByAjax'])->name('frontend.searchBusHouse.ajax');
 // Route::get('/schedules/searchBusHouse', [SchedulesController::class, 'searchBusHouse'])->name('frontend.searchBusHouse');

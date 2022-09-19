@@ -549,11 +549,19 @@
 
     @yield('scripts')
 
+    <script>
     @if(session('status'))
-        <script>
-            swal("{{session('status')}}");
-        </script>
+            Swal.fire({
+				type: 'success',
+				text: "{{session('status')}}"
+				});
+	@elseif(session('error'))
+			Swal.fire({
+				type: 'warning',
+				text: "{{session('error')}}"
+			})
     @endif
+    </script>
 	<script>
 		@if(Session::has('warning'))
 					toastr.options = {

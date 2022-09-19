@@ -25,7 +25,28 @@
          background: #2e7552;
          color:#fff;
          }
-          
+		.checkout-form label{
+			font-size: 12px;
+			font-weight: 700;
+		}
+
+		.checkout-form input{
+			font-size: 14px;
+			padding: 5px;
+			font-weight: 400;
+		}
+		.checked{
+			color: #ffe400;
+		}
+		.ui-menu{
+			z-index: 3500;
+		}
+
+		.whatsapp-chat{
+			bottom: 10px;
+			left: 10px;
+			position: fixed;
+		}
       </style>
 @endsection
 @section('content')
@@ -278,7 +299,7 @@
 														aria-selected="false">Policies</a>
 												</li>
 												<li class="nav-item">
-													<a class="nav-link" id="rating-tab" data-toggle="tab" href="#rating"
+													<a class="nav-link" id="rating-tab" data-toggle="tab" href="#rating{{$schedule_a->schedule->id}}"
 														role="tab" aria-controls="rating"
 														aria-selected="false">Rating</a>
 												</li>
@@ -385,8 +406,12 @@
 												</div>
 												<div class="tab-pane fade" id="policies" role="tabpanel"
 													aria-labelledby="policies-tab">Policies </div>
-												<div class="tab-pane fade" id="rating" role="tabpanel"
-													aria-labelledby="rating-tab">Rating</div>
+
+												<div class="tab-pane fade" id="rating{{$schedule_a->schedule->id}}" role="tabpanel"
+													aria-labelledby="rating-tab">
+													<br/>
+													<a href="{{url('show-rating/'.$schedule_a->schedule->id)}}" class="btn btn-outline-success">View Rating {{$schedule_a->schedule->bus->bus_name}}</a>
+												</div>
 											</div>
 										</div>
 									</div>
