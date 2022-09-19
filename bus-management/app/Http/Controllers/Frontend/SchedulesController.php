@@ -9,6 +9,8 @@ use App\Models\Bus;
 use App\Models\ImageBus;
 use App\Models\Destination;
 use App\Models\Rating;
+use App\Models\Feedback;
+
 use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
@@ -147,6 +149,8 @@ class SchedulesController extends Controller
         // Tính tổng số sao từ nhiều người dùng đánh giá
         $rating_sum = Rating::where('bus_id', $schedule->bus_id)->sum('stars_rating');
 
+        // Lấy thông tin review của bus
+        $reviews = Feedback::where('bus_id', $schedule->bus_id)->get();
         // Check đã có đánh giá nào để count hay không
         if ($ratings->count() > 0) {
             $rating_value = $rating_sum / $ratings->count();
@@ -160,6 +164,7 @@ class SchedulesController extends Controller
             'user_rating'=> $user_rating,
             'rating_value'=> $rating_value,
             'ratings' => $ratings,
+            'reviews' => $reviews,
             'images_bus'=> $images_bus,
         ]);
     }

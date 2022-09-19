@@ -14,4 +14,14 @@ class Feedback extends Model
     protected $guarded = [
 
     ];
+
+    public function rating()
+    {
+        return $this->belongsTo(Rating::class, 'user_id', 'user_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

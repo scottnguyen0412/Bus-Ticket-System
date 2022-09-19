@@ -223,6 +223,29 @@
 						</div>
 						</div>
 					</div>
-			
+		</div>
+		<hr/>
+		<div class="text-center">
+			@foreach ($reviews as $item)  
+                            <div class="user-review">
+                                <label class="font-weight-bold" for="">{{$item->user->name}}</label>
+                                <br>
+                                @if($item->rating)
+                                    @php 
+                                        $user_rated = $item->rating->stars_rating
+                                    @endphp
+                                    @for($i = 1; $i <= $user_rated; $i++)
+                                        <i class="fa fa-star checked"></i>
+                                    @endfor
+                                    @for($j = $user_rated+1; $j <= 5; $j++)
+                                        <i class="fa fa-star"></i>
+                                    @endfor
+                                @endif
+                                <small>Reviewed on {{$item->created_at->format('d M Y')}}</small>
+                                <p>
+                                    {{$item->user_feedback}}
+                                </p>
+                            </div>
+            @endforeach
 		</div>
 @endsection
