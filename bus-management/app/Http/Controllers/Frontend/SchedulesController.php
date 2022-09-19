@@ -8,6 +8,9 @@ use App\Models\Schedule;
 use App\Models\Bus;
 use App\Models\ImageBus;
 use App\Models\Destination;
+use App\Models\Rating;
+use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 use \stdClass;
 use DB;
@@ -102,7 +105,6 @@ class SchedulesController extends Controller
                 $all_schedules = Schedule::whereBetween('price_schedules',[$filter_min_price,$filter_max_price])->get();
             }
         }
-        
         $schedules = array();
         foreach($all_schedules as $schedule)
         {
@@ -130,6 +132,35 @@ class SchedulesController extends Controller
 
         return view('frontend.map.mapSchedules', [
             'schedule' => $schedule
+        ]);
+    }
+
+    public function showRating($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        // Show image bus
+        $images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();
+        
+        $user_rating = Rating::where('bus_id', $schedule->bus_id)->where('user_id', Auth::id())->first();
+        // Lấy số người rating sản phẩm
+        $ratings = Rating::where('bus_id', $schedule->bus_id)->get();
+        // Tính tổng số sao từ nhiều người dùng đánh giá
+        $rating_sum = Rating::where('bus_id', $schedule->bus_id)->sum('stars_rating');
+
+        // Check đã có đánh giá nào để count hay không
+        if ($ratings->count() > 0) {
+            $rating_value = $rating_sum / $ratings->count();
+        } else {
+            // Nếu không thì trả về 0
+            $rating_value = 0;
+        }
+        // dd($rating_sum);
+        return view('frontend.rate.showRating', [
+            'schedule' => $schedule,
+            'user_rating'=> $user_rating,
+            'rating_value'=> $rating_value,
+            'ratings' => $ratings,
+            'images_bus'=> $images_bus,
         ]);
     }
 
