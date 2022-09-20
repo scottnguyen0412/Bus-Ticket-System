@@ -9,6 +9,8 @@ use App\Models\Coupon;
 use App\Models\Schedule;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\SendMailBilling;
+
 use Carbon\Carbon;
 use DB;
 use Session;
@@ -56,9 +58,10 @@ class BookingController extends Controller
         $booking->payment_id = $request->input('payment_id');
         // dd($booking);
         $booking->save();
-        if ($request->input('payment_mode') == "Paid by Razorpay" || $request->input('payment_mode') == "Paid by Paypal") {
+        if ($request->input('payment_mode') == "Paid by Razorpay" || $request->input('payment_mode') == "Paid by Paypal") {            
             return response()->json(['status' => 'Order placed successfully']);
         }
+        SendMailBilling::dispatch($booking, $schedule)->delay(now());
         // If order successfully then delete session coupon with condition user have coupon
         Session::forget('coupon');
         return redirect('/schedules')->with('status', 'Order Successfully');

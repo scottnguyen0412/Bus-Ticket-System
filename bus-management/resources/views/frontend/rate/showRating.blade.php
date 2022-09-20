@@ -161,20 +161,6 @@
 				</form>
 			</div>
 		</div>
-		
-		 {{-- <div class="card">
-                    <div class="card-body">
-                            <h5>You are writting a review for {{$bus->name}}</h5>
-                            <form action="{{url('/add-review')}}" method="POST">
-                            @csrf
-                                <input type="hidden" name="bus_id" value="{{$product->id}}">
-                                <textarea class="form-control" name="user_review" id="" rows="6" placeholder="Write a review"></textarea>
-                                <hr>
-                                <button class="btn btn-outline-info" type="submit">Submit Review</button>
-                            </form>
-                    </div>
-                </div> --}}
-				
 	</section>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
