@@ -21,6 +21,8 @@ use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\RatingController;
 use App\Http\Controllers\Frontend\FeedbackController;
+use App\Http\Controllers\Frontend\User\UserController;
+
 
 
 
@@ -77,6 +79,8 @@ Route::get('/schedules/searchBusHouseByAjax', [SchedulesController::class, 'sear
 // });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/change-password', [UserController::class, 'changePassword']);
+    Route::post('/update-password', [UserController::class, 'updatePassword']);
     // Note: 'role:admin,driver' not have any space between
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,driver'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

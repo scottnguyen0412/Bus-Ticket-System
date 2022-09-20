@@ -85,7 +85,7 @@
 								</button>
 								<ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
 									<li><a class="dropdown-item" href="#">My Profile</a></li>
-									<li><a class="dropdown-item" href="#">Change Password</a></li>
+									<li><a class="dropdown-item" href="{{url('/change-password')}}">Change Password</a></li>
 									<li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
 								</ul>
 							</li>
@@ -95,9 +95,6 @@
 	      </div>
 	    </div>
 	  </nav>
-
-
-
     @yield('content')
     {{-- Footer --}}
     <footer class="ftco-footer ftco-bg-dark ftco-section">
