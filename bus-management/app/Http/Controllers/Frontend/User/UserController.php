@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Models\User;
 use DB;
+use File;
+
 
 class UserController extends Controller
 {
@@ -33,5 +35,35 @@ class UserController extends Controller
         $user->password = bcrypt($request['new_password']);
         DB::table('users')->where('id', $user->id)->update(['password' => $user->password]);
         return redirect('/')->with('success','Password changed successfully !');
+    }
+
+    public function profile()
+    {
+        return view('frontend.accountUser.profile');
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        // Check user current
+        $user = Auth::user();
+        $exist_avatar = $user->avatar;
+        if($request->hasFile('image'))
+        {
+            // Delete avatar exist
+            $assetAvatar = asset('admin/upload/img/'.$exist_avatar);
+            if(File::exists($assetAvatar))
+            {
+                File::delete($assetAvatar);
+            }
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension(); //Lấy tên file bao gồm extension ví dụ: .png, .jpg
+            $filename = time().'.'.$ext;
+            $file->move('admin/upload/img/',$filename);
+            $user->avatar = $filename;
+            // Update avatar in db
+            DB::table('users')->where('id', $user->id)->update(['avatar' => $user->avatar]);
+        }
+        return redirect()->back()->with('success','Avatar upload successfully');
+
     }
 }

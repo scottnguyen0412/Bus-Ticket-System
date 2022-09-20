@@ -72,19 +72,19 @@
 			  @if(auth()->user())
 				@if(auth()->user('user')||auth()->user()->hasRole('admin') || auth()->user()->hasRole('driver'))
 					<li class="nav-item dropdown my-1">
-								<button class="btn" type="button" id="dropdownMenuButton2"
+								<button class="border-0" style="background-color: transparent !important;" type="button" id="dropdownMenuButton2"
 									data-bs-toggle="dropdown" aria-expanded="false">
 									<a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
 										id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
 										aria-expanded="false">
-										{{-- <img class="img-account-profile rounded-circle mb-2"
-											src="#"
+										<img class="img-account-profile rounded-circle mb-2"
+											src="{{ auth()->user()->avatar == null? asset('/admin/upload/img/avatar.png'): asset('/admin/upload/img/' . Auth::user()->avatar) }}"
 											alt="Avatar"
-											style="width: 30px; height: 30px; object-fit: cover;" loading="lazy"> --}}
+											style="width: 40px; height: 40px; object-fit: cover;" loading="lazy">
 									</a>
 								</button>
 								<ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
-									<li><a class="dropdown-item" href="#">My Profile</a></li>
+									<li><a class="dropdown-item" href="{{url('/edit-profile')}}">My Profile</a></li>
 									<li><a class="dropdown-item" href="{{url('/change-password')}}">Change Password</a></li>
 									<li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
 								</ul>
