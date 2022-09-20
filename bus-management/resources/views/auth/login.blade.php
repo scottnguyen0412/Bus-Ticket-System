@@ -73,6 +73,7 @@
                         <strong>{{ session('error') }}</strong>
                       </div>
                 @endif
+                <a href="{{route('password.request')}}" class="btn btn-link">Forgot the password?</a>
                 <div class="form-row py-3">
                   <div class="offset-1 col-lg-10">
                     <button type="submit" class="btn1">
