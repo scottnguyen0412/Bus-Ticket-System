@@ -68,32 +68,56 @@
             <div class="card mb-4">
                 <div class="card-header text-white" style="background-color:#0063B2FF">Account Details</div>
                 <div class="card-body">
-                    <form>
+                    <form action="{{url('/update-profile')}}" method="POST">
+                        @csrf
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Email (your email will appear here)</label>
-                            <input class="form-control" id="inputUsername" type="email" placeholder="Enter your email" value="">
+                            <input class="form-control" id="inputUsername" type="email" placeholder="Enter your email" name="email" value="{{$show_info->email}}" readonly>
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-12">
                                 <label class="small mb-1" for="inputFirstName">Full Name</label>
-                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" value="">
+                                <input class="form-control @error('full_name') is-invalid @enderror" id="inputFirstName" type="text" placeholder="Enter your full name" name="full_name" value="{{$show_info->name}}">
+                                @error('full_name')
+                                    <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            
                         </div>
                         <!-- Form Row        -->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputOrgName">Address</label>
-                                <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your address" value="">
+                                <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your address" name="address" value="{{$show_info->address}}">
                             </div>
                             <!-- Form Group (location)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLocation">Gender</label>
-                                <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="">
+                                <label class="small mb-1 @error('gender') is-invalid @enderror" for="inputLocation">Gender</label>
+                                <div class="input-control">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="gender" value="M"
+                                        {{$show_info->gender == 'M' ? 'checked':''}} />
+                                        <label class="form-check-label" for="gender">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="gender" value="F"
+                                        {{$show_info->gender == 'F' ? 'checked':''}} />
+                                        <label class="form-check-label" for="gender">Female</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="gender" value="O"
+                                        {{$show_info->gender == 'O' ? 'checked':''}} />
+                                        <label class="form-check-label" for="gender">Other</label>
+                                    </div>
+                                </div>
+                                @error('gender')
+                                    <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+                                @enderror
                             </div>
                         </div>
                         <!-- Form Row-->
@@ -101,16 +125,26 @@
                             <!-- Form Group (phone number)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Phone number</label>
-                                <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="">
+                                <input class="form-control @error('phone_number') is-invalid @enderror" id="inputPhone" type="tel" placeholder="Enter your phone number" name="phone_number" value="{{$show_info->phone_number}}">
+                                @error('phone_number')
+                                    <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <!-- Form Group (birthday)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                <input class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday" value="">
+                                <input class="form-control @error('birthday') is-invalid @enderror" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday" value="{{$show_info->date_of_birth}}">
+                                @error('birthday')
+                                    <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-                        <!-- Save changes button-->
-                        <button class="btn btn-primary" type="button">Save changes</button>
+                        <!-- Update button-->
+                        <button class="btn btn-primary" type="submit">Update Profile</button>
                     </form>
                 </div>
             </div>

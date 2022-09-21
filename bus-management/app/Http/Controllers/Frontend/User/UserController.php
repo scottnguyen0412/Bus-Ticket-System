@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\User;
 use DB;
 use File;
@@ -39,7 +40,32 @@ class UserController extends Controller
 
     public function profile()
     {
-        return view('frontend.accountUser.profile');
+        $user = Auth::user();
+        $show_info = User::where('id', $user->id)->first();
+        return view('frontend.accountUser.profile', [
+            'user'=> $user,
+            'show_info' => $show_info
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+        $fullname = $request->input('full_name');
+        $address = $request->input('address');
+        $gender = $request->input('gender');
+        $phone_number = $request->input('phone_number');
+        $birthday = $request->input('birthday');
+
+        $get_info = User::findOrFail($user->id);
+        $get_info->update([
+            'name' => $fullname,
+            'address' => $address,
+            'gender' => $gender,
+            'phone_number' => $phone_number,
+            'date_of_birth' => $birthday,
+        ]);
+        return redirect('/edit-profile')->with('status', 'Update Profile Successfully');
     }
 
     public function uploadAvatar(Request $request)
@@ -64,6 +90,7 @@ class UserController extends Controller
             DB::table('users')->where('id', $user->id)->update(['avatar' => $user->avatar]);
         }
         return redirect()->back()->with('success','Avatar upload successfully');
-
     }
+
+
 }
