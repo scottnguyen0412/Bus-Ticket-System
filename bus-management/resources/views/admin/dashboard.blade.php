@@ -149,4 +149,112 @@
                             </div>
                         </div>
                     </div>
+                <div class="row">
+                    <div class="col-md-7 card mr-2">
+                        <canvas id="myLineChart"></canvas>
+                    </div>
+                    <div class="col-md-4 card">
+                        <canvas id="myPieChart"></canvas>
+                    <div>
+                </div>
+@endsection
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+        //Line Chart
+        const ctx2 = document.getElementById('myLineChart');
+        const data2 = {
+        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6'],
+        datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4,
+                    //borderColor: 'rgb(255, 99, 132)',
+                    data: [1,2,3,4,4,5,5,5,5],
+            },]
+        };
+        //options
+        var options = {
+                responsive: true,
+                title: {
+                    display: true,
+                    position: "top",
+                    text: "Gender",
+                    fontSize: 18,
+                    fontColor: "#111"
+                },
+                legend: {
+                    display: true,
+                    position: "bottom",
+                    labels: {
+                        fontColor: "#333",
+                        fontSize: 16
+                    }
+                }
+        };
+        //plot to chart
+            const config2 = {
+                type: 'line',
+                data: data2,
+                options: options
+            };
+
+        const myLineChart = new Chart(ctx2,config2);
+
+        //Pie Chart
+        const ctx = document.getElementById('myPieChart');
+        //label for fields
+        const labels = [
+                'Male',
+                'Female',
+                'Other',
+                
+            ];
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4,
+                    //borderColor: 'rgb(255, 99, 132)',
+                    data: [{{$count_gender_Male}},{{$count_gender_Female}},{{$count_gender_Other}}],
+                },]
+            };
+
+            //options
+            var options = {
+                responsive: true,
+                title: {
+                    display: true,
+                    position: "top",
+                    text: "Gender",
+                    fontSize: 18,
+                    fontColor: "#111"
+                },
+                legend: {
+                    display: true,
+                    position: "bottom",
+                    labels: {
+                        fontColor: "#333",
+                        fontSize: 16
+                    }
+                }
+            };
+            //plot to chart
+            const config = {
+                type: 'pie',
+                data: data,
+                options: options
+            };
+
+            const mypieChart = new Chart(ctx,config);
+    </script>
 @endsection

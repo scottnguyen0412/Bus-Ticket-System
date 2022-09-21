@@ -20,6 +20,10 @@ class DashboardController extends Controller
         $destination = DB::table('destination')->count();
         $coupon = DB::table('coupons')->count();
         $booking = Booking::where('booking_status', '1')->count();
+
+        $count_gender_Other = User::where('role_id', '2')->where('gender', 'O')->count(); 
+        $count_gender_Male = User::where('role_id', '2')->where('gender', 'M')->count();
+        $count_gender_Female = User::where('role_id', '2')->where('gender', 'F')->count();
         return view('admin.dashboard', [
             'bus' => $bus,
             'user' => $user,
@@ -28,7 +32,10 @@ class DashboardController extends Controller
             'start_destination' => $star_destination,
             'destination' => $destination,
             'coupon' => $coupon,
-            'booking' => $booking
+            'booking' => $booking,
+            'count_gender_Other' => $count_gender_Other,
+            'count_gender_Male'=> $count_gender_Male,
+            'count_gender_Female' => $count_gender_Female
         ]);
     }
 }
