@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Schedule\ScheduleController;
 use App\Http\Controllers\Admin\StartDestination\StartController;
 use App\Http\Controllers\Admin\Destination\DestinationController;
 use App\Http\Controllers\Admin\Coupon\CouponController;
+use App\Http\Controllers\Admin\ShowBooking\ShowBookingController;
 
 
 
@@ -181,6 +182,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/coupon/update/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
         Route::delete('/coupon/delete/{id}', [CouponController::class, 'delete'])->name('admin.coupon.delete');
         
+        // index booking
+        Route::get('/show-booking',[ShowBookingController::class, 'index'])->name('admin.booking.index');
+        Route::get('/get-all-booking',[ShowBookingController::class, 'getAllRowData']);
+        Route::get('/update-booking-status-not-pay/{id}',[ShowBookingController::class, 'updateNotPay'])->name('admin.booking.notpay');
+        Route::get('/update-booking-status-paid/{id}',[ShowBookingController::class, 'updatePaid'])->name('admin.booking.paid');
     }); 
 
 });

@@ -68,6 +68,12 @@
                     <span>Coupons</span>
                 </a>
             </li>
+            <li class="nav-item {{Request::routeIs('admin.booking.index') ? 'active':'';}}">
+                <a class="nav-link" href="{{route('admin.booking.index')}}">
+                    <i class='fas fa-money-bill'></i>
+                    <span>Booking</span>
+                </a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
