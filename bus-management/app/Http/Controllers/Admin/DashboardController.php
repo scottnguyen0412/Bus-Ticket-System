@@ -26,6 +26,7 @@ class DashboardController extends Controller
         $count_gender_Male = User::where('role_id', '2')->where('gender', 'M')->count();
         $count_gender_Female = User::where('role_id', '2')->where('gender', 'F')->count();
 
+        // Calculate total price booking by month
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 
                     'July', 'August', 'September', 'October', 'November','December'];
         $total_in_months = array();
@@ -35,6 +36,19 @@ class DashboardController extends Controller
             array_push($total_in_months, $total_in_month);
         };
 
+        // Total payment method used many
+        $paypal = Booking::where('booking_status', '1')->where('payment_method', 'Paid by Paypal')->count();
+        $razorpay = Booking::where('booking_status', '1')->where('payment_method', 'Paid by Razorpay')->count();
+        $cod = Booking::where('booking_status', '1')->where('payment_method', 'COD')->count();
+
+        // Total user registed in monthly
+        $total_user = array();
+        for ($monthly=1; $monthly < 12; $monthly++) { 
+                $new_user_register = User::where('role_id', '2')
+                                    ->whereMonth('created_at', $monthly)
+                                    ->count();   
+                array_push($total_user, $new_user_register);
+        }
         return view('admin.dashboard', [
             'bus' => $bus,
             'user' => $user,
@@ -49,6 +63,11 @@ class DashboardController extends Controller
             'count_gender_Female' => $count_gender_Female,
             'total_in_months'=> $total_in_months,
             'months' => $months,
+            'paypal' => $paypal,
+            'razorpay' => $razorpay,
+            'cod' => $cod,
+            'new_user_register'=>$new_user_register,
+            'total_user' => $total_user,
         ]);
     }
 
