@@ -44,8 +44,13 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="price_coupon" class="col-form-label">Price Coupon</label>
+                                            <label for="price_coupon" class="col-form-label  @error('price_coupon') is-invalid @enderror">Price Coupon</label>
                                             <input type="number" class="form-control" name="price_coupon" id="price_coupon" placeholder="Enter the price">
+                                            @error('price_coupon')
+                                                <span class="invalid-feedback ">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="valid_from" class="col-form-label">Start Day</label>
@@ -203,8 +208,7 @@
         });
     </script>
     <script>
-    @if ($errors->has('name_coupon')||$errors->has('valid_from')||$errors->has('coupon_limited_quantity')||$errors->has('price_coupon')
-        ||$errors->has('phone_number')||$errors->has('date_of_birth'))
+    @if ($errors->has('name_coupon')||$errors->has('valid_from')||$errors->has('coupon_limited_quantity')||$errors->has('price_coupon'))
         var delayInMilliseconds = 1000;
         setTimeout(function() {
         $("#exampleModal").modal('show');

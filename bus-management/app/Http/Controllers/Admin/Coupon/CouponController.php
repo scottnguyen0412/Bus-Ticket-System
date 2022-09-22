@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Coupon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\CouponRequest;
+
 use App\Models\Coupon;
 
 
@@ -50,7 +52,7 @@ class CouponController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request)
+    public function create(CouponRequest $request)
     {
         $coupon = Coupon::create([
             'name_coupon' => $request->name_coupon,

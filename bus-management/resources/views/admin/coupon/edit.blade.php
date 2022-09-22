@@ -31,7 +31,7 @@
                     <label>Expiration Date*</label>       
                     <input type="datetime-local" class="form-control @error('valid_until') is-invalid @enderror" role="alert" value="{{$coupon->valid_until}}" name="valid_until" id="valid_until">
                     <br/>
-                    <label>Status*</label>
+                    <label>Status</label>
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" name="status" 
                         {{$coupon->status == '1' ? 'checked':''}} id="customSwitches">

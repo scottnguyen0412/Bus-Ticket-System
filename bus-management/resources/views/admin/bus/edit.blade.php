@@ -34,44 +34,31 @@
                             <input type="text" id="bus_number" name="bus_number" placeholder="Edit the license plates*" class="form-control form-control-md @error('bus_number') is-invalid @enderror" role="alert" 
                                 value="{{$bus->bus_number}}"/>
                         </div>
+                        @if ($errors->has('bus_number'))
+                                @error('bus_number')
+                                    <div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+                                @enderror
+                        @endif
                     </div>
-                    @error('bus_number')
-                            <span class="invalid-feedback ">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                    @enderror
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <h6 class="mb-2 pb-1 @error('bus_status') is-invalid @enderror" role="alert">Bus Status* </h6>
+                            <h6 class="mb-2 pb-1" role="alert">Bus Status* </h6>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="bus_status" id="bus_status" 
-                                    {{$bus->bus_status == '1' ? 'checked':''}} />Checked=Shown Not Checked=Not Shown
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" name="bus_status" 
+                                    {{$bus->bus_status == '1' ? 'checked':''}} id="customSwitches">
+                                    <label class="custom-control-label" for="customSwitches">Switch on=Shown/ Switch Off=Not Shown</label>
+                                </div>
                             </div>
                         </div>
-                        @error('bus_status')
-                            <span>
-                                <strong>{{$message}}</strong>
-                            </span>
-                        @enderror
                         <div class="col-md-6 mb-4">
                         <div class="form-outline">
                             <label class="form-label" for="address">Amount of Seats</label>
                             <input type="number" id="number_of_seats" name="number_of_seats" class="form-control" value="{{$bus->number_of_seats}}" placeholder="Edit Amount of Seats*"/>
                         </div>
                         @error('number_of_seats')
-                            <span>
-                                <strong>{{$message}}</strong>
-                            </span>
-                        @enderror
-                        </div>
-                        <div class="col-md-6 mb-4">
-                        <div class="form-outline">
-                            <label class="form-label" for="address">Speed</label>
-                            <input type="number" id="speed" name="speed" class="form-control" value="{{$bus->speed}}" placeholder="Edit Amount of Seats*"/>
-                        </div>
-                        @error('speed')
                             <span>
                                 <strong>{{$message}}</strong>
                             </span>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use App\Models\User;
 use App\Models\Role;
+use App\Jobs\SendMailCreateNewAccount;
 use File;
 
 
@@ -33,6 +34,20 @@ class AccountController extends Controller
             ->editColumn('role', function ($user) {
                 return $user->role->name;
             })
+            ->editColumn('gender', function ($user) {
+                if($user->gender == 'O')
+                {
+                    return '<div class="badge badge-success">Other</div>';
+                }
+                elseif($user->gender == 'F')
+                {
+                    return '<div class="badge badge-info">Female</div>';
+                }
+                elseif($user->gender == 'M')
+                {
+                    return '<div class="badge badge-primary">Male</div>';
+                }
+            })
             ->editColumn('avatar', function ($data) {
                 $assetAvatar = asset('admin/upload/img/'.$data->avatar);
                 return '<img src="'.$assetAvatar.'" width="40" height="40" class=" rounded-circle" align="center" />';
@@ -45,6 +60,12 @@ class AccountController extends Controller
                         return 
                         '
                             <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
+                            <button class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'" disabled><i class="fas fa-user-lock" title="Lock account"></i></button>
+                            <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                            ' . method_field('DELETE') .
+                                '' . csrf_field() .
+                                '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')" disabled><i class="fa fa-trash" title="Delete Account"></i></button>
+                            </form>
                         ';
                     }
                 else {
@@ -71,7 +92,7 @@ class AccountController extends Controller
                 }
                 // return ''; 
             })
-            ->rawColumns(['avatar', 'action'])
+            ->rawColumns(['avatar', 'action', 'gender'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -92,18 +113,27 @@ class AccountController extends Controller
             $file->move('admin/upload/img/',$filename);
             $user->avatar = $filename;
         }
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $gender = $request->input('gender');
+        $birthday = $request->input('date_of_birth');
+        $address = $request->input('address');
+        $phone_number = $request->input('phone_number');
+        $role_id = $request->input('role_id');
         // Send Password by email
         $password = $this->autoRandomString(20);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->gender = $request->input('gender'); 
-        $user->date_of_birth = $request->input('date_of_birth');
-        $user->address = $request->input('address');
-        $user->phone_number = $request->input('phone_number');
+        $user->name = $name;
+        $user->email = $email;
+        $user->gender =  $gender;
+        $user->date_of_birth = $birthday;
+        $user->address = $address;
+        $user->phone_number = $phone_number;
         $user->password = Hash::make($password);
-        $user->role_id = $request->input('role_id');
+        $user->role_id = $role_id;
         // dd($user);
         $user->save();
+        SendMailCreateNewAccount::dispatch($user, $password)->delay(now());
+        
         return redirect()->back()->with('status','Created Account Succesfully');
     }
 
@@ -144,8 +174,9 @@ class AccountController extends Controller
             $user->address = $request->input('address');
             $user->phone_number = $request->input('phone_number');
             $user->role_id = $request->input('role_id');
-
+            
             $user->update();
+            // dd($user);
             return redirect('/admin/account')->with('status','Updated Account Successfully');
     }
 

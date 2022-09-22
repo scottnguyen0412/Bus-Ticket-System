@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 class FrontendController extends Controller
 {
+        
     public function index()
     {
         $schedule = Schedule::all();

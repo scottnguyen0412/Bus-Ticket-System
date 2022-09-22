@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Schedule;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\ScheduleRequest;
+use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
 use App\Models\Bus;
 use App\Models\StartDestination;
@@ -39,10 +41,9 @@ class ScheduleController extends Controller
                 if($data->distance == '0')
                 {
                     return '
-                        Being calculated
+                        <div class="badge badge-pill badge-warning">Being calculated</div>
                     ';
                 }
-                    
                 else
                 {
                     return '
@@ -71,7 +72,7 @@ class ScheduleController extends Controller
 
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'distance'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -87,7 +88,7 @@ class ScheduleController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ScheduleRequest $request)
     {
         // get request input
         $search_start_destination = $request->start_destination_id;
@@ -124,7 +125,7 @@ class ScheduleController extends Controller
             'bus' => $bus
         ]);
     }
-    public function update(Request $request, $id)
+    public function update(UpdateScheduleRequest $request, $id)
     {
         $schedule = Schedule::findOrFail($id);
         // get request input

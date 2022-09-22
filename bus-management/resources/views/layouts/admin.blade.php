@@ -36,17 +36,67 @@
 
     <!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    {{-- CSS sweet alert --}}
     <!-- CSS only -->
 {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"> --}}
 
 <!-- CSS only -->
     <!-- CSS -->
     @yield('custom-css')
+
+<style>
+        .overlay {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #222;
+}
+
+.overlay__inner {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.overlay__content {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.spinner {
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.05);
+    border-top-color: #fff;
+    animation: spin 1s infinite linear;
+    border-radius: 100%;
+    border-style: solid;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+</style>
 </head>
 
-<body>
+<body id="preloader">
     {{-- Preloader --}}
-    <div id="preloader" class="hidden"></div>
+    {{-- <div class="overlay">
+        <div class="overlay__inner">
+            <div class="overlay__content"><span class="spinner"></span></div>
+        </div>
+    </div> --}}
 
     <div id="wrapper">
         {{-- Sidebar --}}
@@ -99,20 +149,27 @@
     
    
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    @yield('scripts')
     <script>
         @if(session('status'))
-            swal("{{session('status')}}");
+            Swal.fire({
+				type: 'success',
+				text: "{{session('status')}}"
+				});
+        @elseif(session('error'))
+                Swal.fire({
+                    type: 'warning',
+                    text: "{{session('error')}}"
+                })
         @endif
     </script>
-    @yield('scripts')
 
     <script>
-        var loader = document.getElementById("preloader");
-        window.addEventListener("load", function() {
-            loader.style.display = "none";
-
-        })
+        //$(window).on('load', function(event) {
+        //    $('body').removeClass('preloader');
+        //    $('.overlay').delay(1000).fadeOut('fast');
+        //})
     </script>
 </body>
 

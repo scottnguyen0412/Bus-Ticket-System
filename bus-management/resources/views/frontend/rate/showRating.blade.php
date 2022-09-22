@@ -84,7 +84,7 @@
 @endsection
 @section('content')
 	<div class="hero-wrap js-fullheight"
-	style="background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');">
+	style="background-image: url('https://images.unsplash.com/photo-1633613286991-611fe299c4be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -161,20 +161,6 @@
 				</form>
 			</div>
 		</div>
-		
-		 {{-- <div class="card">
-                    <div class="card-body">
-                            <h5>You are writting a review for {{$bus->name}}</h5>
-                            <form action="{{url('/add-review')}}" method="POST">
-                            @csrf
-                                <input type="hidden" name="bus_id" value="{{$product->id}}">
-                                <textarea class="form-control" name="user_review" id="" rows="6" placeholder="Write a review"></textarea>
-                                <hr>
-                                <button class="btn btn-outline-info" type="submit">Submit Review</button>
-                            </form>
-                    </div>
-                </div> --}}
-				
 	</section>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
