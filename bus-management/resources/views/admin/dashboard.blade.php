@@ -75,79 +75,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Coupon Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-danger shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                Coupon</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$coupon}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-gift fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Start Destination Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Start Destination</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$start_destination}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-map-marker-alt  fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Destination Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Destination</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$destination}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-map-marker-alt  fa-2x text-dark-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Booking Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-danger shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                Booking Paid</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$booking}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-receipt fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                 <div class="row">
                     <div class="col-md-7 card mr-2">
@@ -157,33 +85,35 @@
                         <canvas id="myPieChart"></canvas>
                     <div>
                 </div>
+                
 @endsection
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script>
         //Line Chart
         const ctx2 = document.getElementById('myLineChart');
+        const datas = <?php echo json_encode($total_in_months) ?>;
+
+        const months = <?php echo json_encode($months) ?>;
         const data2 = {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6'],
+        labels: months,
         datasets: [{
-                    label: 'My First dataset',
+                    label: 'Total amount',
                     backgroundColor: [
-                    'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
                     ],
                     hoverOffset: 4,
                     //borderColor: 'rgb(255, 99, 132)',
-                    data: [1,2,3,4,4,5,5,5,5],
+                    data: datas,
             },]
         };
         //options
-        var options = {
+        var option2 = {
                 responsive: true,
                 title: {
                     display: true,
                     position: "top",
-                    text: "Gender",
+                    text: "Total amount booking by monthly",
                     fontSize: 18,
                     fontColor: "#111"
                 },
@@ -200,7 +130,7 @@
             const config2 = {
                 type: 'line',
                 data: data2,
-                options: options
+                options: option2
             };
 
         const myLineChart = new Chart(ctx2,config2);
@@ -217,7 +147,7 @@
             const data = {
                 labels: labels,
                 datasets: [{
-                    label: 'My First dataset',
+                    label: '',
                     backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
