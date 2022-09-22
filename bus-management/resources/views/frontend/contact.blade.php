@@ -34,28 +34,29 @@
         </div>
         <div class="row block-9">
           <div class="col-md-6 order-md-last pr-md-5">
-            <form action="#">
+            <form action="{{url('/get-contact')}}" method="POST">
+              @csrf
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Name">
+                <input type="text" class="form-control" placeholder="Your Name" name="name">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email">
+                <input type="text" class="form-control" placeholder="Your Email" name="email">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Subject">
+                <input type="text" class="form-control" placeholder="Subject" name="subject">
               </div>
               <div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                <textarea id="" cols="30" rows="7" class="form-control" placeholder="Message" name="messages"></textarea>
               </div>
               <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                <button type="submit" class="btn btn-primary py-3 px-5">Send Message</button>
               </div>
             </form>
           </div>
 
           <div class="col-md-6">
-          	{{-- <div id="map">
-            </div> --}}
+          	<div id="map">
+            </div>
           </div>
         </div>
       </div>
@@ -84,4 +85,18 @@
       </div>
     </section>
 
+@endsection
+
+@section('scripts')
+  <script>
+    var mapCenter = [{{ config('leaflet.map_center_latitude') }},
+                    {{ config('leaflet.map_center_longitude') }},
+                ];
+        var map = L.map('map').setView(mapCenter,10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+        var marker = L.marker([16.1263,108.2373]).addTo(map);
+        marker.bindPopup("<b>Hello Everyone!</b><br>This is Da Nang city, VietNam.").openPopup();
+  </script>
 @endsection

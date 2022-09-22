@@ -53,6 +53,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/',[FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/about',[AboutController::class, 'index'])->name('frontend.about');
 Route::get('/contact', [ContactController::class, 'index'])->name('frontend.contact');
+Route::post('/get-contact', [ContactController::class, 'getContractUser'])->name('frontend.getcontact');
 Route::get('/schedules', [SchedulesController::class, 'index'])->name('frontend.schedules');
 Route::get('/schedules/show-map/{id}', [SchedulesController::class, 'showMap'])->name('frontend.showmap');
 Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.booking');
