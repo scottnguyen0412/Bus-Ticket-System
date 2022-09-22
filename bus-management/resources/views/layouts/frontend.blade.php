@@ -84,6 +84,7 @@
 									</a>
 								</button>
 								<ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
+									<li><a class="dropdown-item" href="{{url('/my-booking')}}">My Booking</a></li>
 									<li><a class="dropdown-item" href="{{url('/edit-profile')}}">My Profile</a></li>
 									<li><a class="dropdown-item" href="{{url('/change-password')}}">Change Password</a></li>
 									<li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>

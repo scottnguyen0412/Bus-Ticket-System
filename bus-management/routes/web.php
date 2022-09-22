@@ -85,6 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/edit-profile', [UserController::class, 'profile']);
     Route::post('/update-profile', [UserController::class, 'updateProfile']);
     Route::post('/upload-avatar', [UserController::class, 'uploadAvatar']);
+    Route::get('//my-booking',[UserController::class, 'myBooking']);
     // Note: 'role:admin,driver' not have any space between
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,driver'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

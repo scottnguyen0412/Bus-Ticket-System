@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\User;
+use App\Models\Booking;
+use App\Models\Schedule;
 use DB;
 use File;
 
@@ -92,5 +94,18 @@ class UserController extends Controller
         return redirect()->back()->with('success','Avatar upload successfully');
     }
 
+    public function myBooking() {
+        $user = Auth::user();
+        // get first record
+        $booking = Booking::where('user_id', $user->id)->get();
+        foreach($booking as $book)
+        {
+            $schedule = Schedule::where('id', $book->schedule_id)->get();
+        }
+        return view('frontend.accountUser.myBooking', [
+            'booking'=>$booking,
+            'schedule' => $schedule,
+        ]);
+    }
 
 }
