@@ -23,8 +23,8 @@ class ContactController extends Controller
             'subject' => $request->subject,
             'messages' => $request->messages,
         ]);
-        $admin_receiver = User::where('role_id', '1')->get();
-        SendMailContact::dispatch($contact, $admin_receiver)->delay(now());
+        $admin_receiver = User::where('role_id', User::ADMIN)->get();
+        SendMailContact::dispatch($admin_receiver, $contact)->delay(now());
         return redirect()->back()->with('status', 'Thank you. Your contact sent to us!!'); 
     }
 }

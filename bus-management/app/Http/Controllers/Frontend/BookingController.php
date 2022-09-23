@@ -146,7 +146,7 @@ class BookingController extends Controller
         $seat_number = $request->input('choose_seats');
         $schedule_id = $request->input('schedule_id');
         $coupon_id = $request->input('coupon_id');
-
+        
         return response()->json([
             'choose_seats' => $seat_number,
             'schedule_id' => $schedule_id,

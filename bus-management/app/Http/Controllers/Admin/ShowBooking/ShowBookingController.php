@@ -39,14 +39,14 @@ class ShowBookingController extends Controller
             ->editColumn('booking_status', function($data) {
                 if($data->booking_status == 0)
                 {
-                    return '<p>Not Paid</p>
-                            <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.paid",$data->id).'">Click to update Paid</a>
+                    return '
+                            <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.paid",$data->id).'"><i class="fas fa-check"></i></a>
                         ';
                 }
                 elseif($data->booking_status == 1)
                 {
-                    return '<p>Paid</p>
-                            <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.notpay",$data->id).'">Click to update Not Paid</a>
+                    return '
+                            <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.notpay",$data->id).'"><i class="fas fa-times"></i></a>
                             
                         ';
                 }

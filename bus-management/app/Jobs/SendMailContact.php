@@ -21,13 +21,13 @@ class SendMailContact implements ShouldQueue
      *
      * @return void
      */
-    protected $contact;
     protected $admin_receiver;
+    protected $contact;
 
-    public function __construct($contact, $admin_receiver)
+    public function __construct($admin_receiver, $contact)
     {
-        $this->contact = $contact;
         $this->admin_receiver = $admin_receiver;
+        $this->contact = $contact;
     }
 
     /**
