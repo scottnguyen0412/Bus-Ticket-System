@@ -10,6 +10,7 @@ use App\Models\ImageBus;
 use App\Models\Destination;
 use App\Models\Rating;
 use App\Models\Feedback;
+use App\Models\Booking;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -140,6 +141,9 @@ class SchedulesController extends Controller
     public function showRating($id)
     {
         $schedule = Schedule::findOrFail($id);
+        //Check user booked bus
+        $booking = Booking::where('user_id', Auth::user()->id)->where('schedule_id', $schedule->id)->first();
+        // dd($booking);
         // Show image bus
         $images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();
         
@@ -166,6 +170,7 @@ class SchedulesController extends Controller
             'ratings' => $ratings,
             'reviews' => $reviews,
             'images_bus'=> $images_bus,
+            'booking' => $booking
         ]);
     }
 

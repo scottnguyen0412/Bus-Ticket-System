@@ -123,11 +123,18 @@
         <div class="heading-section ftco-animate ">
           <h2 class="mb-4 text-secondary">Rate {{$schedule->bus->bus_name}}</h2>
 		  <!-- Button trigger modal -->
-			<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
-			Write Feedback
-			</button>
+		  	@if($booking)
+				<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
+				Write Feedback
+				</button>
+			@else
+				<div class="card card-body bg-warning text-white mt-2">
+					You need to experience the product to be able to give Feedback				
+				</div>
+			@endif
         </div>
 		<hr/>
+		@if($booking)
         <div class="card text-white border-success mb-3">
 			<div class="card-body">
 				<form action="{{url('/add-rating')}}" method="POST">
@@ -161,6 +168,11 @@
 				</form>
 			</div>
 		</div>
+		@else
+			<div class="card card-body bg-warning text-white mt-2">
+					You need to experience the product to be able to give Rating			
+				</div>
+		@endif
 	</section>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
