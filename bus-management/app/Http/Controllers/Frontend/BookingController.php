@@ -10,7 +10,7 @@ use App\Models\Schedule;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\SendMailBilling;
-
+use App\Models\Bus;
 use Carbon\Carbon;
 use DB;
 use Session;
@@ -37,6 +37,24 @@ class BookingController extends Controller
         $booking->booking_date = Carbon::now();
         $booking->schedule_id = $request->input('schedule_id');
 
+        
+            //Trừ số lượng ghế của xe buýt trong db
+            $schedule = Schedule::where('id', $request->input('schedule_id'))->first();
+            $bus = Bus::where('id', $schedule->bus_id)->first();
+            if($request->input('choose_seats'))
+            {
+                if($bus->number_of_seats == 0)
+                {
+                    return redirect()->back()->with('error' , 'The number of seats for this bus has been exhausted. Please choose another bus');
+                }
+                else
+                {
+                    $cal_number_seats = $bus->number_of_seats - $request->input('choose_seats');
+                    $bus->update([
+                        'number_of_seats' => $cal_number_seats
+                    ]);
+                }
+            }
         // Get coupon value through session
         $coupon = Session::get('coupon');
         // Check if have session coupon
