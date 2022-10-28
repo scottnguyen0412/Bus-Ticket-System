@@ -10,6 +10,7 @@ use App\Models\Schedule;
 use App\Models\Bus;
 use App\Models\StartDestination;
 use App\Models\Destination;
+use App\Models\Role;
 use DB;
 
 use Yajra\Datatables\Datatables;
@@ -66,11 +67,19 @@ class ScheduleController extends Controller
                 }
             })
             ->editColumn('action', function ($data) {
-                return '
-                    <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.shedule.detail",['id'=>$data->id]).'"><i class="fas fa-eye" title="See Schedule Detail"></i></a>
-                    <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.schedule.edit', $data->id).'"><i class="fas fa-edit" title="Edit Schedule"></i></a>
-
-                ';
+                if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+                {
+                    return '
+                        <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.shedule.detail",['id'=>$data->id]).'"><i class="fas fa-eye" title="See Schedule Detail"></i></a>
+                        <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.schedule.edit', $data->id).'"><i class="fas fa-edit" title="Edit Schedule"></i></a>
+                    ';
+                }
+                elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
+                {
+                    return '
+                        <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.shedule.detail",['id'=>$data->id]).'"><i class="fas fa-eye" title="See Schedule Detail"></i></a>
+                    ';
+                }
             })
             ->rawColumns(['action', 'distance'])
             ->setRowAttr([

@@ -17,7 +17,9 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="mt-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Schedule</i>
-                                <a class=" btn btn-primary btn-sm float-right" href="{{url('admin/schedule/create')}}"><i class="fa fa-plus"> Add New Schedule</i></a>
+                                @if(auth()->user()->hasRole('admin'))
+                                    <a class=" btn btn-primary btn-sm float-right" href="{{url('admin/schedule/create')}}"><i class="fa fa-plus"> Add New Schedule</i></a>
+                                @endif
                             </h6>
                         </div>
                         <div class="card-body">

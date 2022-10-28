@@ -9,7 +9,9 @@ use App\Http\Requests\UpdateBusRequest;
 use App\Models\Bus;
 use App\Models\User;
 use App\Models\ImageBus;
+use App\Models\Role;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Auth;
 use File;
 
 class BusController extends Controller
@@ -18,7 +20,6 @@ class BusController extends Controller
     {
         // Get user with role driver
         $user = User::where('role_id', '3')->get();
-
         return view('admin.bus.index',[
             'user' => $user,
         ]);
@@ -27,7 +28,14 @@ class BusController extends Controller
     // Display all bus
     public function getAllRowData(Request $request)
     {
+        if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+        {
         $bus = Bus::all();
+        }
+        else if(auth()->user()->hasRole(Role::ROLE_DRIVER))
+        {
+        $bus = Bus::where('driver_id', Auth::user()->id)->get();
+        }
         return Datatables::of($bus)
             ->editColumn('images', function ($data) {
                     return '
@@ -64,6 +72,7 @@ class BusController extends Controller
                 }
             })
             ->editColumn('action', function ($data) {
+                if(auth()->user()->hasRole(Role::ROLE_ADMIN))
                 return '
                     <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.bus.edit',$data->id).'"><i class="fas fa-edit" title="Edit Bus"></i></a>
                     <form method="POST" action="' . route('admin.bus.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
@@ -72,6 +81,8 @@ class BusController extends Controller
                         '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->bus_name.' ?\')"><i class="fa fa-trash" title="Delete the Bus"></i></button>
                     </form>
                 ';
+                else
+                return '';
             })
             ->rawColumns(['images', 'action', 'bus_status'])
             ->setRowAttr([

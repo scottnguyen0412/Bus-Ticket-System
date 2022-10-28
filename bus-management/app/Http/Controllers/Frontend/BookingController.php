@@ -45,13 +45,31 @@ class BookingController extends Controller
             // check value and get id
             $coupon_code = Coupon::where('coupon_code', $coupon)->first()->id;
             
+            
             $booking->coupon_id = $coupon_code;
         }
         $schedule = Schedule::where('id',$booking->schedule_id)->get();
         $total = 0;
         foreach($schedule as $sche)
         {
-            $total += $request->input('choose_seats') * $sche->price_schedules;
+            // Nếu có coupon thì lấy tổng tiền của coupon
+            if($coupon)
+            {
+                $coupon_code = Coupon::where('coupon_code', $coupon)->first()->price_coupon;
+                $total += ($request->input('choose_seats') * $sche->price_schedules) - $coupon_code;
+                // Trừ số lượng coupon
+                $quantity_coupon = Coupon::where('coupon_code', $coupon)->first()->coupon_limited_quantity;
+                $result_quanhtity_coupon = $quantity_coupon - 1;
+                $coupon_id = Coupon::where('coupon_code', $coupon)->first()->id;
+                $update_quantity_coupon = Coupon::where('id', $coupon_id);
+                $update_quantity_coupon->update([
+                    'coupon_limited_quantity' => $result_quanhtity_coupon
+                ]);
+            }
+            else
+            {
+                $total += $request->input('choose_seats') * $sche->price_schedules;
+            }
         }
         $booking->total_price = $total;
         $booking->payment_method = $request->input('payment_mode');
@@ -81,7 +99,11 @@ class BookingController extends Controller
 
             $currentDate = date('Y-m-d');
             $expired_date_coupon = $apply_coupon->valid_until;
-           
+            $check_quantity = $apply_coupon->coupon_limited_quantity;
+            if($check_quantity == 0)
+            {
+                return redirect()->back()->with('warning', 'Coupons are out of stock');
+            }
             if($expired_date_coupon < $currentDate)
             {
                 //  dd($expired_date_coupon < $currentDate);

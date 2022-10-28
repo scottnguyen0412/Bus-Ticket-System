@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Schedule;
 use Yajra\Datatables\Datatables;
-
+use App\Models\Role;
 
 class ShowBookingController extends Controller
 {
@@ -39,16 +39,33 @@ class ShowBookingController extends Controller
             ->editColumn('booking_status', function($data) {
                 if($data->booking_status == 0)
                 {
-                    return '
-                            <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.paid",$data->id).'"><i class="fas fa-check"></i></a>
+                    if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+                    {
+                        return '
+                                <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.paid",$data->id).'"><i class="fas fa-check"></i></a>
+                            ';
+                    } 
+                    elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
+                    {
+                        return '
+                            <span class="badge badge-danger">You cannot use this feature with current role</span>
                         ';
+                    }
                 }
                 elseif($data->booking_status == 1)
                 {
-                    return '
-                            <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.notpay",$data->id).'"><i class="fas fa-times"></i></a>
-                            
+                    if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+                    {
+                        return '
+                                <a class="btn btn-info btn-sm rounded-pill" href="' .route("admin.booking.notpay",$data->id).'"><i class="fas fa-times"></i></a>
+                            ';
+                    }
+                    elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
+                    {
+                        return '
+                            <span class="badge badge-danger">You cannot use this feature with current role</span>
                         ';
+                    }
                 }
             })
             ->rawColumns(['booking_status'])

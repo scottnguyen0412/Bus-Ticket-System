@@ -29,7 +29,14 @@ class AccountController extends Controller
     // Show Account
     public function getAllRowData(Request $request)
     {
+        if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+        {
         $users = User::all();
+        }
+        elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
+        {
+            $users = User::where('role_id', '3')->get();
+        }
         return Datatables::of($users)
             ->editColumn('role', function ($user) {
                 return $user->role->name;
