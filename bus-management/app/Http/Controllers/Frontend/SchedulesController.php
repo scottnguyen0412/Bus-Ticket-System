@@ -141,8 +141,15 @@ class SchedulesController extends Controller
     public function showRating($id)
     {
         $schedule = Schedule::findOrFail($id);
-        //Check user booked bus
-        $booking = Booking::where('user_id', Auth::user()->id)->where('schedule_id', $schedule->id)->first();
+        if(Auth::user())
+        {
+            //Check user booked bus
+            $booking = Booking::where('user_id', Auth::user()->id)->where('schedule_id', $schedule->id)->first();
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'You need to login to view review');
+        }
         // dd($booking);
         // Show image bus
         $images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();

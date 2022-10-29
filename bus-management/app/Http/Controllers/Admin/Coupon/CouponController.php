@@ -22,6 +22,16 @@ class CouponController extends Controller
     {
         $coupon = Coupon::all();
         return Datatables::of($coupon)
+            ->editColumn('coupon_limited_quantity', function($data) {
+                if($data->coupon_limited_quantity == 0)
+                {
+                    return '<span class="badge badge-pill badge-danger">Out of Stock</span>';
+                }
+                else
+                {
+                    return $data->coupon_limited_quantity;
+                }
+            })
             ->editColumn('status', function($data) {
                 $show = 1;
                 $not_show = 0;
@@ -43,7 +53,7 @@ class CouponController extends Controller
                     </form>    
                 ';
             })
-            ->rawColumns(['status','action'])
+            ->rawColumns(['status','action', 'coupon_limited_quantity'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;

@@ -11,6 +11,8 @@ use App\Models\Bus;
 use App\Models\StartDestination;
 use App\Models\Destination;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
+
 use DB;
 
 use Yajra\Datatables\Datatables;
@@ -26,7 +28,20 @@ class ScheduleController extends Controller
     // Display all schedule
     public function getAllRowData(Request $request)
     {
-        $schedule = Schedule::all();
+        if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+        {
+
+            $schedule = Schedule::all();
+        }
+        //if role is driver then just only watch bus assigned for that account driver
+        elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
+        {
+            $bus = Bus::where('driver_id', Auth::user()->id)->first();
+            if($bus)
+            {
+                    $schedule = Schedule::where('bus_id', $bus->id)->get();
+            }
+        }
 
         return Datatables::of($schedule)
             ->editColumn('bus_id', function ($data) {
@@ -56,7 +71,7 @@ class ScheduleController extends Controller
                 if($data->estimated_arrival_time == '0')
                 {
                     return '
-                        Being calculated
+                        <div class="badge badge-pill badge-warning">Being calculated</div>
                     ';
                 }
                 else
@@ -81,7 +96,7 @@ class ScheduleController extends Controller
                     ';
                 }
             })
-            ->rawColumns(['action', 'distance'])
+            ->rawColumns(['action', 'distance', 'estimated_arrival_time'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;

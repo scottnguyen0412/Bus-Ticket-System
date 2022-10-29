@@ -194,7 +194,43 @@
     		</div>
     	</div>
     </section>
-
+	<section class="ftco-section">
+    	<div class="container">
+			<div class="row justify-content-center mb-5 pb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<h2 class="mb-4" style="color:#EEA47FFF"><i class="fas fa-gift"></i> Voucher</h2>
+				</div>
+        	</div>    		
+    	</div>
+		<div class="container">
+			<div class="coupon-carousel owl-carousel owl-theme">
+				@foreach ($coupon as $list_coupon)
+					@if($list_coupon->valid_until > $current_date)
+					<div class="card" style="width: 23rem;">
+						<div class="card-body">
+							<h5 class="card-title text-center font-weight-bold">{{$list_coupon->name_coupon}}</h5>
+							<h6 class="card-subtitle mb-2 text-muted">Price: {{$list_coupon->price_coupon}}$</h6>
+							<p class="card-text">Time to start voucher: {{$list_coupon->valid_from}}</p>
+							<p class="card-text">Time to expire voucher: {{$list_coupon->valid_until}}</p>
+						</div>
+						<div class="card-footer">
+						<span class="badge text-bg-success" >
+							Coupon Code: <input id="coupon_code{{$list_coupon->coupon_code}}" value="{{$list_coupon->coupon_code}}" readonly>
+						<button class="btn" data-clipboard-target="#coupon_code{{$list_coupon->coupon_code}}">
+							<i class="fas fa-copy"></i>
+						</button>
+						</span>
+						{{-- <button class="btn btn-outline-primary" onClick="alert('Number')">Get Coupon</button> --}}
+						</div>
+					</div>
+					@else
+						
+					@endif
+				@endforeach
+			</div>
+		</div>
+	</section>
+	
 	{{-- Popular --}}
 	<section class="ftco-section">
     	<div class="container">
@@ -373,4 +409,34 @@
     		</div>
     	</div>
     </section>
+@endsection
+
+@section('scripts')
+	<script>
+	$(document).ready(function(){
+		$('.coupon-carousel').owlCarousel({
+			loop:true,
+			margin:20,
+			nav:true,
+			dots:false,
+			responsive:{
+				0:{
+					items:1
+				},
+				600:{
+					items:3
+				},
+				1000:{
+					items:3
+				}
+			}
+		})
+		var Clipboard = new ClipboardJS('.btn');
+		Clipboard.on('success', function(e) {
+			console.info('Action:', e.action);
+			toastr.success('Copied')
+
+		});
+  	})
+	</script>
 @endsection
