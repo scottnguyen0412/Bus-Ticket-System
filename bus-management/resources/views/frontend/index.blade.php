@@ -37,8 +37,13 @@
               					<label for="#">From</label>
 	              				<div class="form-field">
 	              					<div class="icon"><span class="icon-my_location"></span></div>
-					                <input type="text" name="start_schedule" value="{{request()->input('start_destination_id')}}" class="form-control" placeholder="From">
+					                <input type="text" name="start_schedule" value="{{request()->input('start_destination_id')}}" class="form-control @error('start_schedule') is-invalid @enderror" placeholder="From">
 					              </div>
+								  	@if ($errors->has('start_schedule'))
+										@error('start_schedule')
+											<div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+										@enderror
+                        			@endif
 				              </div>
               			</div>
               			<div class="col-md align-items-end">
@@ -47,13 +52,18 @@
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
 					                {{-- <input type="text"  name="destination_schedule" class="form-control" placeholder="Where"> --}}
-									<select name="destination_schedule" id="" class="form-control" placeholder="Keyword search">
-										<option value="0" selected class="text-primary">--Select Destination--</option>
+									<select name="destination_schedule" id="" class="form-control @error('destination_schedule') is-invalid @enderror" placeholder="Keyword search">
+										<option value="" selected class="text-primary">--Select Destination--</option>
 										@foreach ($schedule as $sche)
 										<option value="{{$sche->destination_id}}" >{{$sche->destination->name}}</option>
 										@endforeach
 									</select>
-					              </div>
+					            </div>
+									@if ($errors->has('destination_schedule'))
+										@error('destination_schedule')
+											<div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+										@enderror
+                        			@endif
 				              </div>
               			</div>
 						<div class="col-md align-items-end">
@@ -61,8 +71,13 @@
               					<label for="#">Start Day</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="fas fa-calendar-alt"></span></div>
-					                <input type="date" name="checkin_date" class="form-control">
+					                <input type="date" name="checkin_date" class="form-control @error('checkin_date') is-invalid @enderror">
 					              </div>
+								  @if ($errors->has('checkin_date'))
+										@error('checkin_date')
+											<div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+										@enderror
+                        			@endif
 				              </div>
               			</div>
               			<div class="col-md align-self-end">
@@ -125,7 +140,7 @@
               	</form>
               </div>
 
-              <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-effect-tab">
+              {{-- <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-effect-tab">
               	<form action="#" class="search-destination">
               		<div class="row">
               			<div class="col-md align-items-end">
@@ -133,9 +148,9 @@
               					<label for="#">Where</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control" placeholder="Where">
+					                <input type="text" class="form-controlr" placeholder="Where">
 					              </div>
-				              </div>
+				            	</div>
               			</div>
               			<div class="col-md align-items-end">
               				<div class="form-group">
@@ -164,7 +179,7 @@
               			</div>
               		</div>
               	</form>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>
@@ -224,7 +239,9 @@
 						</div>
 					</div>
 					@else
-						
+						<div class="alert alert-primary" role="alert">
+							Voucher is currently not available! 
+						</div>
 					@endif
 				@endforeach
 			</div>

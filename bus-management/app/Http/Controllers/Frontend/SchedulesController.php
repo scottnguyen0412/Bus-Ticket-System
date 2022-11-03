@@ -11,6 +11,8 @@ use App\Models\Destination;
 use App\Models\Rating;
 use App\Models\Feedback;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Validator;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -79,7 +81,18 @@ class SchedulesController extends Controller
         $start_schedule = $request->input('start_schedule');
         $destination = $request->input('destination_schedule');
         $chekin_date = $request->input('checkin_date');
- 
+
+        // //Validation input for search schedule at home page
+        // $validate = $request->validate([
+        //     'start_schedule' => 'required|',
+        //     'destination_schedule' => 'required|',
+        //     'checkin_date' => 'required|'
+        // ],
+        // [
+        //     'destination_schedule.required' => 'You must choose destination for schedule'
+        // ]
+        // );
+        
         if($start_schedule)
         {
             $start = DB::table('start_destination')->where('name','LIKE',"%{$start_schedule}%")->get();

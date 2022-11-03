@@ -12,9 +12,7 @@ use App\Models\StartDestination;
 use App\Models\Destination;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
-
 use DB;
-
 use Yajra\Datatables\Datatables;
 
 
@@ -37,10 +35,12 @@ class ScheduleController extends Controller
         elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
         {
             $bus = Bus::where('driver_id', Auth::user()->id)->first();
-            if($bus)
-            {
+            // dd($bus);
+            // if($bus)
+            // {
                     $schedule = Schedule::where('bus_id', $bus->id)->get();
-            }
+            // }
+            // dd($schedule);
         }
 
         return Datatables::of($schedule)
