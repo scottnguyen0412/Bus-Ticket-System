@@ -43,7 +43,12 @@
                     <p class="card-text">Destination: {{$sche->destination->name}}</p>
                     <p class="card-text">Bus Name: {{$sche->bus->bus_name}}</p>
                 @endforeach
-
+                {{-- Cancel Booking --}}
+                {{-- <form action="{{url('my-booking/'.$book->id)}}" method="POST">
+                    @csrf
+                    @method('Delete')
+                    <button type="submit" onclick="return confirm('Are you sure to Cancel this booking?')" class="btn btn-danger text-white">Cancel Booking</button>
+                </form> --}}
             </div>
         </div><!-- End -->
 

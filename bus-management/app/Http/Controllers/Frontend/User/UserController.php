@@ -108,4 +108,14 @@ class UserController extends Controller
         ]);
     }
 
+    // public function CancelBooking($id)
+    // {
+    //     $booking = Booking::findOrFail($id);
+    //     if($booking)
+    //     {
+    //         $booking->delete();
+    //         return redirect()->back()->with('status', 'Cancel Booking Successfully');
+    //     }
+    // }
+
 }
