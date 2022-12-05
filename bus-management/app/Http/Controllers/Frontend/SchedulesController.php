@@ -10,6 +10,9 @@ use App\Models\ImageBus;
 use App\Models\Destination;
 use App\Models\Rating;
 use App\Models\Feedback;
+use App\Models\Booking;
+use Illuminate\Support\Facades\Validator;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -78,7 +81,18 @@ class SchedulesController extends Controller
         $start_schedule = $request->input('start_schedule');
         $destination = $request->input('destination_schedule');
         $chekin_date = $request->input('checkin_date');
- 
+
+        // //Validation input for search schedule at home page
+        // $validate = $request->validate([
+        //     'start_schedule' => 'required|',
+        //     'destination_schedule' => 'required|',
+        //     'checkin_date' => 'required|'
+        // ],
+        // [
+        //     'destination_schedule.required' => 'You must choose destination for schedule'
+        // ]
+        // );
+        
         if($start_schedule)
         {
             $start = DB::table('start_destination')->where('name','LIKE',"%{$start_schedule}%")->get();
@@ -140,6 +154,16 @@ class SchedulesController extends Controller
     public function showRating($id)
     {
         $schedule = Schedule::findOrFail($id);
+        if(Auth::user())
+        {
+            //Check user booked bus
+            $booking = Booking::where('user_id', Auth::user()->id)->where('schedule_id', $schedule->id)->first();
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'You need to login to view review');
+        }
+        // dd($booking);
         // Show image bus
         $images_bus = ImageBus::where('bus_id', $schedule->bus_id )->pluck('image_bus')->toArray();
         
@@ -166,6 +190,7 @@ class SchedulesController extends Controller
             'ratings' => $ratings,
             'reviews' => $reviews,
             'images_bus'=> $images_bus,
+            'booking' => $booking
         ]);
     }
 

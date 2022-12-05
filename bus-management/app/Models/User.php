@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable;
+    const ADMIN = 1;
     protected $fillable = [
         'name',
         'email',

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bus;
 use App\Models\Feedback;
+use App\Models\Booking;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -16,7 +18,7 @@ class FeedbackController extends Controller
         $bus_id = $request->input('bus_ids');
         // Check sản phẩm có tồn tại 
         $bus = Bus::where('id', $bus_id)->where('bus_status', '1')->first();
-
+        
         // Nếu bus tồn tại thì bắt đầu lấy input review từ người dùng
         if ($bus) {
             $user_review = $request->input('user_review');

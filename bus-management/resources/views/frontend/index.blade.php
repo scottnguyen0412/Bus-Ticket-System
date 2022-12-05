@@ -37,8 +37,13 @@
               					<label for="#">From</label>
 	              				<div class="form-field">
 	              					<div class="icon"><span class="icon-my_location"></span></div>
-					                <input type="text" name="start_schedule" value="{{request()->input('start_destination_id')}}" class="form-control" placeholder="From">
+					                <input type="text" name="start_schedule" value="{{request()->input('start_destination_id')}}" class="form-control @error('start_schedule') is-invalid @enderror" placeholder="From">
 					              </div>
+								  	@if ($errors->has('start_schedule'))
+										@error('start_schedule')
+											<div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+										@enderror
+                        			@endif
 				              </div>
               			</div>
               			<div class="col-md align-items-end">
@@ -47,13 +52,18 @@
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
 					                {{-- <input type="text"  name="destination_schedule" class="form-control" placeholder="Where"> --}}
-									<select name="destination_schedule" id="" class="form-control" placeholder="Keyword search">
-										<option value="0" selected class="text-primary">--Select Destination--</option>
+									<select name="destination_schedule" id="" class="form-control @error('destination_schedule') is-invalid @enderror" placeholder="Keyword search">
+										<option value="" selected class="text-primary">--Select Destination--</option>
 										@foreach ($schedule as $sche)
 										<option value="{{$sche->destination_id}}" >{{$sche->destination->name}}</option>
 										@endforeach
 									</select>
-					              </div>
+					            </div>
+									@if ($errors->has('destination_schedule'))
+										@error('destination_schedule')
+											<div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+										@enderror
+                        			@endif
 				              </div>
               			</div>
 						<div class="col-md align-items-end">
@@ -61,8 +71,13 @@
               					<label for="#">Start Day</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="fas fa-calendar-alt"></span></div>
-					                <input type="date" name="checkin_date" class="form-control">
+					                <input type="date" name="checkin_date" class="form-control @error('checkin_date') is-invalid @enderror">
 					              </div>
+								  @if ($errors->has('checkin_date'))
+										@error('checkin_date')
+											<div class="alert alert-light text-danger"><strong>{{ $message }}</strong></div>
+										@enderror
+                        			@endif
 				              </div>
               			</div>
               			<div class="col-md align-self-end">
@@ -125,7 +140,7 @@
               	</form>
               </div>
 
-              <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-effect-tab">
+              {{-- <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-effect-tab">
               	<form action="#" class="search-destination">
               		<div class="row">
               			<div class="col-md align-items-end">
@@ -133,9 +148,9 @@
               					<label for="#">Where</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control" placeholder="Where">
+					                <input type="text" class="form-controlr" placeholder="Where">
 					              </div>
-				              </div>
+				            	</div>
               			</div>
               			<div class="col-md align-items-end">
               				<div class="form-group">
@@ -164,7 +179,7 @@
               			</div>
               		</div>
               	</form>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>
@@ -194,7 +209,45 @@
     		</div>
     	</div>
     </section>
-
+	<section class="ftco-section">
+    	<div class="container">
+			<div class="row justify-content-center mb-5 pb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<h2 class="mb-4" style="color:#EEA47FFF"><i class="fas fa-gift"></i> Voucher</h2>
+				</div>
+        	</div>    		
+    	</div>
+		<div class="container">
+			<div class="coupon-carousel owl-carousel owl-theme">
+				@foreach ($coupon as $list_coupon)
+					@if($list_coupon->valid_until > $current_date)
+					<div class="card" style="width: 23rem;">
+						<div class="card-body">
+							<h5 class="card-title text-center font-weight-bold">{{$list_coupon->name_coupon}}</h5>
+							<h6 class="card-subtitle mb-2 text-muted">Price: {{$list_coupon->price_coupon}}$</h6>
+							<p class="card-text">Time to start voucher: {{$list_coupon->valid_from}}</p>
+							<p class="card-text">Time to expire voucher: {{$list_coupon->valid_until}}</p>
+						</div>
+						<div class="card-footer">
+						<span class="badge text-bg-success" >
+							Coupon Code: <input id="coupon_code{{$list_coupon->coupon_code}}" value="{{$list_coupon->coupon_code}}" readonly>
+						<button class="btn" data-clipboard-target="#coupon_code{{$list_coupon->coupon_code}}">
+							<i class="fas fa-copy"></i>
+						</button>
+						</span>
+						{{-- <button class="btn btn-outline-primary" onClick="alert('Number')">Get Coupon</button> --}}
+						</div>
+					</div>
+					@else
+						<div class="alert alert-primary" role="alert">
+							Voucher is currently not available! 
+						</div>
+					@endif
+				@endforeach
+			</div>
+		</div>
+	</section>
+	
 	{{-- Popular --}}
 	<section class="ftco-section">
     	<div class="container">
@@ -373,4 +426,34 @@
     		</div>
     	</div>
     </section>
+@endsection
+
+@section('scripts')
+	<script>
+	$(document).ready(function(){
+		$('.coupon-carousel').owlCarousel({
+			loop:true,
+			margin:20,
+			nav:true,
+			dots:false,
+			responsive:{
+				0:{
+					items:1
+				},
+				600:{
+					items:3
+				},
+				1000:{
+					items:3
+				}
+			}
+		})
+		var Clipboard = new ClipboardJS('.btn');
+		Clipboard.on('success', function(e) {
+			console.info('Action:', e.action);
+			toastr.success('Copied')
+
+		});
+  	})
+	</script>
 @endsection

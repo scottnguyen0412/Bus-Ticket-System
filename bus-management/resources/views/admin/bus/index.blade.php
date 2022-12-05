@@ -15,7 +15,9 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="mt-0 font-weight-bold text-primary"><i class="fa fa-eye"> View All Bus</i>
+                            @if (auth()->user()->hasRole('admin'))
                                 <button class=" btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"> Add New Bus</i></button>
+                            @endif
                             </h6>
                         </div>
                             <!-- Modal -->
@@ -107,20 +109,27 @@
                                             <th>Amount of Seats</th>
                                             <th>Driver</th>
                                             <th>Image of Bus</th>
+                                            @if(auth()->user()->hasRole('admin'))
                                             <th>Action</th>
+                                            @else
+                                            <th></th>
+                                            @endif
                                         </tr>
                                     </thead>
     
                                     <tfoot>
                                         <tr>
-                                            
                                             <th>Bus Name</th>
                                             <th>Bus Number(license plates)</th>
                                             <th>Bus Status</th>
                                             <th>Amount of Seats</th>
                                             <th>Driver</th>
                                             <th>Image of Bus</th>
+                                            @if(auth()->user()->hasRole('admin'))
                                             <th>Action</th>
+                                            @else
+                                            <th></th>
+                                            @endif
                                         </tr>
                                     </tfoot>
                                 </table>

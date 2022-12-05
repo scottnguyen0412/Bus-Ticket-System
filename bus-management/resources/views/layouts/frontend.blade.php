@@ -84,6 +84,7 @@
 									</a>
 								</button>
 								<ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
+									<li><a class="dropdown-item" href="{{url('/my-booking')}}">My Booking</a></li>
 									<li><a class="dropdown-item" href="{{url('/edit-profile')}}">My Profile</a></li>
 									<li><a class="dropdown-item" href="{{url('/change-password')}}">Change Password</a></li>
 									<li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
@@ -186,6 +187,8 @@
     <script src="{{asset("frontend/js/scrollax.min.js")}}"></script>
     <script src="{{asset("frontend/js/owl.carousel.min.js")}}"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js" integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<!-- alert -->
@@ -545,7 +548,20 @@
 	</script>
 
     @yield('scripts')
-
+	
+	<!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/62934e2db0d10b6f3e7496a7/1g47mip2o';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
     <script>
     @if(session('status'))
             Swal.fire({

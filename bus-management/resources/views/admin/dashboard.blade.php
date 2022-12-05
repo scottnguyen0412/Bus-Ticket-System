@@ -77,6 +77,7 @@
                             </div>
                         </div>                        
                 </div>
+                @if(auth()->user()->hasRole('admin'))
                 <div class="row">
                     <div class="col-md-8 card">
                         <canvas id="myLineChart"></canvas>
@@ -94,6 +95,7 @@
                         <canvas id="userRegisterMonthlyChart"></canvas>
                     </div>
                 </div>
+                @endif
 @endsection
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>

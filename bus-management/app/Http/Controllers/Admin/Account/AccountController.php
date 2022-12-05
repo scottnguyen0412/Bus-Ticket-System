@@ -29,7 +29,14 @@ class AccountController extends Controller
     // Show Account
     public function getAllRowData(Request $request)
     {
+        if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+        {
         $users = User::all();
+        }
+        elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
+        {
+            $users = User::where('role_id', '3')->get();
+        }
         return Datatables::of($users)
             ->editColumn('role', function ($user) {
                 return $user->role->name;
@@ -55,42 +62,51 @@ class AccountController extends Controller
             ->editColumn('action', function ($data) {
                 // is_banned = 1: lock
                 // is_banned = 0: not lock\
-                if($data->id === Auth::user()->id)
-                    {
-                        return 
-                        '
+                if(auth()->user()->hasRole(Role::ROLE_ADMIN))
+                {
+                    if($data->id === Auth::user()->id)
+                        {
+                            return 
+                            '
+                                <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
+                                <button class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'" disabled><i class="fas fa-user-lock" title="Lock account"></i></button>
+                                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                                ' . method_field('DELETE') .
+                                    '' . csrf_field() .
+                                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')" disabled><i class="fa fa-trash" title="Delete Account"></i></button>
+                                </form>
+                            ';
+                        }
+                    else {
+                        if($data->is_banned == 0 )
+                        return '
+                            <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fas fa-user-lock" title="Lock account"></i></a>
                             <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
-                            <button class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'" disabled><i class="fas fa-user-lock" title="Lock account"></i></button>
                             <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                             ' . method_field('DELETE') .
                                 '' . csrf_field() .
-                                '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')" disabled><i class="fa fa-trash" title="Delete Account"></i></button>
+                                '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')"><i class="fa fa-trash" title="Delete Account"></i></button>
+                            </form>
+                        ';
+                        else
+                        return '
+                            <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fas fa-lock-open" title="UnLock account"></i></a>
+                            <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
+                            <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                            ' . method_field('DELETE') .
+                                '' . csrf_field() .
+                                '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')"><i class="fa fa-trash" title="Delete Account"></i></button>
                             </form>
                         ';
                     }
-                else {
-                    if($data->is_banned == 0 )
-                    return '
-                        <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fas fa-user-lock" title="Lock account"></i></a>
-                        <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
-                        <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                        ' . method_field('DELETE') .
-                            '' . csrf_field() .
-                            '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')"><i class="fa fa-trash" title="Delete Account"></i></button>
-                        </form>
-                    ';
-                    else
-                    return '
-                        <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fas fa-lock-open" title="UnLock account"></i></a>
-                        <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
-                        <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                        ' . method_field('DELETE') .
-                            '' . csrf_field() .
-                            '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this '.$data->email.' ?\')"><i class="fa fa-trash" title="Delete Account"></i></button>
-                        </form>
-                    ';
                 }
-                // return ''; 
+                elseif(auth()->user()->hasRole(Role::ROLE_DRIVER))
+                {
+                    if(Auth::user()->id == $data->id) // check driver current login
+                    return '
+                            <a class="btn btn-warning btn-sm rounded-pill" href="'.route('admin.account.edit',$data->id).'"><i class="fas fa-edit" title="Edit Account"></i></a>
+                    '; 
+                }
             })
             ->rawColumns(['avatar', 'action', 'gender'])
             ->setRowAttr([

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Schedule\ScheduleController;
 use App\Http\Controllers\Admin\StartDestination\StartController;
 use App\Http\Controllers\Admin\Destination\DestinationController;
 use App\Http\Controllers\Admin\Coupon\CouponController;
+use App\Http\Controllers\Admin\ShowBooking\ShowBookingController;
 
 
 
@@ -52,6 +53,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/',[FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/about',[AboutController::class, 'index'])->name('frontend.about');
 Route::get('/contact', [ContactController::class, 'index'])->name('frontend.contact');
+Route::post('/get-contact', [ContactController::class, 'getContractUser'])->name('frontend.getcontact');
 Route::get('/schedules', [SchedulesController::class, 'index'])->name('frontend.schedules');
 Route::get('/schedules/show-map/{id}', [SchedulesController::class, 'showMap'])->name('frontend.showmap');
 Route::post('/booking', [BookingController::class, 'booking'])->name('frontend.booking');
@@ -84,6 +86,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/edit-profile', [UserController::class, 'profile']);
     Route::post('/update-profile', [UserController::class, 'updateProfile']);
     Route::post('/upload-avatar', [UserController::class, 'uploadAvatar']);
+    Route::get('/my-booking',[UserController::class, 'myBooking']);
+    // Route::delete('/my-booking/{id}',[UserController::class, 'CancelBooking']);
     // Note: 'role:admin,driver' not have any space between
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,driver'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -181,6 +185,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/coupon/update/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
         Route::delete('/coupon/delete/{id}', [CouponController::class, 'delete'])->name('admin.coupon.delete');
         
+        // index booking
+        Route::get('/show-booking',[ShowBookingController::class, 'index'])->name('admin.booking.index');
+        Route::get('/get-all-booking',[ShowBookingController::class, 'getAllRowData']);
+        Route::get('/update-booking-status-not-pay/{id}',[ShowBookingController::class, 'updateNotPay'])->name('admin.booking.notpay');
+        Route::get('/update-booking-status-paid/{id}',[ShowBookingController::class, 'updatePaid'])->name('admin.booking.paid');
     }); 
 
 });
